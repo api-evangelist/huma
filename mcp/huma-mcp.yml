@@ -1,0 +1,48 @@
+generated: '2026-07-24'
+method: derived
+status: candidate
+source: openapi/huma-platform-openapi-original.yml
+note: >-
+  No official hosted Huma MCP server was found (no /mcp endpoint, no
+  @modelcontextprotocol package, not in public MCP registries). This is a CANDIDATE
+  tool list derived from marquee OpenAPI operations of the Huma Platform / Integration
+  API. Each tool's real input contract is the parameters + requestBody of its
+  source operation in the spec. Not a published server.
+server:
+  name: huma
+  transport: http
+  url: null
+tools:
+  - name: sign_in_integration
+    description: Sign in / obtain a Huma token for an integration user (backend token exchange).
+    source_operation: openapi/huma-platform-openapi-original.yml#api_integration_v1_auth_signin_create_[sign_in]
+  - name: get_me
+    description: Retrieve the authenticated user's profile.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_auth_v1_me_retrieve_[me]
+  - name: get_user_profile
+    description: Retrieve a user profile by id.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_retrieve_[retrieve_user_profile]
+  - name: update_user_profile
+    description: Update a user profile.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_create_[update_user_profile]
+  - name: create_deployment
+    description: Create a deployment (an app/programme configuration).
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_deployment_create_[create_deployment]
+  - name: get_deployment
+    description: Retrieve a deployment by id.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_deployment_retrieve_[retrieve_deployment]
+  - name: submit_module_result
+    description: Submit a module result for a user (ePRO / measurement / questionnaire).
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_public_module_create_[create_module_result]
+  - name: list_flagged_modules
+    description: Retrieve a user's unseen/flagged module results.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_flagged_modules_retrieve_[retrieve_unseen_module_results]
+  - name: create_appointment
+    description: Create an appointment for a user.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_appointment_create_[create_appointment]
+  - name: search_appointments
+    description: Search a user's appointments.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_appointment_search_retrieve_[search_appointments]
+  - name: create_integration
+    description: Create an integration/extension registration.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_integration_create_[create_integration]

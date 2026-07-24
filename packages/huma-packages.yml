@@ -1,0 +1,37 @@
+generated: '2026-07-24'
+method: derived
+source: https://docs.huma.com/sdk/next/intro
+note: >-
+  Huma's client SDKs are first-party native libraries distributed to developers
+  through the Huma Workspace / developer portal (gated behind a Workspace account),
+  not via public open registries. They are not on npm/PyPI/Maven Central under a
+  public "huma" namespace (the public @huma-finance npm packages are an unrelated
+  DeFi company). Coordinates below are derived from the published SDK documentation;
+  exact registry/package coordinates require a Workspace account.
+packages:
+  - language: swift
+    platform: ios
+    name: Huma iOS SDK
+    url: https://docs.huma.com/sdk/next/intro
+    distribution: Huma developer portal (native iOS SDK; Swift Package Manager / CocoaPods)
+    official: true
+  - language: kotlin
+    platform: android
+    name: Huma Android SDK
+    url: https://docs.huma.com/sdk/next/intro
+    distribution: Huma developer portal (native Android SDK; Gradle / Maven)
+    official: true
+  - language: typescript
+    platform: angular-web
+    name: Huma Angular / Web SDK
+    url: https://docs.huma.com/sdk/next/intro
+    distribution: Huma developer portal (Angular / web SDK; npm)
+    official: true
+  - language: python
+    platform: backend
+    name: Huma API client (HumaApiClient)
+    url: https://docs.huma.com/quick-start/backend/
+    distribution: >-
+      Backend Integration API client library (huma-config.json consumed by
+      HumaApiClient) documented in the backend quick-start
+    official: true

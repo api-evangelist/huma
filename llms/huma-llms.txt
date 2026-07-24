@@ -1,0 +1,36 @@
+# Huma
+
+> Huma (Huma Therapeutics Limited) is a UK-headquartered digital health and remote
+> patient monitoring company providing a regulated, configurable platform for
+> building and running healthcare and life-sciences applications. It is CE-marked /
+> EU MDR Class IIb medical-device software, ISO/IEC 27001 and ISO/IEC 13485
+> certified. The developer surface exposes a backend Integration API plus native
+> iOS, Android and Angular/web SDKs; API access is gated behind a Huma Workspace
+> account.
+
+## APIs
+- [Huma Integration API](https://docs.huma.com/api-integration/intro): backend Integration API (JWT bearer / Hawk auth) for embedding Huma into first-party apps.
+- [Huma Platform API (OpenAPI)](https://workspace-gcp-uk.api.huma.com/specs/): full OpenAPI 3.0.3, 984 operations, 76 tags (Auth, User, Deployment, Module Results, Appointment, Billing, Integration, Video Call, Medications, ...).
+- [Huma Mobile & Web SDK](https://docs.huma.com/sdk/next/intro): iOS, Android, Angular SDKs (auth, Device Kit, charts, questionnaires, modules, messaging, call kit, storage).
+
+## Specs & artifacts
+- OpenAPI: openapi/huma-platform-openapi-original.yml
+- Authentication: authentication/huma-authentication.yml (JWT bearer + Hawk MAC)
+- Conventions: conventions/huma-conventions.yml (offset pagination skip/limit; no idempotency)
+- Errors: errors/huma-problem-types.yml
+- Lifecycle: lifecycle/huma-lifecycle.yml (uri-path versioning; 11 deprecated ops; status page)
+- Conformance: conformance/huma-conformance.yml (ISO 27001, ISO 13485, EU MDR, GDPR)
+- Data model: data-model/huma-data-model.yml
+- Agentic access: agentic-access/huma-agentic-access.yml (984 ops classified)
+- MCP (candidate): mcp/huma-mcp.yml
+- Packages / SDKs: packages/huma-packages.yml
+- Agent skills: skills/_index.yml
+
+## Docs
+- [Developer portal](https://docs.huma.com/)
+- [Backend quick start](https://docs.huma.com/quick-start/backend/)
+- [API reference (ReDoc)](https://workspace-gcp-uk.api.huma.com/docs)
+- [Trust & security](https://docs.huma.com/trust-security/)
+- [Compliance centre](https://docs.huma.com/trust-security/compliance/)
+- [Status](https://status.huma.com/)
+- [GitHub (huma-engineering)](https://github.com/huma-engineering)

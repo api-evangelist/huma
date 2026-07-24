@@ -1,0 +1,63 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/huma-platform-openapi-original.yml
+note: >-
+  Core entity graph derived from the Huma Platform OpenAPI path structure and
+  id-reference path parameters (user_id, deployment_id, module_id, module_result_id,
+  appointment_id, integration_id, consent_id, organization). The spec carries 1,008
+  component schemas; this captures the primary clinical/operational entities and
+  their relationships as expressed by nested resource paths.
+entities:
+  - name: organization
+    id_param: organizationId
+  - name: deployment
+    id_param: deployment_id
+    description: An app/programme configuration (modules, consents, config).
+  - name: user
+    id_param: user_id
+    description: Patient or clinician account within a deployment.
+  - name: module
+    id_param: module_id
+    description: A measurement/ePRO/questionnaire unit.
+  - name: module_result
+    id_param: module_result_id
+    description: A submitted result for a module by a user.
+  - name: appointment
+    id_param: appointment_id
+  - name: consent
+    id_param: consent_id
+  - name: integration
+    id_param: integration_id
+relationships:
+  - from: organization
+    type: has_many
+    to: deployment
+    via: organizationId
+  - from: deployment
+    type: has_many
+    to: user
+    via: deployment_id
+  - from: deployment
+    type: has_many
+    to: consent
+    via: deployment_id
+  - from: user
+    type: has_many
+    to: module_result
+    via: user_id
+  - from: module_result
+    type: belongs_to
+    to: module
+    via: module_id
+  - from: user
+    type: has_many
+    to: appointment
+    via: user_id
+  - from: user
+    type: has_many
+    to: consent
+    via: consent_id
+  - from: deployment
+    type: has_many
+    to: integration
+    via: integration_id

@@ -1,0 +1,24 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/huma-platform-openapi-original.yml
+format: non-rfc9457
+envelope:
+  content_type: application/json
+  note: >-
+    Error responses are returned as application/json. No application/problem+json
+    (RFC 9457) media type is declared anywhere in the spec. Documented client/server
+    error statuses are sparse relative to the 984-operation surface.
+problems:
+  - status: 400
+    title: Bad Request
+    description: Request validation failed or malformed input.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_arm_fatigue_quality_check_position_create_[user_positioning_quality_check]
+  - status: 404
+    title: Not Found
+    description: Requested resource does not exist.
+    source_operation: openapi/huma-platform-openapi-original.yml#api_extensions_v1_fitbit_notify_retrieve_[verify_subscriber]
+  - status: 413
+    title: Payload Too Large
+    description: Uploaded file exceeds the allowed size (storage/upload endpoints).
+    source_operation: openapi/huma-platform-openapi-original.yml#api_storage_v1_upload_create_[upload_file_v1]
+observed_success_codes: [200, 201, 202, 204, 207]

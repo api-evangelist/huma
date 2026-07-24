@@ -1,0 +1,26 @@
+generated: '2026-07-24'
+method: searched
+source: https://docs.huma.com/trust-security/
+url: https://docs.huma.com/trust-security/compliance/
+certifications:
+  - ISO/IEC 27001
+  - ISO/IEC 13485
+compliance:
+  - GDPR
+  - EU MDR (CE-marked medical device software, Class IIb)
+security_controls:
+  - Encryption by default, at rest and in transit
+  - Role-based authorized access to encryption keys
+  - Trusted major-cloud infrastructure
+  - Independent verification of security, privacy and compliance controls
+evidence:
+  - source: https://docs.huma.com/trust-security/compliance/
+    keywords: [iso/iec 27001, iso/iec 13485, compliance centre, independent verification]
+  - source: https://docs.huma.com/trust-security/compliance/iso27001
+    keywords: [iso 27001]
+  - source: https://docs.huma.com/trust-security/compliance/iso13485
+    keywords: [iso 13485]
+note: >-
+  Certification names verbatim from the Huma trust & security compliance centre.
+  No public SOC 2, HIPAA, FedRAMP, or DTAC/NHS-DSPT certificate page was found on
+  the developer docs; not asserted here.

@@ -1,0 +1,42 @@
+generated: '2026-07-24'
+method: searched
+source: openapi/huma-platform-openapi-original.yml
+docs: https://docs.huma.com/trust-security/compliance/
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: no oauth2 securityScheme in the OpenAPI (auth is JWT bearer + Hawk MAC)
+  - id: openid-connect
+    conforms: false
+  - id: jwt-bearer
+    conforms: true
+    evidence: OpenAPI securitySchemes declare http bearer with bearerFormat JWT
+  - id: hawk-auth
+    conforms: true
+    evidence: OpenAPI securityScheme "Hawk Auth" (apiKey, Authorization header, Hawk MAC)
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: error responses use application/json, not application/problem+json
+  - id: hl7-fhir
+    conforms: partial
+    evidence: >-
+      No public FHIR CapabilityStatement on the documented Integration API; however
+      the Huma (huma-engineering) GitHub org publishes a HAPI FHIR service
+      (polaris-hapi-fhir-api) as part of its Polaris/DHOS open-source estate.
+  - id: iso-27001
+    conforms: true
+    evidence: ISO/IEC 27001 certification published at docs.huma.com/trust-security/compliance/iso27001
+  - id: iso-13485
+    conforms: true
+    evidence: ISO/IEC 13485 (medical devices QMS) published at docs.huma.com/trust-security/compliance/iso13485
+  - id: eu-mdr-ce-mark
+    conforms: true
+    evidence: >-
+      Huma platform is CE-marked / EU MDR Class IIb medical-device software
+      (stated on huma.com and provider profile).
+  - id: gdpr
+    conforms: true
+    evidence: GDPR compliance stated on docs.huma.com/trust-security/
+  - id: pagination-offset
+    conforms: true
+    evidence: skip/limit offset pagination across list endpoints

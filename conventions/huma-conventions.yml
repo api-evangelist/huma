@@ -1,0 +1,68 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/huma-platform-openapi-original.yml
+docs: https://docs.huma.com/api-integration/intro
+summary: >-
+  Cross-cutting request/response conventions for the Huma Platform / Integration
+  API, derived from the OpenAPI (984 operations, 1,008 schemas) and the developer
+  docs. REST/JSON over HTTPS. Authentication is JWT bearer (Authorization: Bearer
+  <jwt>) or Hawk MAC (Authorization: Hawk ...). Backend integrations obtain a JWT
+  by exchanging a Workspace-issued huma-config.json via a login/register flow.
+authentication:
+  styles: [jwt-bearer, hawk-mac]
+  header: Authorization
+  jwt_claims: [projectId, clientId]
+  detail: authentication/huma-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or idempotency parameter is declared anywhere in the
+    OpenAPI; write operations are not documented as idempotency-safe. No Idempotency
+    pointer is emitted (would be fabrication).
+pagination:
+  style: offset
+  params:
+    - name: skip
+      in: query
+      meaning: number of records to skip (offset)
+      occurrences: 22
+    - name: limit
+      in: query
+      meaning: maximum records to return (page size)
+      occurrences: 23
+    - name: offset
+      in: query
+      occurrences: 1
+  note: Many list/search endpoints POST a search body rather than using query paging.
+common_headers:
+  - name: language
+    in: header
+    purpose: content localization / preferred language
+  - name: organizationId
+    in: header
+    purpose: scope a request to an organization
+  - name: deploymentId
+    in: header
+    purpose: scope a request to a deployment
+  - name: userAgent
+    in: header
+  - name: signature
+    in: header
+    purpose: request signing on selected endpoints
+versioning:
+  style: uri-path
+  detail: >-
+    Version is embedded in the path segment (e.g. /api/auth/v1/..., /api/extensions/v1/...,
+    /api/integration/v1/...). Deprecated surfaces are tagged explicitly in the spec
+    (User Deprecated, Medications (Deprecated), Invitations (Depracated)).
+  cross_link: lifecycle/huma-lifecycle.yml
+error_envelope:
+  content_type: application/json
+  format: non-rfc9457
+  note: >-
+    Error responses use application/json (no application/problem+json anywhere in the
+    spec). Documented status codes: 400, 404, 413. See errors/huma-problem-types.yml.
+  cross_link: errors/huma-problem-types.yml
+rate_limiting:
+  documented: false
+  note: No rate-limit headers or policy are declared in the spec or public docs.

@@ -1,0 +1,30 @@
+generated: '2026-07-24'
+method: searched
+source: openapi/huma-platform-openapi-original.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  detail: >-
+    Version segment embedded in the path (/api/auth/v1, /api/extensions/v1,
+    /api/integration/v1); some storage endpoints on v1beta. Spec info.version 1.0.0.
+  docs: https://docs.huma.com/api-integration/intro
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No published deprecation-policy page or RFC 8594 Sunset/Deprecation header
+    support was found. Deprecation is signalled in-spec via deprecated:true and
+    explicit "Deprecated" tags (User Deprecated, Medications (Deprecated),
+    Invitations (Depracated), Revere test + v1beta storage). No Deprecation pointer
+    emitted (no formal policy to point at).
+status_page: https://status.huma.com/
+sla:
+  url: null
+deprecated_operations:
+  - openapi/huma-platform-openapi-original.yml#api_extensions_v1_organization_link_deployment_create_[link_deployment]
+  - openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_revere_test_start_create_[start_test]
+  - openapi/huma-platform-openapi-original.yml#api_extensions_v1_user_revere_test_finish_create_[finish_test]
+  - openapi/huma-platform-openapi-original.yml#api_storage_v1beta_upload_create_[upload_file]
+  - openapi/huma-platform-openapi-original.yml#api_storage_v1beta_download_retrieve_[download_file]
+  - openapi/huma-platform-openapi-original.yml#api_storage_v1beta_signed_url_retrieve_[retrieve_download_url]
+deprecated_operation_count: 11

@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Huma Platform API
+  version: 1.0.0
+extends: openapi/huma-platform-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: huma
+      x-apievangelist-enrichment: '2026-07-24'
+      x-apievangelist-auth: [jwt-bearer, hawk-mac]
+      x-apievangelist-pagination: offset (skip/limit)
+      x-apievangelist-certifications: [ISO/IEC 27001, ISO/IEC 13485, EU MDR CE-mark, GDPR]
+      x-apievangelist-notes: >-
+        Spec harvested verbatim from the ReDoc-served /specs/ endpoint on
+        workspace-gcp-uk.api.huma.com (984 operations, 1,008 schemas). Not linked
+        from the human docs; discovered via the ReDoc bootstrap. No servers[] block
+        in the source spec; production host is workspace-gcp-uk.api.huma.com.
+  - target: $.servers
+    update:
+      - url: https://workspace-gcp-uk.api.huma.com
+        description: Huma Workspace GCP UK region (production; derived, absent from source spec)

@@ -1,0 +1,20 @@
+generated: '2026-07-24'
+method: generated
+source: openapi/huma-platform-openapi-original.yml
+skills:
+  - file: huma-backend-token-exchange.md
+    name: Huma backend token exchange
+    api: openapi/huma-platform-openapi-original.yml
+    operations:
+      - "api_integration_v1_auth_signin_create_[sign_in]"
+      - "api_integration_v1_auth_sign_consent_create_[sign_consent]"
+      - "api_auth_v1_me_retrieve_[me]"
+      - "api_auth_v1_refreshtoken_create_[refresh_token_v1]"
+  - file: huma-submit-module-result.md
+    name: Submit a Huma module result and review flags
+    api: openapi/huma-platform-openapi-original.yml
+    operations:
+      - "api_extensions_v1_user_retrieve_[retrieve_user_profile]"
+      - "api_extensions_v1_public_module_create_[create_module_result]"
+      - "api_extensions_v1_user_flagged_modules_retrieve_[retrieve_unseen_module_results]"
+      - "api_extensions_v1_user_module_result_sign_create_[update_module_result_status_sign]"

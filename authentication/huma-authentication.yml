@@ -1,0 +1,38 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/huma-platform-openapi-original.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Hawk Auth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: |-
+    Hawk MAC authentication. Paste a full Authorization header value.
+
+    Example:
+
+    Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+    Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.
+  sources:
+  - openapi/huma-platform-openapi-original.yml
+- name: JWT Auth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    Use HTTP Bearer auth with a JWT.
+
+    Send the token in the Authorization header:
+
+    Authorization: Bearer <your_jwt_here>
+
+    The token should contain standard claims plus projectId and clientId in user claims.
+  sources:
+  - openapi/huma-platform-openapi-original.yml
