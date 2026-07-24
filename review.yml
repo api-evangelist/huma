@@ -1,0 +1,146 @@
+aid: huma
+name: Huma
+review:
+  question: Does Huma expose a public, self-serve, machine-readable API surface (OpenAPI or HL7 FHIR CapabilityStatement)?
+  answer: false
+  date: '2026-07-24'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+findings:
+  summary: |
+    Huma (Huma Therapeutics Limited), a UK-headquartered digital health and remote
+    patient monitoring vendor, publishes a real, live developer portal at
+    https://docs.huma.com (HTTP 200) documenting three surfaces: a backend
+    Integration API, native iOS/Android/Angular SDKs, and the no-code Huma
+    Workspace (app builder + clinician portal). The Integration API is real but
+    gated: developers download a Workspace-issued huma-config.json of secrets and
+    use a client-credentials-style flow (client.login() / client.register() token
+    exchange) via the Huma API client. The API host is region-scoped to the UK -
+    https://workspace-gcp-uk.api.huma.com/api/integration/v1 - and the config
+    endpoint (https://workspace-gcp-uk.api.huma.com/api/integration/v1/configs/backend)
+    returns HTTP 401 anonymously, confirming a gated-but-documented surface. No
+    public HL7 FHIR CapabilityStatement was served (/metadata -> 404) and no
+    SMART-on-FHIR or OpenID configuration was served (/.well-known/smart-configuration
+    and /.well-known/openid-configuration -> 404). No downloadable OpenAPI/Swagger
+    was found on the docs or API hosts (/openapi.json, /api/integration/v1/openapi.json
+    -> 404), though the GitHub org uses huma-redoc, implying an internal OpenAPI not
+    publicly hosted. Result: identity + a real, gated developer portal and API base
+    URL captured; zero specs harvested verbatim.
+  developerPortal:
+    url: https://docs.huma.com/
+    status: 200
+    confirmedLive: true
+  fhirCapabilityStatement:
+    present: false
+    probed:
+      - url: https://workspace-gcp-uk.api.huma.com/metadata
+        status: 404
+      - url: https://api.huma.com/metadata
+        status: 000
+    fhirVersion: null
+    resources: []
+  smartConfiguration:
+    present: false
+    probed:
+      - url: https://workspace-gcp-uk.api.huma.com/.well-known/smart-configuration
+        status: 404
+      - url: https://workspace-gcp-uk.api.huma.com/.well-known/openid-configuration
+        status: 404
+  downloadableSpecs:
+    count: 0
+    provenance: |
+      No OpenAPI/Swagger or FHIR CapabilityStatement is publicly downloadable.
+      Probed /openapi.json, /api/integration/v1/openapi.json, and /metadata on both
+      the docs host (docs.huma.com) and the API host (workspace-gcp-uk.api.huma.com);
+      all returned 404. Nothing saved verbatim.
+  authModel:
+    scheme: OAuth2 client-credentials (Workspace-issued config)
+    smartOnFhir: false
+    scopes: []
+    note: |
+      Backend integration uses a Workspace-downloaded huma-config.json of secrets
+      consumed by the Huma API client; a protected backend endpoint authenticates
+      the user via the integrator's own system, then calls client.login() (falling
+      back to client.register()) to obtain Huma tokens. Mobile SDKs carry their own
+      Authentication/Authorization modules. Not SMART-on-FHIR; no OAuth scope list
+      is publicly documented.
+  standardsConformance:
+    usCore: false
+    ukCore: false
+    auCore: false
+    daVinci: false
+    carin: false
+    note: |
+      No FHIR profile or Implementation Guide conformance (US Core / UK Core / AU
+      Core / Da Vinci / CARIN) is documented on the public developer portal. Huma
+      publishes regulatory/quality conformance instead: CE-marked / MDR medical
+      device software, ISO 13485 and ISO 27001 (docs.huma.com/trust-security/compliance).
+  gating: gated
+  gatingNote: |
+    Developer portal and API reference are openly readable, but obtaining API
+    credentials requires a Huma Workspace account (https://workspace.huma.com/).
+    The Integration API config endpoint returns 401 anonymously.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+      documented: true
+      note: UK region-scoped Integration API host; config endpoint returns 401 anonymously (gated).
+    - protocol: FHIR
+      scheme: https
+      documented: false
+      note: No HL7 FHIR base or CapabilityStatement is publicly served; /metadata returned 404.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket surface is documented on the Huma developer portal.
+  endpointsConfirmed:
+    - GET https://workspace-gcp-uk.api.huma.com/api/integration/v1/configs/backend (401 anonymous - gated, exists)
+sources:
+  - url: https://huma.com/
+    type: Website
+    status: 200
+    note: Corporate site; positions Huma as AI health infrastructure for regulated industries. No developer links in the marketing shell.
+  - url: https://docs.huma.com/
+    type: DeveloperPortal
+    status: 200
+    note: Live developer/product docs (labeled Beta). Sections - Quick Start, API (api-integration), SDK, Workspace, Trust & Security.
+  - url: https://docs.huma.com/api-integration/intro
+    type: Documentation
+    status: 200
+    note: Integration API introduction.
+  - url: https://docs.huma.com/quick-start/backend/
+    type: Documentation
+    status: 200
+    note: Backend quick start - client-credentials flow, huma-config.json, client.login()/register(), config download from workspace-gcp-uk.api.huma.com.
+  - url: https://docs.huma.com/sdk/next/intro
+    type: Documentation
+    status: 200
+    note: SDK docs for iOS, Android, and Angular.
+  - url: https://docs.huma.com/trust-security/compliance/
+    type: Compliance
+    status: 200
+    note: ISO 13485 and ISO 27001 compliance pages.
+  - url: https://github.com/huma-engineering
+    type: GitHubOrganization
+    status: 200
+    note: Verified org for Huma Therapeutics Limited (huma.com), 57 repos including huma-docs and huma-redoc.
+  - url: https://status.huma.com/
+    type: StatusPage
+    status: 200
+  - url: https://huma.com/legal/website-privacy-policy
+    type: PrivacyPolicy
+    status: 200
+    note: No standalone Terms of Service is published on huma.com/legal.
+actions:
+  apisYmlUpdated: true
+  specsSaved: 0
+  reason: |
+    A real developer portal, a gated Integration API with a confirmed UK-region
+    base URL, and native SDKs were captured as honest apis[] entries. No public
+    FHIR CapabilityStatement, SMART configuration, or downloadable OpenAPI exists,
+    so nothing was saved verbatim - a gated-but-documented result, not a fabricated
+    one.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

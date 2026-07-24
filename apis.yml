@@ -1,0 +1,98 @@
+aid: huma
+url: https://raw.githubusercontent.com/api-evangelist/huma/refs/heads/main/apis.yml
+name: Huma
+kind: company
+description: >-
+  Huma (Huma Therapeutics Limited) is a United Kingdom-headquartered digital health
+  and remote patient monitoring company that provides a regulated, configurable
+  platform for building and running healthcare and life-sciences applications. Its
+  Huma Workspace lets clinical teams assemble no-code apps, connected-device data
+  capture, ePRO questionnaires, algorithm-based assessments, and a clinician portal
+  for telemedicine and remote monitoring, while its developer surface exposes a
+  backend Integration API and native iOS, Android, and Angular SDKs for embedding
+  Huma functionality into first-party applications. Huma operates as CE-marked /
+  MDR Class IIb medical-device software and is ISO 13485 and ISO 27001 certified,
+  positioning it as clinical-grade infrastructure used by health systems (including
+  the NHS in its UK home market), pharma, and clinical-trials programs. The public
+  developer platform documents an OAuth2-style client-credentials Integration API
+  and mobile SDKs; API access is gated behind a Huma Workspace account and no public
+  HL7 FHIR CapabilityStatement or downloadable OpenAPI is currently published.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Healthcare
+- United Kingdom
+- Remote Patient Monitoring
+- Telehealth
+- Digital Health
+- Clinical Trials
+- SDK
+- Medical Device Software
+- Population Health
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+apis:
+- aid: huma:huma-integration-api
+  name: Huma Integration API
+  description: >-
+    Huma's backend Integration API for embedding Huma platform functionality into
+    first-party applications. Authentication uses a Workspace-issued huma-config.json
+    (client-credentials style) consumed by the Huma API client; a backend service
+    exchanges its own authenticated user for a Huma token via login/register, then
+    calls Huma backend methods. Access is gated behind a Huma Workspace account. No
+    public HL7 FHIR CapabilityStatement or downloadable OpenAPI is published.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Healthcare
+  - Integration
+  - Remote Patient Monitoring
+  properties:
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+- aid: huma:huma-mobile-sdk
+  name: Huma Mobile & Web SDK
+  description: >-
+    Huma's software development kits for building or enhancing applications with
+    out-of-the-box Huma functionality across iOS, Android, and Angular, covering
+    authentication/authorization, connected Device Kit, charts, questionnaires,
+    modules, messaging, call kit, and object storage. Distributed as versioned SDK
+    packages documented on the Huma developer portal.
+  humanURL: https://docs.huma.com/sdk/next/intro
+  tags:
+  - SDK
+  - Healthcare
+  - Mobile
+  properties:
+  - type: Documentation
+    url: https://docs.huma.com/sdk/next/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/intro
+common:
+- type: Website
+  url: https://huma.com/
+- type: DeveloperPortal
+  url: https://docs.huma.com/
+- type: Documentation
+  url: https://docs.huma.com/
+- type: GettingStarted
+  url: https://docs.huma.com/quick-start/intro
+- type: GitHubOrganization
+  url: https://github.com/huma-engineering
+- type: StatusPage
+  url: https://status.huma.com/
+- type: SignUp
+  url: https://workspace.huma.com/
+- type: Security
+  url: https://docs.huma.com/trust-security/
+- type: Compliance
+  url: https://docs.huma.com/trust-security/compliance/
+- type: PrivacyPolicy
+  url: https://huma.com/legal/website-privacy-policy
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
