@@ -34,48 +34,13 @@ created: '2026-07-24'
 modified: '2026-07-24'
 specificationVersion: '0.23'
 apis:
-- aid: huma:huma-integration-api
-  name: Huma Integration API
-  description: >-
-    Huma's backend Integration API for embedding Huma platform functionality into
-    first-party applications. Authentication uses a Workspace-issued huma-config.json
-    (client-credentials style) consumed by the Huma API client; a backend service
-    exchanges its own authenticated user for a Huma token via login/register, then
-    calls Huma backend methods. Access is gated behind a Huma Workspace account. No
-    public HL7 FHIR CapabilityStatement or downloadable OpenAPI is published.
-  humanURL: https://docs.huma.com/api-integration/intro
-  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
-  tags:
-  - Healthcare
-  - Integration
-  - Remote Patient Monitoring
-  properties:
-  - type: OpenAPI
-    url: openapi/huma-platform-openapi-original.yml
-  - type: APIReference
-    url: https://workspace-gcp-uk.api.huma.com/docs
-  - type: Documentation
-    url: https://docs.huma.com/api-integration/intro
-  - type: GettingStarted
-    url: https://docs.huma.com/quick-start/backend/
-  - type: Authentication
-    url: https://docs.huma.com/quick-start/backend/
-  - type: Overlay
-    url: overlays/huma-platform-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/huma-problem-types.yml
-  - type: DataModel
-    url: data-model/huma-data-model.yml
-  - type: MCPServer
-    url: mcp/huma-mcp.yml
 - aid: huma:huma-mobile-sdk
   name: Huma Mobile & Web SDK
   description: >-
-    Huma's software development kits for building or enhancing applications with
-    out-of-the-box Huma functionality across iOS, Android, and Angular, covering
-    authentication/authorization, connected Device Kit, charts, questionnaires,
-    modules, messaging, call kit, and object storage. Distributed as versioned SDK
-    packages documented on the Huma developer portal.
+    Huma's software development kits for building or enhancing applications with out-of-the-box Huma functionality
+    across iOS, Android, and Angular, covering authentication/authorization, connected Device Kit, charts,
+    questionnaires, modules, messaging, call kit, and object storage. Distributed as versioned SDK packages
+    documented on the Huma developer portal.
   humanURL: https://docs.huma.com/sdk/next/intro
   tags:
   - SDK
@@ -86,7 +51,1685 @@ apis:
     url: https://docs.huma.com/sdk/next/intro
   - type: GettingStarted
     url: https://docs.huma.com/quick-start/intro
+- aid: huma:huma-ai-engine-api
+  name: Huma AI Engine API
+  description: The AI Engine API from Huma — 3 operation(s) for ai engine.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - AI Engine
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-ai-engine-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-appointment-api
+  name: Huma Appointment API
+  description: The Appointment API from Huma — 3 operation(s) for appointment.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Appointment
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-appointment-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-assets-api
+  name: Huma Assets API
+  description: The Assets API from Huma — 4 operation(s) for assets.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-assets-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-audit-log-api
+  name: Huma Audit Log API
+  description: The Audit Log API from Huma — 3 operation(s) for audit log.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Audit Log
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-audit-log-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-auth-api
+  name: Huma Auth API
+  description: The Auth API from Huma — 22 operation(s) for auth.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-auth-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-authorization-admin-api
+  name: Huma Authorization Admin API
+  description: The Authorization Admin API from Huma — 6 operation(s) for authorization admin.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Authorization Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-authorization-admin-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-autocomplete-api
+  name: Huma Autocomplete API
+  description: The Autocomplete API from Huma — 6 operation(s) for autocomplete.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Autocomplete
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-autocomplete-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-billing-api
+  name: Huma Billing API
+  description: The Billing API from Huma — 40 operation(s) for billing.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-billing-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-billing-portal-route-api
+  name: Huma Billing Portal Route API
+  description: The Billing Portal Route API from Huma — 1 operation(s) for billing portal route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Billing Portal Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-billing-portal-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-builder-api
+  name: Huma Builder API
+  description: The Builder API from Huma — 8 operation(s) for builder.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Builder
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-builder-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-calendar-route-api
+  name: Huma Calendar Route API
+  description: The Calendar Route API from Huma — 2 operation(s) for calendar route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Calendar Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-calendar-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-cms-api
+  name: Huma CMS API
+  description: The CMS API from Huma — 10 operation(s) for cms.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - CMS
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-cms-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-custom-module-config-api
+  name: Huma Custom Module Config API
+  description: The Custom Module Config API from Huma — 4 operation(s) for custom module config.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Custom Module Config
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-custom-module-config-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-dashboard-api
+  name: Huma Dashboard API
+  description: The Dashboard API from Huma — 5 operation(s) for dashboard.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-dashboard-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-deployment-api
+  name: Huma Deployment API
+  description: The Deployment API from Huma — 52 operation(s) for deployment.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Deployment
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-deployment-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-deployment-clone-api
+  name: Huma Deployment Clone API
+  description: The Deployment Clone API from Huma — 1 operation(s) for deployment clone.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Deployment Clone
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-deployment-clone-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-devices-api
+  name: Huma Devices API
+  description: The Devices API from Huma — 3 operation(s) for devices.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-devices-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-diary-api
+  name: Huma Diary API
+  description: The Diary API from Huma — 4 operation(s) for diary.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Diary
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-diary-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-docs-route-api
+  name: Huma Docs Route API
+  description: The Docs Route API from Huma — 1 operation(s) for docs route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Docs Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-docs-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-export-api
+  name: Huma Export API
+  description: The Export API from Huma — 10 operation(s) for export.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-export-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-export-configuration-api
+  name: Huma Export Configuration API
+  description: The Export Configuration API from Huma — 2 operation(s) for export configuration.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Export Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-export-configuration-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-extended-module-api
+  name: Huma Extended Module API
+  description: The Extended Module API from Huma — 1 operation(s) for extended module.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Extended Module
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-extended-module-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-firmware-bank-api
+  name: Huma Firmware Bank API
+  description: The Firmware Bank API from Huma — 3 operation(s) for firmware bank.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Firmware Bank
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-firmware-bank-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-fitbit-api
+  name: Huma Fitbit API
+  description: The Fitbit API from Huma — 3 operation(s) for fitbit.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Fitbit
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-fitbit-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-health-app-integration-api
+  name: Huma Health App Integration API
+  description: The Health App Integration API from Huma — 5 operation(s) for health app integration.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Health App Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-health-app-integration-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-health-route-api
+  name: Huma Health Route API
+  description: The Health Route API from Huma — 2 operation(s) for health route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Health Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-health-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-health-score-api
+  name: Huma Health Score API
+  description: The Health Score API from Huma — 1 operation(s) for health score.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Health Score
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-health-score-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-import-configuration-api
+  name: Huma Import Configuration API
+  description: The Import Configuration API from Huma — 4 operation(s) for import configuration.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Import Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-import-configuration-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-inbox-api
+  name: Huma Inbox API
+  description: The Inbox API from Huma — 5 operation(s) for inbox.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Inbox
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-inbox-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-inference-api
+  name: Huma Inference API
+  description: The Inference API from Huma — 2 operation(s) for inference.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Inference
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-inference-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-inference-route-api
+  name: Huma Inference Route API
+  description: The Inference Route API from Huma — 2 operation(s) for inference route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Inference Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-inference-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-integration-api
+  name: Huma Integration API
+  description: The Integration API from Huma — 11 operation(s) for integration.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-integration-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-integration-ehr-route-api
+  name: Huma Integration Ehr Route API
+  description: The Integration Ehr Route API from Huma — 1 operation(s) for integration ehr route.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Integration Ehr Route
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-integration-ehr-route-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-internal-api
+  name: Huma Internal API
+  description: The Internal API from Huma — 1 operation(s) for internal.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Internal
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-internal-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-invitation-status-api
+  name: Huma Invitation Status API
+  description: The Invitation Status API from Huma — 1 operation(s) for invitation status.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Invitation Status
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-invitation-status-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-invitations-api
+  name: Huma Invitations API
+  description: The Invitations API from Huma — 9 operation(s) for invitations.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Invitations
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-invitations-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-invitations-depracated-api
+  name: Huma Invitations (Depracated) API
+  description: >-
+    The Invitations (Depracated) API from Huma — 6 operation(s) for invitations (depracated).
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Invitations (Depracated)
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-invitations-depracated-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-kardia-api
+  name: Huma Kardia API
+  description: The Kardia API from Huma — 5 operation(s) for kardia.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Kardia
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-kardia-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-key-actions-api
+  name: Huma Key Actions API
+  description: The Key Actions API from Huma — 6 operation(s) for key actions.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Key Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-key-actions-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-location-api
+  name: Huma Location API
+  description: The Location API from Huma — 2 operation(s) for location.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-location-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-medications-api
+  name: Huma Medications API
+  description: The Medications API from Huma — 10 operation(s) for medications.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Medications
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-medications-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-medications-deprecated-api
+  name: Huma Medications (Deprecated) API
+  description: >-
+    The Medications (Deprecated) API from Huma — 3 operation(s) for medications (deprecated).
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Medications (Deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-medications-deprecated-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-misc-api
+  name: Huma Misc API
+  description: The Misc API from Huma — 7 operation(s) for misc.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Misc
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-misc-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-module-api
+  name: Huma Module API
+  description: The Module API from Huma — 1 operation(s) for module.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Module
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-module-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-module-goal-api
+  name: Huma Module Goal API
+  description: The Module Goal API from Huma — 5 operation(s) for module goal.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Module Goal
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-module-goal-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-module-results-api
+  name: Huma Module Results API
+  description: The Module Results API from Huma — 383 operation(s) for module results.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Module Results
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-module-results-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-natural-conditions-api
+  name: Huma Natural Conditions API
+  description: The Natural Conditions API from Huma — 2 operation(s) for natural conditions.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Natural Conditions
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-natural-conditions-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-order-management-api
+  name: Huma Order Management API
+  description: The Order Management API from Huma — 4 operation(s) for order management.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Order Management
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-order-management-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-organization-api
+  name: Huma Organization API
+  description: The Organization API from Huma — 15 operation(s) for organization.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-organization-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-pfizer-hemophilia-api
+  name: Huma Pfizer Hemophilia API
+  description: The Pfizer Hemophilia API from Huma — 1 operation(s) for pfizer hemophilia.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Pfizer Hemophilia
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-pfizer-hemophilia-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-phone-number-lookup-api
+  name: Huma Phone Number Lookup API
+  description: The Phone Number Lookup API from Huma — 1 operation(s) for phone number lookup.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Phone Number Lookup
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-phone-number-lookup-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-plugins-api
+  name: Huma Plugins API
+  description: The Plugins API from Huma — 4 operation(s) for plugins.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Plugins
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-plugins-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-privacy-assets-api
+  name: Huma Privacy Assets API
+  description: The Privacy Assets API from Huma — 2 operation(s) for privacy assets.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Privacy Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-privacy-assets-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-public-video-callback-api
+  name: Huma Public Video Callback API
+  description: The Public Video Callback API from Huma — 3 operation(s) for public video callback.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Public Video Callback
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-public-video-callback-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-questionnaire-engine-api
+  name: Huma Questionnaire Engine API
+  description: The Questionnaire Engine API from Huma — 1 operation(s) for questionnaire engine.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Questionnaire Engine
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-questionnaire-engine-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-ratings-api
+  name: Huma Ratings API
+  description: The Ratings API from Huma — 4 operation(s) for ratings.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Ratings
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-ratings-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-reminders-api
+  name: Huma Reminders API
+  description: The Reminders API from Huma — 7 operation(s) for reminders.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Reminders
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-reminders-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-revere-api
+  name: Huma Revere API
+  description: The Revere API from Huma — 7 operation(s) for revere.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Revere
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-revere-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-roche-cds-api
+  name: Huma Roche CDS API
+  description: The Roche CDS API from Huma — 1 operation(s) for roche cds.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Roche CDS
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-roche-cds-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-rule-engine-api
+  name: Huma Rule Engine API
+  description: The Rule Engine API from Huma — 8 operation(s) for rule engine.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Rule Engine
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-rule-engine-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-servier-care-plan-api
+  name: Huma Servier Care Plan API
+  description: The Servier Care Plan API from Huma — 4 operation(s) for servier care plan.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Servier Care Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-servier-care-plan-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-servier-five-lives-api
+  name: Huma Servier Five Lives API
+  description: The Servier Five Lives API from Huma — 4 operation(s) for servier five lives.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Servier Five Lives
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-servier-five-lives-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-spirometry-api
+  name: Huma Spirometry API
+  description: The Spirometry API from Huma — 1 operation(s) for spirometry.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Spirometry
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-spirometry-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-storage-api
+  name: Huma Storage API
+  description: The Storage API from Huma — 6 operation(s) for storage.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Storage
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-storage-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-storage-v1-api
+  name: Huma Storage V1 API
+  description: The Storage V1 API from Huma — 1 operation(s) for storage v1.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Storage V1
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-storage-v1-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-surgical-forms-api
+  name: Huma Surgical Forms API
+  description: The Surgical Forms API from Huma — 3 operation(s) for surgical forms.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Surgical Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-surgical-forms-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-template-bank-api
+  name: Huma Template Bank API
+  description: The Template Bank API from Huma — 4 operation(s) for template bank.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Template Bank
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-template-bank-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-user-api
+  name: Huma User API
+  description: The User API from Huma — 40 operation(s) for user.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-user-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-user-deprecated-api
+  name: Huma User Deprecated API
+  description: The User Deprecated API from Huma — 31 operation(s) for user deprecated.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - User Deprecated
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-user-deprecated-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-user-export-api
+  name: Huma User Export API
+  description: The User Export API from Huma — 4 operation(s) for user export.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - User Export
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-user-export-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-user-v2-api
+  name: Huma User v2 API
+  description: The User v2 API from Huma — 8 operation(s) for user v2.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - User v2
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-user-v2-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-video-call-api
+  name: Huma Video Call API
+  description: The Video Call API from Huma — 6 operation(s) for video call.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Video Call
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-video-call-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-virtual-visit-api
+  name: Huma Virtual Visit API
+  description: The Virtual Visit API from Huma — 2 operation(s) for virtual visit.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Virtual Visit
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-virtual-visit-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-widgets-api
+  name: Huma Widgets API
+  description: The Widgets API from Huma — 71 operation(s) for widgets.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-widgets-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-withings-api
+  name: Huma Withings API
+  description: The Withings API from Huma — 1 operation(s) for withings.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Withings
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-withings-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
+- aid: huma:huma-withings-integration-api
+  name: Huma Withings Integration API
+  description: The Withings Integration API from Huma — 3 operation(s) for withings integration.
+  humanURL: https://docs.huma.com/api-integration/intro
+  baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  tags:
+  - Withings Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/huma-withings-integration-api-openapi.yml
+  - type: APIReference
+    url: https://workspace-gcp-uk.api.huma.com/docs
+  - type: Documentation
+    url: https://docs.huma.com/api-integration/intro
+  - type: GettingStarted
+    url: https://docs.huma.com/quick-start/backend/
+  - type: Authentication
+    url: https://docs.huma.com/quick-start/backend/
+  - type: ErrorCatalog
+    url: errors/huma-problem-types.yml
+  - type: DataModel
+    url: data-model/huma-data-model.yml
 common:
+- type: Overlay
+  url: overlays/huma-platform-overlay.yaml
+- type: MCPServer
+  url: mcp/huma-mcp.yml
 - type: DomainSecurity
   url: security/huma-domain-security.yml
 - type: AgenticAccess
