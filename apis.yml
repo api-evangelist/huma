@@ -19,6 +19,18 @@ description: >-
   across 76 tags) is served, unlinked, from the ReDoc reference at
   workspace-gcp-uk.api.huma.com/specs/; authentication is JWT bearer and Hawk MAC
   (no OAuth2 scheme). No public HL7 FHIR CapabilityStatement is published.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Healthcare
