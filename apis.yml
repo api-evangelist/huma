@@ -1738,6 +1738,9 @@ apis:
   - type: DataModel
     url: data-model/huma-data-model.yml
 common:
+- type: CapabilityMap
+  url: capabilities/huma-capability-edges.yml
+  name: Huma Business Capability Map
 - type: Overlay
   url: overlays/huma-platform-overlay.yaml
 - type: MCPServer
