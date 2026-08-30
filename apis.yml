@@ -157,6 +157,8 @@ apis:
   humanURL: https://docs.huma.com/api-integration/intro
   baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -994,7 +996,8 @@ apis:
   description: The Misc API from Huma — 7 operation(s) for misc.
   humanURL: https://docs.huma.com/api-integration/intro
   baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
-  tags:
+  tags: []
+  tags_raw:
   - Misc
   properties:
   - type: OpenAPI
