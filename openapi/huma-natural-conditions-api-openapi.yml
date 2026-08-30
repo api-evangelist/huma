@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Natural Conditions API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Natural Conditions
+paths:
+  /api/natural-conditions/v1/heatmap:
+    get:
+      operationId: api_natural_conditions_v1_heatmap_retrieve_[heatmap_tile]
+      summary: Heatmap Tile
+      parameters:
+      - in: query
+        name: x
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: y
+        schema:
+          type: integer
+        required: true
+      - in: query
+        name: zoom
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Natural Conditions
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/natural-conditions/v1/natural-conditions:
+    get:
+      operationId: api_natural_conditions_v1_natural_conditions_retrieve_[retrieve_natural_conditions]
+      summary: Retrieve Natural Conditions
+      parameters:
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: latitude
+        schema:
+          type: number
+          format: float
+        required: true
+      - in: query
+        name: longitude
+        schema:
+          type: number
+          format: float
+        required: true
+      tags:
+      - Natural Conditions
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveNaturalConditionsResponseDRF'
+          description: ''
+components:
+  schemas:
+    AqiDataDRF:
+      type: object
+      properties:
+        aqi:
+          type: integer
+        color:
+          type: string
+        category:
+          type: string
+      required:
+      - aqi
+      - category
+    AirQualityDRF:
+      type: object
+      properties:
+        current:
+          $ref: '#/components/schemas/AqiByHourDRF'
+      required:
+      - current
+    PollenDataDRF:
+      type: object
+      properties:
+        date:
+          type: string
+        types:
+          type: object
+          additionalProperties: {}
+      required:
+      - date
+    RetrieveNaturalConditionsResponseDRF:
+      type: object
+      properties:
+        airQuality:
+          $ref: '#/components/schemas/AirQualityDRF'
+        pollen:
+          $ref: '#/components/schemas/PollenDataDRF'
+    AqiByHourDRF:
+      type: object
+      properties:
+        datetime:
+          type: string
+        indexes:
+          $ref: '#/components/schemas/IndexDataDRF'
+        healthRecommendations:
+          type: object
+          additionalProperties: {}
+      required:
+      - datetime
+      - indexes
+    IndexDataDRF:
+      type: object
+      properties:
+        aqi:
+          $ref: '#/components/schemas/AqiDataDRF'
+      required:
+      - aqi
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

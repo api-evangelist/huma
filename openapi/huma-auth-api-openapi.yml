@@ -1,0 +1,1397 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Auth API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Auth
+paths:
+  /api/auth/v1/authprofile:
+    post:
+      operationId: api_auth_v1_authprofile_create_[auth_profile]
+      description: 'Retrieve auth profile
+
+        Retrieve user''s auth profile information once they are authenticated.'
+      summary: Auth Profile
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthProfileRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthProfileRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthProfileRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProfileResponseObjectDRF'
+          description: ''
+  /api/auth/v1/check-auth-attributes:
+    post:
+      operationId: api_auth_v1_check_auth_attributes_create_[check_auth_attributes]
+      description: 'Check auth attributes
+
+        Responsible for verifying specific user attributes.'
+      summary: Check Auth Attributes
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckAuthAttributesRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CheckAuthAttributesRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckAuthAttributesRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckAuthAttributesResponseObjectDRF'
+          description: ''
+  /api/auth/v1/confirm:
+    post:
+      operationId: api_auth_v1_confirm_create_[confirmation]
+      description: 'Confirm auth attribute
+
+        Submitting confirmation of previously requested email or phone number verification'
+      summary: Confirmation
+      parameters:
+      - in: header
+        name: userAgent
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmationRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConfirmationRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConfirmationRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfirmationOutDRF'
+          description: ''
+  /api/auth/v1/me:
+    get:
+      operationId: api_auth_v1_me_retrieve_[me]
+      summary: Me
+      tags:
+      - Auth
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProfileResponseObjectDRF'
+          description: ''
+  /api/auth/v1/password-reset:
+    post:
+      operationId: api_auth_v1_password_reset_create_[password_reset]
+      description: 'Reset password
+
+        Reset user password securely with a password reset endpoint.'
+      summary: Password Reset
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+  /api/auth/v1/refreshtoken:
+    post:
+      operationId: api_auth_v1_refreshtoken_create_[refresh_token_v1]
+      description: 'Refresh token
+
+        Refresh user authentication tokens securely for prolonged user sessions without
+
+        requiring reauthentication.'
+      summary: Refresh Token V1
+      parameters:
+      - in: header
+        name: userAgent
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequestObjectV1DRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequestObjectV1DRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequestObjectV1DRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshTokenResponseObjectDRF'
+          description: ''
+  /api/auth/v1/request-code:
+    post:
+      operationId: api_auth_v1_request_code_create_[request_code]
+      description: 'Sign in request code
+
+        Responsible for sending a verification code to the user for authentication.'
+      summary: Request Code
+      parameters:
+      - in: header
+        name: userAgent
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSignupCodeRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestSignupCodeRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestSignupCodeRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+  /api/auth/v1/request-password-reset:
+    post:
+      operationId: api_auth_v1_request_password_reset_create_[request_password_reset]
+      description: 'Request password reset
+
+        Initiate a secure password reset process for user,
+
+        ensuring account security and access restoration.'
+      summary: Request Password Reset
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+  /api/auth/v1/sendverificationtoken:
+    post:
+      operationId: api_auth_v1_sendverificationtoken_create_[send_verification_token]
+      description: 'Send verification token
+
+        Send verification token for user confirmation of certain auth attributes or sign in.'
+      summary: Send Verification Token
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendVerificationTokenRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendVerificationTokenRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendVerificationTokenRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendVerificationTokenResponseObjectDRF'
+          description: ''
+  /api/auth/v1/service-account:
+    post:
+      operationId: api_auth_v1_service_account_create_[create_service_account]
+      description: 'Create service account
+
+        Create a service account to enable secure access and interaction between applications,
+
+        services, or systems, facilitating automation and integration tasks.'
+      summary: Create Service Account
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServiceAccountRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateServiceAccountRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateServiceAccountRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateAuthKeysResponseObjectDRF'
+          description: ''
+  /api/auth/v1/set-auth-attributes:
+    post:
+      operationId: api_auth_v1_set_auth_attributes_create_[set_auth_attributes]
+      description: 'Set auth attributes
+
+        Responsible for assigning or updating specific attributes or permissions associated
+
+        with an authenticated user.'
+      summary: Set Auth Attributes
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetAuthAttributesRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetAuthAttributesRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetAuthAttributesRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetAuthAttributesResponseObjectDRF'
+          description: ''
+  /api/auth/v1/signin:
+    post:
+      operationId: api_auth_v1_signin_create_[sign_in_v1]
+      description: 'Sign in
+
+        Responsible for authenticating users and providing access to secure resources.'
+      summary: Sign In V1
+      parameters:
+      - in: header
+        name: userAgent
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignInRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignInRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponseObjectDRF'
+          description: ''
+  /api/auth/v1/signout:
+    post:
+      operationId: api_auth_v1_signout_create_[sign_out_v1]
+      description: 'Sign out
+
+        Responsible for ending a user''s session and logging them out of the application.'
+      summary: Sign Out V1
+      parameters:
+      - in: header
+        name: userAgent
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignOutRequestObjectV1DRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignOutRequestObjectV1DRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignOutRequestObjectV1DRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/auth/v1/signup:
+    post:
+      operationId: api_auth_v1_signup_create_[sign_up]
+      description: 'Sign up
+
+        Register new users securely with sign-up endpoint.'
+      summary: Sign Up
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignUpRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignUpRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponseObjectDRF'
+          description: ''
+  /api/auth/v1/sso/callback:
+    post:
+      operationId: api_auth_v1_sso_callback_create_[saml_callback]
+      summary: Saml Callback
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SAMLCallbackObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SAMLCallbackObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SAMLCallbackObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/auth/v1/sso/oidc-callback:
+    get:
+      operationId: api_auth_v1_sso_oidc_callback_retrieve_[oidc_callback]
+      summary: Oidc Callback
+      parameters:
+      - in: query
+        name: authStage
+        schema:
+          type: string
+      - in: query
+        name: callbackData
+        schema:
+          type: string
+      - in: query
+        name: clientId
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: confirmationCode
+        schema:
+          type: string
+      - in: query
+        name: contactEmail
+        schema:
+          type: string
+      - in: query
+        name: deviceAgent
+        schema:
+          type: string
+      - in: query
+        name: displayName
+        schema:
+          type: string
+      - in: query
+        name: email
+        schema:
+          type: string
+      - in: query
+        name: ipAddress
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: method
+        schema:
+          type: integer
+      - in: query
+        name: password
+        schema:
+          type: string
+      - in: query
+        name: phoneNumber
+        schema:
+          type: string
+      - in: query
+        name: projectId
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: refreshToken
+        schema:
+          type: string
+      - in: query
+        name: ssoEnabled
+        schema:
+          type: boolean
+      - in: query
+        name: timezone
+        schema:
+          type: string
+      - in: query
+        name: userAttributes
+        schema:
+          type: string
+      - in: query
+        name: userId
+        schema:
+          type: string
+      - in: query
+        name: validationData
+        schema:
+          type: string
+      tags:
+      - Auth
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/auth/v1/sso/request:
+    post:
+      operationId: api_auth_v1_sso_request_create_[sso_request]
+      summary: Sso Request
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SsoRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SsoRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SsoRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/auth/v1/user/{user_id}/api-key:
+    get:
+      operationId: api_auth_v1_user_api_key_retrieve_[retrieve_api_keys]
+      description: 'Retrieve API Keys
+
+        Retrieve a list of API keys that are associated with a user.'
+      summary: Retrieve Api Keys
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Auth
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAuthKeysResponseObjectDRF'
+          description: ''
+    post:
+      operationId: api_auth_v1_user_api_key_create_[generate_api_key]
+      description: 'Generate API key
+
+        Generate API keys securely to authorize access to protected resources and
+
+        validate user identity.'
+      summary: Generate Api Key
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateAuthKeysRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateAuthKeysRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateAuthKeysRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateAuthKeysResponseObjectDRF'
+          description: ''
+  /api/auth/v1/user/{user_id}/api-key/{key_id}:
+    delete:
+      operationId: api_auth_v1_user_api_key_destroy_[delete_api_key]
+      description: 'Delete API Keys
+
+        Delete specified API key of a User.'
+      summary: Delete Api Key
+      parameters:
+      - in: path
+        name: key_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Auth
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+  /api/auth/v1/user/{user_id}/sessions:
+    get:
+      operationId: api_auth_v1_user_sessions_retrieve_[retrieve_sessions]
+      description: 'Retrieve sessions
+
+        Retrieve active user sessions to monitor logged-in devices.'
+      summary: Retrieve Sessions
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Auth
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceSessionDTODRF'
+          description: ''
+  /api/auth/v1/user/{user_id}/token:
+    post:
+      operationId: api_auth_v1_user_token_create_[generate_auth_token]
+      description: 'Generate auth token
+
+        Generate Hawk authentication tokens securely to authorize access to protected
+
+        resources and validate user identity.'
+      summary: Generate Auth Token
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Auth
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateAuthKeysResponseObjectDRF'
+          description: ''
+  /api/auth/v1/verify:
+    post:
+      operationId: api_auth_v1_verify_create_[verify_credentials]
+      description: 'Verify credentials
+
+        Verify user credentials like phone number or password securely
+
+        to authenticate access and ensure authorized usage of the system.'
+      summary: Verify Credentials
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCredentialsRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCredentialsRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCredentialsRequestObjectDRF'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+components:
+  schemas:
+    CheckAuthAttributesRequestObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        tokenType:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+      required:
+      - clientId
+      - projectId
+    SignOutRequestObjectV1DRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        refreshToken:
+          type: string
+        deviceAgent:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        isActive:
+          type: boolean
+        devicePushId:
+          type: string
+        deviceToken:
+          type: string
+        voipDevicePushId:
+          type: string
+      required:
+      - deviceAgent
+    CheckAuthAttributesResponseObjectDRF:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        passwordSet:
+          type: boolean
+        emailVerified:
+          type: boolean
+        phoneNumberVerified:
+          type: boolean
+        eligibleForMFA:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        shortenedCode:
+          type: string
+        contactEmail:
+          type: string
+        ssoEnabled:
+          type: boolean
+    SetAuthAttributesResponseObjectDRF:
+      type: object
+      properties:
+        uid:
+          type: string
+        refreshToken:
+          type: string
+    DeviceSessionDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        refreshToken:
+          type: string
+        deviceAgent:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        isActive:
+          type: boolean
+      required:
+      - deviceAgent
+    SignInRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        method:
+          type: string
+        email:
+          type: string
+        refreshToken:
+          type: string
+        phoneNumber:
+          type: string
+        confirmationCode:
+          type: string
+        password:
+          type: string
+        deviceAgent:
+          type: string
+        authStage:
+          type: string
+      required:
+      - clientId
+      - method
+      - projectId
+    SignUpRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        method:
+          type: string
+        email:
+          type: string
+        contactEmail:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        displayName:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        userAttributes:
+          type: object
+          additionalProperties: {}
+        timezone:
+          type: string
+        ssoEnabled:
+          type: boolean
+        userId:
+          type: string
+        deviceAgent:
+          type: string
+        ipAddress:
+          type: string
+      required:
+      - clientId
+      - ipAddress
+      - method
+      - projectId
+    ListAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authKeys:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        userId:
+          type: string
+    SignInResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    RequestPasswordResetRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        email:
+          type: string
+      required:
+      - clientId
+      - email
+      - projectId
+    SsoInfoDRF:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        discoveryUrl:
+          type: string
+        redirectUri:
+          type: string
+        xmlsecBinary:
+          type: string
+        entityid:
+          type: string
+        service:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+        keyFile:
+          type: string
+        certFile:
+          type: string
+        encryptionKeypairs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        organization:
+          type: object
+          additionalProperties: {}
+        contactPerson:
+          type: object
+          additionalProperties: {}
+        certificateCrt:
+          type: string
+        samlMetadataXml:
+          type: string
+        privateKey:
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      - discoveryUrl
+      - redirectUri
+    SendVerificationTokenRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        method:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - clientId
+      - method
+      - projectId
+    AuthProfileRequestObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+    VerifyCredentialsRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        authToken:
+          type: string
+        password:
+          type: string
+        confirmationCode:
+          type: string
+        phoneNumber:
+          type: string
+        type:
+          type: string
+      required:
+      - authToken
+      - clientId
+      - projectId
+      - type
+    ConfirmationRequestObjectDRF:
+      type: object
+      properties:
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        confirmationCode:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        deviceAgent:
+          type: string
+      required:
+      - clientId
+      - confirmationCode
+      - email
+      - projectId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RefreshTokenRequestObjectV1DRF:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        deviceAgent:
+          type: string
+        deviceToken:
+          type: string
+      required:
+      - refreshToken
+    SsoDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        org:
+          type: string
+        info:
+          $ref: '#/components/schemas/SsoInfoDRF'
+    SendVerificationTokenResponseObjectDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        to:
+          type: string
+    SsoRequestObjectDRF:
+      type: object
+      properties:
+        ssoConfig:
+          $ref: '#/components/schemas/SsoDTODRF'
+        tokens:
+          type: object
+          additionalProperties: {}
+        email:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+      required:
+      - clientId
+      - email
+      - projectId
+    ResetPasswordRequestObjectDRF:
+      type: object
+      properties:
+        email:
+          type: string
+        code:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - code
+      - email
+      - newPassword
+    SAMLCallbackObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        method:
+          type: integer
+        email:
+          type: string
+        contactEmail:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        displayName:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        userAttributes:
+          type: object
+          additionalProperties: {}
+        timezone:
+          type: string
+        ssoEnabled:
+          type: boolean
+        userId:
+          type: string
+        deviceAgent:
+          type: string
+        ipAddress:
+          type: string
+        refreshToken:
+          type: string
+        confirmationCode:
+          type: string
+        authStage:
+          type: string
+        callbackData:
+          type: object
+          additionalProperties: {}
+      required:
+      - clientId
+      - ipAddress
+      - projectId
+    ConfirmationOutDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    AuthProfileResponseObjectDRF:
+      type: object
+      properties:
+        uid:
+          type: string
+    CreateServiceAccountRequestObjectDRF:
+      type: object
+      properties:
+        serviceAccountName:
+          type: string
+        authType:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        roleId:
+          type: string
+        resourceId:
+          type: string
+        timezone:
+          type: string
+      required:
+      - resourceId
+      - roleId
+      - serviceAccountName
+      - validationData
+    GenerateAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authId:
+          type: string
+        authKey:
+          type: string
+      required:
+      - authId
+      - authKey
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    GenerateAuthKeysRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        authType:
+          type: string
+        name:
+          type: string
+        whitelistIPs:
+          type: array
+          items:
+            type: string
+      required:
+      - userId
+    RefreshTokenResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        expiresIn:
+          type: integer
+        refreshToken:
+          type: string
+        refreshTokenExpiresIn:
+          type: integer
+    SetAuthAttributesRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        authToken:
+          type: string
+        tokenType:
+          type: string
+        confirmationToken:
+          type: string
+        mfaEnabled:
+          type: boolean
+        oldPassword:
+          type: string
+        confirmationCode:
+          type: string
+        deviceToken:
+          type: string
+        contactEmail:
+          type: string
+      required:
+      - clientId
+      - projectId
+    RequestSignupCodeRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        email:
+          type: string
+        appName:
+          type: string
+        deploymentId:
+          type: string
+        expiresIn:
+          type: string
+      required:
+      - clientId
+      - projectId
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

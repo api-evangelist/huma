@@ -1,0 +1,456 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Diary API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Diary
+paths:
+  /api/extensions/v1/user/{user_id}/diary/{id}:
+    get:
+      operationId: api_extensions_v1_user_diary_retrieve_[retrieve_diary_by_id]
+      summary: Retrieve Diary By Id
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Diary
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveDiaryByIdResponseDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/diary/count:
+    get:
+      operationId: api_extensions_v1_user_diary_count_retrieve_[retrieve_diaries_count]
+      summary: Retrieve Diaries Count
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Diary
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveDiariesCountResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/diary/list:
+    get:
+      operationId: api_extensions_v1_user_diary_list_retrieve_[retrieve_diaries_list]
+      summary: Retrieve Diaries List
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Diary
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiaryCategoryResponseDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/diary/search:
+    post:
+      operationId: api_extensions_v1_user_diary_search_create_[retrieve_diaries]
+      summary: Retrieve Diaries
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Diary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveDiariesRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveDiariesRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveDiariesRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveDiariesResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    DiaryDetailItemResponseDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        valueColor:
+          type: string
+        icon:
+          type: string
+        iconColor:
+          type: string
+    DiaryChipResponseDRF:
+      type: object
+      properties:
+        icon:
+          type: string
+        text:
+          type: string
+        textColor:
+          type: string
+        iconColor:
+          type: string
+        borderColor:
+          type: string
+      required:
+      - text
+    RetrieveDiariesRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        skip:
+          type: integer
+        limit:
+          type: integer
+        fromDateTime:
+          type: string
+          format: date-time
+        toDateTime:
+          type: string
+          format: date-time
+        diaryType:
+          type: array
+          items:
+            type: string
+        context:
+          type: string
+        rawDiaries:
+          type: boolean
+        excludedDiaryTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - skip
+    RetrieveDiariesResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryItemResponseDRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - total
+    DiaryButtonDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+      required:
+      - action
+      - label
+    RetrieveDiaryByIdResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        diaryId:
+          type: string
+        diarySourceId:
+          type: string
+        moduleConfigId:
+          type: string
+        diaryType:
+          type: string
+        primitiveType:
+          type: string
+        title:
+          type: string
+        value:
+          type: array
+          items:
+            type: string
+        unit:
+          type: array
+          items:
+            type: string
+        diaryBG:
+          type: string
+        diarySidebar:
+          type: string
+        diaryChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryChipResponseDRF'
+        mealEventType:
+          type: string
+        flags:
+          type: object
+          additionalProperties: {}
+        detailsTitle:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryDetailItemResponseDRF'
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryButtonDRF'
+        detailsPresentation:
+          type: string
+        visibility:
+          type: array
+          items:
+            type: string
+        localizationData:
+          type: object
+          additionalProperties: {}
+        extraFields:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+      required:
+      - createDateTime
+      - details
+      - diaryBG
+      - diaryId
+      - diarySidebar
+      - diarySourceId
+      - diaryType
+      - id
+      - startDateTime
+      - title
+      - updateDateTime
+      - userId
+      - visibility
+    RetrieveDiariesCountResponseObjectDRF:
+      type: object
+      properties:
+        diaryDate:
+          type: string
+          format: date-time
+        count:
+          type: integer
+        red:
+          type: integer
+        amber:
+          type: integer
+        gray:
+          type: integer
+      required:
+      - amber
+      - count
+      - gray
+      - red
+    DiaryItemResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        diaryId:
+          type: string
+        diarySourceId:
+          type: string
+        moduleConfigId:
+          type: string
+        diaryType:
+          type: string
+        primitiveType:
+          type: string
+        title:
+          type: string
+        value:
+          type: array
+          items:
+            type: string
+        unit:
+          type: array
+          items:
+            type: string
+        diaryBG:
+          type: string
+        diarySidebar:
+          type: string
+        diaryChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryChipResponseDRF'
+        mealEventType:
+          type: string
+        flags:
+          type: object
+          additionalProperties: {}
+        detailsTitle:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryDetailItemResponseDRF'
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryButtonDRF'
+        detailsPresentation:
+          type: string
+        visibility:
+          type: array
+          items:
+            type: string
+        localizationData:
+          type: object
+          additionalProperties: {}
+        extraFields:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+      required:
+      - createDateTime
+      - details
+      - diaryBG
+      - diaryId
+      - diarySidebar
+      - diarySourceId
+      - diaryType
+      - id
+      - startDateTime
+      - title
+      - updateDateTime
+      - userId
+      - visibility
+    DiaryCategoryResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDRF'
+      required:
+      - id
+      - name
+    ItemDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

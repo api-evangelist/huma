@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Public Video Callback API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Public Video Callback
+paths:
+  /api/extensions/v1/video/callbacks:
+    post:
+      operationId: api_extensions_v1_video_callbacks_create_[twilio_callbacks]
+      description: All incoming Twilio requests set the Content-Type header to “application/x-www-form-urlencoded”.
+      summary: Twilio Callbacks
+      tags:
+      - Public Video Callback
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/extensions/v1/video/test:
+    get:
+      operationId: api_extensions_v1_video_test_retrieve_[test_video_call]
+      summary: Test Video Call
+      tags:
+      - Public Video Callback
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/video/webex/callbacks:
+    post:
+      operationId: api_extensions_v1_video_webex_callbacks_create_[webex_callbacks]
+      summary: Webex Callbacks
+      tags:
+      - Public Video Callback
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

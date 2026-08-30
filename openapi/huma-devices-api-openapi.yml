@@ -1,0 +1,163 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Devices API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Devices
+paths:
+  /api/notification/v1/device:
+    get:
+      operationId: api_notification_v1_device_retrieve_[get_user_devices]
+      description: 'List user devices
+
+        Provides list of user devices which are currently registered in system'
+      summary: Get User Devices
+      tags:
+      - Devices
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesResponseDataDRF'
+          description: ''
+  /api/notification/v1/device/register:
+    post:
+      operationId: api_notification_v1_device_register_create_[register_device]
+      description: 'Register device
+
+        Registers user device in system, which can later be used for sending push notifications.'
+      summary: Register Device
+      tags:
+      - Devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDeviceRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterDeviceRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterDeviceRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/notification/v1/device/unregister:
+    delete:
+      operationId: api_notification_v1_device_unregister_destroy_[unregister_device]
+      description: 'Unregister device
+
+        Removes user device from system based on push id'
+      summary: Unregister Device
+      tags:
+      - Devices
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    DevicesResponseDataDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDTODRF'
+        total:
+          type: integer
+    DeviceDTODRF:
+      type: object
+      properties:
+        devicePushId:
+          type: string
+        devicePushIdType:
+          type: string
+        deviceDetails:
+          type: string
+        id:
+          type: string
+        userId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - devicePushId
+      - devicePushIdType
+    RegisterDeviceRequestObjectDRF:
+      type: object
+      properties:
+        devicePushId:
+          type: string
+        devicePushIdType:
+          type: string
+        deviceDetails:
+          type: string
+      required:
+      - devicePushId
+      - devicePushIdType
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

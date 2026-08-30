@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Storage V1 API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Storage V1
+paths:
+  /api/storage/v1/upload:
+    post:
+      operationId: api_storage_v1_upload_create_[upload_file_v1]
+      description: 'Upload file
+
+        Upload provided file to bucket'
+      summary: Upload File V1
+      tags:
+      - Storage V1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadFileRequestObjectV1DRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UploadFileRequestObjectV1DRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadFileRequestObjectV1DRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '413':
+          description: No response body
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadFileResponseObjectV1DRF'
+          description: ''
+components:
+  schemas:
+    UploadFileRequestObjectV1DRF:
+      type: object
+      properties:
+        file:
+          type: string
+        fileData:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+        contentType:
+          type: string
+        userId:
+          type: string
+      required:
+      - file
+    UploadFileResponseObjectV1DRF:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

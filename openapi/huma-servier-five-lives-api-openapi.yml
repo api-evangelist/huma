@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Servier Five Lives API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Servier Five Lives
+paths:
+  /api/plugins/v1/five_lives/user/{user_id}:
+    get:
+      operationId: api_plugins_v1_five_lives_user_retrieve_[fetch_user_data]
+      description: 'Fetch User Data
+
+        Returns the user data including score history, rank, and instructions shown history.'
+      summary: Fetch User Data
+      parameters:
+      - in: query
+        name: userId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Servier Five Lives
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponseDRF'
+          description: ''
+  /api/plugins/v1/five_lives/user/{user_id}/history:
+    post:
+      operationId: api_plugins_v1_five_lives_user_history_create_[update_history]
+      description: 'Update History
+
+        Updates the score history and rank for a specific game.'
+      summary: Update History
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Servier Five Lives
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateHistoryRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateHistoryRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateHistoryRequestObjectDRF'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponseDRF'
+          description: ''
+  /api/plugins/v1/five_lives/user/{user_id}/instructions:
+    post:
+      operationId: api_plugins_v1_five_lives_user_instructions_create_[update_instructions_shown_history]
+      description: 'Update Instructions Shown History
+
+        Sets the specified keys in the instructions shown history to true.'
+      summary: Update Instructions Shown History
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Servier Five Lives
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInstructionsShownHistoryRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateInstructionsShownHistoryRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateInstructionsShownHistoryRequestObjectDRF'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponseDRF'
+          description: ''
+  /api/plugins/v1/five_lives/user/{user_id}/token:
+    post:
+      operationId: api_plugins_v1_five_lives_user_token_create_[create_auth_token]
+      description: 'Create Auth Token for Five Lives
+
+        Creates an authentication token with limited scope and longer lifetime to access Five Lives games APIs.'
+      summary: Create Auth Token
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Servier Five Lives
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FiveLivesTokenRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FiveLivesTokenRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FiveLivesTokenRequestObjectDRF'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiveLivesTokenResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    UpdateInstructionsShownHistoryRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        keys:
+          type: array
+          items:
+            type: string
+      required:
+      - keys
+      - userId
+    FiveLivesTokenResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+      required:
+      - authToken
+    UserDataResponseDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        scoreHistory:
+          type: object
+          additionalProperties: {}
+        rank:
+          type: object
+          additionalProperties: {}
+        instructionsShownHistory:
+          type: object
+          additionalProperties: {}
+      required:
+      - instructionsShownHistory
+      - rank
+      - scoreHistory
+      - userId
+    ScoreHistoryItemDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        timestamp:
+          type: integer
+        rank:
+          type: string
+      required:
+      - rank
+      - timestamp
+      - value
+    UpdateHistoryRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        gameId:
+          type: string
+        score:
+          type: integer
+        updatedHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoreHistoryItemDRF'
+        previousRank:
+          type: string
+        updatedRank:
+          type: string
+      required:
+      - gameId
+      - previousRank
+      - score
+      - updatedHistory
+      - updatedRank
+      - userId
+    FiveLivesTokenRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+      - userId
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

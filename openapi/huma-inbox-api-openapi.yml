@@ -1,0 +1,346 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Inbox API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Inbox
+paths:
+  /api/inbox/v1/message/confirm:
+    post:
+      operationId: api_inbox_v1_message_confirm_create_[confirm_messages]
+      summary: Confirm Messages
+      tags:
+      - Inbox
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmMessageRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConfirmMessageRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConfirmMessageRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfirmMessageResponseObjectDRF'
+          description: ''
+  /api/inbox/v1/user/{user_id}/message/all:
+    get:
+      operationId: api_inbox_v1_user_message_all_retrieve_[all_messages]
+      summary: All Messages
+      parameters:
+      - in: query
+        name: authzUser
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      - in: query
+        name: userId
+        schema:
+          type: string
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inbox
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponseObjectDRF'
+          description: ''
+  /api/inbox/v1/user/{user_id}/message/search:
+    post:
+      operationId: api_inbox_v1_user_message_search_create_[search_messages]
+      summary: Search Messages
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inbox
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageSearchRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MessageSearchRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MessageSearchRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponseObjectDRF'
+          description: ''
+  /api/inbox/v1/user/{user_id}/message/send:
+    post:
+      operationId: api_inbox_v1_user_message_send_create_[send_message]
+      summary: Send Message
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inbox
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/inbox/v1/user/{user_id}/message/summary/search:
+    post:
+      operationId: api_inbox_v1_user_message_summary_search_create_[summary_messages]
+      summary: Summary Messages
+      parameters:
+      - in: path
+        name: authzUser
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: userId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inbox
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageSummaryResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    ConfirmMessageResponseObjectDRF:
+      type: object
+      properties:
+        updated:
+          type: integer
+      required:
+      - updated
+    MessageDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        submitterId:
+          type: string
+        submitterName:
+          type: string
+        text:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        custom:
+          type: boolean
+        locale:
+          type: string
+        messageType:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageAttachmentDTODRF'
+      required:
+      - submitterId
+    MessageSummaryResponseObjectDRF:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        unreadMessages:
+          type: integer
+    MessageSearchRequestObjectDRF:
+      type: object
+      properties:
+        submitterId:
+          type: string
+        custom:
+          type: boolean
+        skip:
+          type: integer
+        limit:
+          type: integer
+        userId:
+          type: string
+      required:
+      - submitterId
+    MessageSendRequestObjectDRF:
+      type: object
+      properties:
+        messageType:
+          type: string
+        text:
+          type: string
+        custom:
+          type: boolean
+        userId:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageAttachmentDTODRF'
+    MessageAttachmentDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        attachmentType:
+          type: string
+        title:
+          type: string
+        resource:
+          type: string
+        resourceUrl:
+          type: string
+        isResourceDeleted:
+          type: boolean
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - attachmentType
+      - resource
+      - title
+    MessagesResponseObjectDRF:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDTODRF'
+      required:
+      - messages
+    ConfirmMessageRequestObjectDRF:
+      type: object
+      properties:
+        messageIds:
+          type: array
+          items:
+            type: string
+      required:
+      - messageIds
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

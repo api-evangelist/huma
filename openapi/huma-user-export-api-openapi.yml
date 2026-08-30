@@ -1,0 +1,556 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform User Export API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: User Export
+paths:
+  /api/extensions/v1/export/user/{user_id}:
+    post:
+      operationId: api_extensions_v1_export_user_create_[export_user_data]
+      description: 'Export User Data
+
+        Exports specific user data based on the user ID and provided request data.
+
+        Returns the data as a zip file.'
+      summary: Export User Data
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/export/user/{user_id}/badges/confirm:
+    post:
+      operationId: api_extensions_v1_export_user_badges_confirm_create_[confirm_badges]
+      description: 'Confirm Export Process Badges
+
+        Confirms that user saw export process notifications.'
+      summary: Confirm Badges
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmExportBadgesRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConfirmExportBadgesRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConfirmExportBadgesRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfirmExportBadgesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/user/{user_id}/task:
+    get:
+      operationId: api_extensions_v1_export_user_task_retrieve_[retrieve_user_export_processes]
+      description: 'Retrieve User Export Processes
+
+        Retrieves all export processes for a specific user based on the user ID.'
+      summary: Retrieve User Export Processes
+      parameters:
+      - in: path
+        name: userId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveExportProcessesResponseObjectDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_export_user_task_create_[export_user_data_async]
+      description: 'Export User Data Asynchronously
+
+        Runs an asynchronous export task for the specified user and returns the task status.'
+      summary: Export User Data Async
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExportUserRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunExportDeploymentTaskResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/user/{user_id}/task/{export_process_id}:
+    get:
+      operationId: api_extensions_v1_export_user_task_retrieve_[check_user_export_task_status]
+      description: 'Check User Export Task Status
+
+        Checks the status of a specific user export task based on the export process ID.'
+      summary: Check User Export Task Status
+      parameters:
+      - in: path
+        name: exportProcessId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: export_process_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: userId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckExportDeploymentTaskStatusResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    ExportProcessDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        resultObject:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
+        status:
+          type: string
+        seen:
+          type: boolean
+        exportParams:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        requesterId:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        exportType:
+          type: string
+        taskId:
+          type: string
+    ConfirmExportBadgesResponseObjectDRF:
+      type: object
+      properties:
+        updated:
+          type: integer
+      required:
+      - updated
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    ExportUserRequestDataDRF:
+      type: object
+      properties:
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        deIdentified:
+          type: boolean
+        maskFreeText:
+          type: boolean
+        includeNullFields:
+          type: boolean
+        includeUserMetaData:
+          type: boolean
+        useFlatStructure:
+          type: boolean
+        extraQuestionIds:
+          type: object
+          additionalProperties: {}
+        view:
+          type: string
+        format:
+          type: string
+        binaryOption:
+          type: string
+        layer:
+          type: string
+        quantity:
+          type: string
+        questionnairePerName:
+          type: boolean
+        splitMultipleChoice:
+          type: boolean
+        splitSymptoms:
+          type: boolean
+        translatePrimitives:
+          type: boolean
+        singleFileResponse:
+          type: boolean
+        translationShortCodesObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        translationShortCodesObjectFormat:
+          type: string
+        includeFields:
+          type: array
+          items:
+            type: string
+        excludeFields:
+          type: array
+          items:
+            type: string
+        deIdentifyHashFields:
+          type: array
+          items:
+            type: string
+        deIdentifyRemoveFields:
+          type: array
+          items:
+            type: string
+        exportBucket:
+          type: string
+        onboardingModuleNames:
+          type: array
+          items:
+            type: string
+        preferShortCode:
+          type: boolean
+        useCreationTime:
+          type: boolean
+        bucketing:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldBucketingDRF'
+        excludeMinors:
+          type: boolean
+        useExportProfile:
+          type: boolean
+        baseProfile:
+          type: string
+        doTranslate:
+          type: boolean
+        managerId:
+          type: string
+    FieldBucketingDRF:
+      type: object
+      properties:
+        fieldPath:
+          type: string
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/BucketDRF'
+        undefineUnmatched:
+          type: boolean
+      required:
+      - buckets
+      - fieldPath
+    ConfirmExportBadgesRequestDataDRF:
+      type: object
+      properties:
+        exportProcessIds:
+          type: array
+          items:
+            type: string
+      required:
+      - exportProcessIds
+    RetrieveExportProcessesResponseObjectDRF:
+      type: object
+      properties:
+        exportProcesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProcessDTODRF'
+    ExportResultObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      - key
+    ExportParametersDRF:
+      type: object
+      properties:
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        deIdentified:
+          type: boolean
+        maskFreeText:
+          type: boolean
+        includeNullFields:
+          type: boolean
+        includeUserMetaData:
+          type: boolean
+        useFlatStructure:
+          type: boolean
+        extraQuestionIds:
+          type: object
+          additionalProperties: {}
+        view:
+          type: string
+        format:
+          type: string
+        binaryOption:
+          type: string
+        layer:
+          type: string
+        quantity:
+          type: string
+        questionnairePerName:
+          type: boolean
+        splitMultipleChoice:
+          type: boolean
+        splitSymptoms:
+          type: boolean
+        translatePrimitives:
+          type: boolean
+        organizationId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        singleFileResponse:
+          type: boolean
+        translationShortCodesObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        translationShortCodesObjectFormat:
+          type: string
+        includeFields:
+          type: array
+          items:
+            type: string
+        excludeFields:
+          type: array
+          items:
+            type: string
+        deIdentifyHashFields:
+          type: array
+          items:
+            type: string
+        deIdentifyRemoveFields:
+          type: array
+          items:
+            type: string
+        exportBucket:
+          type: string
+        onboardingModuleNames:
+          type: array
+          items:
+            type: string
+        preferShortCode:
+          type: boolean
+        useCreationTime:
+          type: boolean
+        bucketing:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldBucketingDRF'
+        forThirdParty:
+          type: boolean
+        excludeMinors:
+          type: boolean
+    BucketDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
+    RunExportDeploymentTaskResponseObjectDRF:
+      type: object
+      properties:
+        exportProcessId:
+          type: string
+    CheckExportDeploymentTaskStatusResponseObjectDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        exportData:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

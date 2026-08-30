@@ -1,0 +1,4873 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform User API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: User
+paths:
+  /api/auth/v1/private/user/{user_id}/delete-user:
+    delete:
+      operationId: api_auth_v1_private_user_delete_user_destroy_[delete_user]
+      description: 'Delete user
+
+        Remove user from the system along with all related data.'
+      summary: Delete User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses: {}
+  /api/extensions/v1/user/{user_id}:
+    get:
+      operationId: api_extensions_v1_user_retrieve_[retrieve_user_profile]
+      summary: Retrieve User Profile
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTODRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_user_create_[update_user_profile]
+      summary: Update User Profile
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/add-role:
+    post:
+      operationId: api_extensions_v1_user_add_role_create_[add_roles]
+      summary: Add Roles
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/assign-proxy:
+    post:
+      operationId: api_extensions_v1_user_assign_proxy_create_[link_proxy_user]
+      summary: Link Proxy User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkProxyRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LinkProxyRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LinkProxyRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkProxyUserResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/clear/fields:
+    put:
+      operationId: api_extensions_v1_user_clear_fields_update_[clear_user_profile_data]
+      description: 'Deletes user profile data.
+
+        Usage: add desired field name
+
+        to ClearUserProfileDataRequestObject._fieldsAllowedToRemove'
+      summary: Clear User Profile Data
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClearUserProfileDataRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClearUserProfileDataRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClearUserProfileDataRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/configuration:
+    get:
+      operationId: api_extensions_v1_user_configuration_retrieve_[retrieve_deployment_config]
+      summary: Retrieve Deployment Config
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveDeploymentConfigResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/consent/{consent_id}/sign:
+    post:
+      operationId: api_extensions_v1_user_consent_sign_create_[sign_consent]
+      summary: Sign Consent
+      parameters:
+      - in: path
+        name: consent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignConsentRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignConsentRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignConsentRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/deployment/{deployment_id}/helperagreementlog:
+    post:
+      operationId: api_extensions_v1_user_deployment_helperagreementlog_create_[create_helper_agreement_log]
+      description: 'Create helper agreement log
+
+        Create a helper agreement log for a user within a deployment.'
+      summary: Create Helper Agreement Log
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHelperAgreementLogRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateHelperAgreementLogRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateHelperAgreementLogRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/deployment/{deployment_id}/note/{note_id}:
+    get:
+      operationId: api_extensions_v1_user_deployment_note_retrieve_[retrieve_single_user_note]
+      description: 'Retrieve user note
+
+        Retrieve a specific note for a user within a deployment.'
+      summary: Retrieve Single User Note
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: note_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserNoteDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/deployment/{deployment_id}/thumbnail-notes:
+    get:
+      operationId: api_extensions_v1_user_deployment_thumbnail_notes_retrieve_[retrieve_user_thumbnail_notes]
+      description: 'Retrieve user thumbnail notes
+
+        Retrieve thumbnail previews of notes for a user within a deployment.'
+      summary: Retrieve User Thumbnail Notes
+      parameters:
+      - in: query
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: query
+        name: endDateTime
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: startDateTime
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: userId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserNoteDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/document:
+    get:
+      operationId: api_extensions_v1_user_document_retrieve_[retrieve_personal_documents]
+      description: 'Retrieve personal documents
+
+        Retrieve all personal documents associated with a user.'
+      summary: Retrieve Personal Documents
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalDocumentDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_user_document_create_[create_personal_document]
+      description: 'Create personal document
+
+        Create a personal document for a user.'
+      summary: Create Personal Document
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalDocumentRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalDocumentRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalDocumentRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/document/{document_id}:
+    delete:
+      operationId: api_extensions_v1_user_document_destroy_[delete_personal_document]
+      description: 'Delete personal document
+
+        Delete a specific personal document of a user.'
+      summary: Delete Personal Document
+      parameters:
+      - in: path
+        name: document_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/econsent/{econsent_id}:
+    get:
+      operationId: api_extensions_v1_user_econsent_retrieve_[retrieve_user_econsent]
+      summary: Retrieve User Econsent
+      parameters:
+      - in: path
+        name: econsent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EConsentDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_user_econsent_create_[assign_econsent_to_user]
+      summary: Assign Econsent To User
+      parameters:
+      - in: path
+        name: econsent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/econsent/{econsent_id}/pdf:
+    get:
+      operationId: api_extensions_v1_user_econsent_pdf_retrieve_[retrieve_econsent_pdf]
+      description: 'Retrieve econsent PDF(s)
+
+        Returns all user''s econsent pdfs.'
+      summary: Retrieve Econsent Pdf
+      parameters:
+      - in: path
+        name: econsent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EConsentLogDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/econsent/{econsent_id}/sign:
+    post:
+      operationId: api_extensions_v1_user_econsent_sign_create_[sign_econsent]
+      summary: Sign Econsent
+      parameters:
+      - in: path
+        name: econsent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignEConsentRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignEConsentRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignEConsentRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/econsent/{econsent_id}/withdraw:
+    post:
+      operationId: api_extensions_v1_user_econsent_withdraw_create_[withdraw_econsent]
+      summary: Withdraw Econsent
+      parameters:
+      - in: path
+        name: econsent_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawEConsentRequestBodyDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WithdrawEConsentRequestBodyDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WithdrawEConsentRequestBodyDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/fullconfiguration:
+    get:
+      operationId: api_extensions_v1_user_fullconfiguration_retrieve_[retrieve_full_configuration_for_user]
+      summary: Retrieve Full Configuration For User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveFullConfigurationResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/labels:
+    post:
+      operationId: api_extensions_v1_user_labels_create_[assign_user_labels]
+      summary: Assign User Labels
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUserRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUserRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUserRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/move/{target_deployment_id}:
+    post:
+      operationId: api_extensions_v1_user_move_create_[move_user]
+      description: 'Move user
+
+        Move a user to a different deployment.'
+      summary: Move User
+      parameters:
+      - in: path
+        name: target_deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveUserRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MoveUserRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MoveUserRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/move/ack/{acknowledge_id}:
+    put:
+      operationId: api_extensions_v1_user_move_ack_update_[acknowledge_move]
+      description: 'Acknowledge move user
+
+        Acknowledge the user''s move to a new deployment.'
+      summary: Acknowledge Move
+      parameters:
+      - in: path
+        name: acknowledge_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/move/history:
+    get:
+      operationId: api_extensions_v1_user_move_history_retrieve_[retrieve_move_user_history]
+      description: 'Retrieve move user history
+
+        Retrieve the move history of a user.'
+      summary: Retrieve Move User History
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMoveUserHistoryResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/offboard:
+    post:
+      operationId: api_extensions_v1_user_offboard_create_[off_board_user]
+      description: 'Offboard user
+
+        Offboard a user from a deployment.'
+      summary: Off Board User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/profiles/assigned:
+    get:
+      operationId: api_extensions_v1_user_profiles_assigned_retrieve_[retrieve_profiles_with_assigned_manager_with_user_id]
+      summary: Retrieve Profiles With Assigned Manager With User Id
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/proxy-invitations:
+    get:
+      operationId: api_extensions_v1_user_proxy_invitations_retrieve_[retrieve_proxy_invitations]
+      description: 'Retrieve proxy invitations
+
+        Retrieve all proxy invitations for a user.'
+      summary: Retrieve Proxy Invitations
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveProxyInvitationsResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reactivate:
+    post:
+      operationId: api_extensions_v1_user_reactivate_create_[reactivate_user]
+      description: 'Reactivate user
+
+        Reactivate a suspended user account.'
+      summary: Reactivate User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/remove-role:
+    post:
+      operationId: api_extensions_v1_user_remove_role_create_[remove_roles]
+      summary: Remove Roles
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddRolesInputDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/resources:
+    get:
+      operationId: api_extensions_v1_user_resources_retrieve_[retrieve_user_resources]
+      description: 'Retrieve user resources
+
+        Retrieve all resources available to a user.'
+      summary: Retrieve User Resources
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveUserResourcesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/unassign-proxy:
+    post:
+      operationId: api_extensions_v1_user_unassign_proxy_create_[unlink_proxy_user]
+      summary: Unlink Proxy User
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnlinkProxyRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UnlinkProxyRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UnlinkProxyRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/add-role:
+    post:
+      operationId: api_extensions_v1_user_add_role_create_[add_roles_to_users]
+      summary: Add Roles To Users
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRolesToUsersRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddRolesToUsersRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddRolesToUsersRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddRolesToUserResponseDRF'
+          description: ''
+  /api/extensions/v1/user/analytics:
+    post:
+      operationId: api_extensions_v1_user_analytics_create_[retrieve_analytics_url]
+      summary: Retrieve Analytics Url
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveAnalyticsUrlRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveAnalyticsUrlRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveAnalyticsUrlRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAnalyticsResponseDRF'
+          description: ''
+  /api/extensions/v1/user/assign:
+    post:
+      operationId: api_extensions_v1_user_assign_create_[assign_managers_to_users]
+      summary: Assign Managers To Users
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignManagersToUsersRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssignManagersToUsersRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssignManagersToUsersRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignUsersResponseDRF'
+          description: ''
+  /api/extensions/v1/user/labels:
+    post:
+      operationId: api_extensions_v1_user_labels_create_[assign_labels_to_users]
+      summary: Assign Labels To Users
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUsersRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUsersRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssignLabelsToUsersRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/lookup/{code}:
+    get:
+      operationId: api_extensions_v1_user_lookup_retrieve_[lookup_user_by_code]
+      description: 'Lookup user by code
+
+        Decode the provided code and return the user ID
+
+        and the deployment ID the user belongs to.'
+      summary: Lookup User By Code
+      parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileIdentifiersResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/move/users:
+    get:
+      operationId: api_extensions_v1_user_move_users_retrieve_[retrieve_moved_users]
+      description: 'Retrieve moved users
+
+        Retrieve a list of users who have been moved between deployments.'
+      summary: Retrieve Moved Users
+      parameters:
+      - in: query
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveProfilesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/offboard:
+    post:
+      operationId: api_extensions_v1_user_offboard_create_[offboard_users]
+      summary: Offboard Users
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OffBoardUsersRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OffBoardUsersRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OffBoardUsersRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffboardUsersResponseDRF'
+          description: ''
+  /api/extensions/v1/user/profiles:
+    post:
+      operationId: api_extensions_v1_user_profiles_create_[retrieve_user_profiles_v1]
+      summary: Retrieve User Profiles V1
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveProfilesRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveProfilesRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveProfilesRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveProfilesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/profiles/assigned:
+    get:
+      operationId: api_extensions_v1_user_profiles_assigned_retrieve_[retrieve_profiles_with_assigned_manager]
+      summary: Retrieve Profiles With Assigned Manager
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTODRF'
+          description: ''
+  /api/extensions/v1/user/reactivate:
+    post:
+      operationId: api_extensions_v1_user_reactivate_create_[reactivate_users]
+      summary: Reactivate Users
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReactivateUsersRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReactivateUsersRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReactivateUsersRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReactivateUsersResponseDRF'
+          description: ''
+  /api/extensions/v1/user/staff:
+    post:
+      operationId: api_extensions_v1_user_staff_create_[retrieve_staff_list]
+      summary: Retrieve Staff List
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveStaffRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveStaffRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveStaffRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTODRF'
+          description: ''
+  /api/extensions/v2/user/{user_id}/deployment/{deployment_id}/notes:
+    get:
+      operationId: api_extensions_v2_user_deployment_notes_retrieve_[retrieve_user_notes]
+      description: 'Retrieve user notes
+
+        Retrieve all notes for a user within a deployment, version 2.'
+      summary: Retrieve User Notes
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveUserNotesV2ResponseDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v2_user_deployment_notes_create_[add_user_notes]
+      description: 'Add user notes
+
+        Add a new note for a user within a deployment, version 2.'
+      summary: Add User Notes
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserNotesV2RequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddUserNotesV2RequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddUserNotesV2RequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    ExtraDRF:
+      type: object
+      properties:
+        sortPrimitiveName:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - moduleConfigId
+      - moduleId
+    OffBoardingReasonsDRF:
+      type: object
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReasonDRF'
+        otherReason:
+          type: boolean
+    UIWidgetDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        enabled:
+          type: boolean
+        config:
+          type: object
+          additionalProperties: {}
+        type:
+          type: string
+        id:
+          type: string
+      required:
+      - config
+      - order
+      - type
+    OrganizationDTODRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTODRF'
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        enrollmentTarget:
+          type: integer
+        studyCompletionTarget:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        viewType:
+          type: string
+        targetConsented:
+          type: integer
+        dashboardId:
+          type: string
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        intercom:
+          $ref: '#/components/schemas/IntercomSettingsDRF'
+        security:
+          type: object
+          additionalProperties: {}
+        pluginConfigContainerId:
+          type: string
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+    DeploymentStatsDRF:
+      type: object
+      properties:
+        completedCount:
+          $ref: '#/components/schemas/StatDRF'
+        completedTask:
+          $ref: '#/components/schemas/StatDRF'
+        consentedCount:
+          $ref: '#/components/schemas/StatDRF'
+        enrolledCount:
+          $ref: '#/components/schemas/StatDRF'
+        patientCount:
+          $ref: '#/components/schemas/StatDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+    UpdateUserProfileRequestDataDRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        familyName:
+          type: string
+        gender:
+          type: string
+        biologicalSex:
+          type: string
+        ethnicity:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date-time
+        calendarLink:
+          type: string
+        primaryAddress:
+          type: string
+        race:
+          type: string
+        bloodGroup:
+          type: string
+        emergencyPhoneNumber:
+          type: string
+        height:
+          type: number
+          format: double
+        additionalContactDetails:
+          $ref: '#/components/schemas/AdditionalContactDetailsDRF'
+        familyMedicalHistory:
+          type: string
+        pastHistory:
+          type: string
+        presentSymptoms:
+          type: string
+        operationHistory:
+          type: string
+        chronicIllness:
+          type: string
+        allergyHistory:
+          type: string
+        pregnancy:
+          type: string
+        dateOfLastPhysicalExam:
+          type: string
+          format: date-time
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/UserSurgeryDetailsDRF'
+        fenlandCohortId:
+          type: string
+        nhsId:
+          type: string
+        insuranceNumber:
+          type: string
+        wechatId:
+          type: string
+        kardiaId:
+          type: string
+        pamThirdPartyIdentifier:
+          type: string
+        medicalRecordNumber:
+          type: string
+        timezone:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLabelDRF'
+        tagsAuthorId:
+          type: string
+        surgeryDateTime:
+          type: string
+          format: date-time
+        preferences:
+          type: object
+          additionalProperties: {}
+        preferredUnits:
+          type: object
+          additionalProperties: {}
+        addressComponent:
+          $ref: '#/components/schemas/AddressObjectDRF'
+        language:
+          type: string
+        finishedOnboarding:
+          type: boolean
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        componentsData:
+          type: object
+          additionalProperties: {}
+        intercomHash:
+          type: string
+        managerNotifications:
+          $ref: '#/components/schemas/ManagerNotificationsDRF'
+        profilePicture:
+          $ref: '#/components/schemas/FileFieldDRF'
+        createdByManager:
+          type: boolean
+        unreadMessagesCount:
+          $ref: '#/components/schemas/UnreadMessagesCountDRF'
+        deviceName:
+          type: string
+    ModuleConfigDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        moduleId:
+          type: string
+        moduleName:
+          type: string
+        shortModuleName:
+          type: string
+        status:
+          type: string
+        order:
+          type: integer
+        configBody:
+          type: object
+          additionalProperties: {}
+        about:
+          type: string
+        footnote:
+          $ref: '#/components/schemas/FootnoteDRF'
+        schedule:
+          $ref: '#/components/schemas/ModuleScheduleDRF'
+        ragThresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/RagThresholdDRF'
+        learnArticleIds:
+          type: array
+          items:
+            type: string
+        learnArticles:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        version:
+          type: integer
+        staticEvent:
+          $ref: '#/components/schemas/StaticEventDRF'
+        notificationData:
+          $ref: '#/components/schemas/NotificationDataDRF'
+        localizationPrefix:
+          type: string
+        goal:
+          $ref: '#/components/schemas/ModuleGoalDTODRF'
+        goalEnabled:
+          type: boolean
+        feedback:
+          $ref: '#/components/schemas/FeedbackConfigDRF'
+        feedbackTexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackTextsDRF'
+        readOnly:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - moduleId
+    SurgeryDetailItemDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        order:
+          type: integer
+      required:
+      - key
+      - value
+    RecentFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    AssignManagersToUsersRequestDataDRF:
+      type: object
+      properties:
+        managerIds:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        allUsers:
+          type: boolean
+      required:
+      - managerIds
+    EConsentLogDTODRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        middleName:
+          type: string
+        familyName:
+          type: string
+        signature:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        sharingOption:
+          type: string
+        privacy:
+          type: boolean
+        feedback:
+          type: boolean
+        agreement:
+          type: boolean
+        additionalConsentAnswers:
+          type: object
+          additionalProperties: {}
+        consentOption:
+          type: string
+        id:
+          type: string
+        userId:
+          type: string
+        consentId:
+          type: string
+        revision:
+          type: integer
+        createDateTime:
+          type: string
+          format: date-time
+        deploymentId:
+          type: string
+        econsentId:
+          type: string
+        pdfLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        endDateTime:
+          type: string
+          format: date-time
+      required:
+      - deploymentId
+      - userId
+    UserStatsDRF:
+      type: object
+      properties:
+        taskCompliance:
+          $ref: '#/components/schemas/TaskComplianceDRF'
+        studyProgress:
+          $ref: '#/components/schemas/StudyProgressDRF'
+    FeaturesDRF:
+      type: object
+      properties:
+        appMenu:
+          type: array
+          items:
+            type: string
+        appointment:
+          type: boolean
+        carePlanDailyAdherence:
+          type: boolean
+        offBoarding:
+          type: boolean
+        personalDocuments:
+          type: boolean
+        patientPersonalization:
+          $ref: '#/components/schemas/PatientPersonalizationDRF'
+        proxy:
+          type: boolean
+        surgeryDateRule:
+          $ref: '#/components/schemas/SurgeryDateRuleDRF'
+        labels:
+          type: boolean
+        portal:
+          type: object
+          additionalProperties: {}
+        offBoardingReasons:
+          $ref: '#/components/schemas/OffBoardingReasonsDRF'
+        moveUserReasons:
+          $ref: '#/components/schemas/MoveUserReasonsDRF'
+        messaging:
+          $ref: '#/components/schemas/MessagingDRF'
+        hideAppSupport:
+          type: boolean
+        summaryReport:
+          $ref: '#/components/schemas/SummaryReportDRF'
+        linkInvites:
+          type: boolean
+        classB:
+          type: boolean
+        deviceIntegration:
+          $ref: '#/components/schemas/DeviceIntegrationDRF'
+        customAppConfig:
+          type: object
+          additionalProperties: {}
+        improvedOnboarding:
+          type: boolean
+        timeline:
+          type: boolean
+        profilePicture:
+          type: boolean
+        unitsIsHidden:
+          type: boolean
+        dataDownloadIsHidden:
+          type: boolean
+        labelIsHidden:
+          type: boolean
+        ifuIsHidden:
+          type: boolean
+        videoAdapter:
+          type: string
+        mealBasedModules:
+          type: array
+          items:
+            type: string
+        email:
+          $ref: '#/components/schemas/EmailConfigDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    SsoDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        org:
+          type: string
+        info:
+          $ref: '#/components/schemas/SsoInfoDRF'
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    UserMoveHistoryDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        submitterName:
+          type: string
+        surgeryDate:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        resourceId:
+          type: string
+        resourceName:
+          type: string
+        targetResourceId:
+          type: string
+        details:
+          $ref: '#/components/schemas/MoveUserDetailsDRF'
+        offBoardingDetails:
+          $ref: '#/components/schemas/BoardingStatusDRF'
+        isAcknowledged:
+          type: boolean
+      required:
+      - details
+    SurgeryDetailsDRF:
+      type: object
+      properties:
+        operationType:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+        implantType:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+        roboticAssistance:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+    RetrieveUserNotesV2ResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserNoteDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+    CreateHelperAgreementLogRequestDataDRF:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+      - status
+    PAMIntegrationConfigDRF:
+      type: object
+      properties:
+        submitSurveyURI:
+          type: string
+        enrollUserURI:
+          type: string
+        clientExtID:
+          type: string
+        clientPassKeyEncrypted:
+          type: string
+        subgroupExtID:
+          type: string
+      required:
+      - clientExtID
+      - clientPassKeyEncrypted
+      - enrollUserURI
+      - subgroupExtID
+      - submitSurveyURI
+    AddUserNotesV2RequestDataDRF:
+      type: object
+      properties:
+        note:
+          type: string
+        type:
+          type: string
+      required:
+      - note
+    UserNoteDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        submitterId:
+          type: string
+        submitterName:
+          type: string
+        note:
+          type: string
+        moduleConfigId:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        questionnaireId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        seenResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeenResultDataDRF'
+        resultsSeenFrom:
+          type: string
+          format: date-time
+        resultsSeenTo:
+          type: string
+          format: date-time
+    ProfileIdentifiersResponseObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - deploymentId
+      - userId
+    UnseenFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    ManagerNotificationsDRF:
+      type: object
+      properties:
+        demographicsChange:
+          type: boolean
+    UITabDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        id:
+          type: string
+        screenId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        status:
+          type: string
+        background:
+          $ref: '#/components/schemas/BackgroundDRF'
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIWidgetDRF'
+        extras:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - background
+      - icon
+      - name
+      - order
+      - status
+    SortParametersDRF:
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: string
+        extra:
+          $ref: '#/components/schemas/ExtraDRF'
+        order:
+          type: string
+    DeploymentLevelConfigurationDRF:
+      type: object
+      properties:
+        targetConsentedMonthly:
+          type: integer
+        targetConsented:
+          type: integer
+        day0Anchor:
+          type: string
+        targetCompleted:
+          type: integer
+    DeviceIntegrationDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    IntercomSettingsDRF:
+      type: object
+      properties:
+        appId:
+          type: string
+        webSecretKey:
+          type: string
+        androidSecretKey:
+          type: string
+        iosSecretKey:
+          type: string
+    FileFieldDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    UserLabelDRF:
+      type: object
+      properties:
+        labelId:
+          type: string
+        assignedBy:
+          type: string
+        assignDateTime:
+          type: string
+          format: date-time
+    AssignUsersResponseDRF:
+      type: object
+      properties:
+        assignedUsers:
+          type: integer
+    AddRolesToUsersRequestDataDRF:
+      type: object
+      properties:
+        userIds:
+          type: array
+          items:
+            type: string
+        allUsers:
+          type: boolean
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+      required:
+      - roles
+    AssignLabelsToUserRequestDataDRF:
+      type: object
+      properties:
+        labelIds:
+          type: array
+          items:
+            type: string
+      required:
+      - labelIds
+    ReactivateUsersRequestDataDRF:
+      type: object
+      properties:
+        userIds:
+          type: array
+          items:
+            type: string
+      required:
+      - userIds
+    PeriodProgressDRF:
+      type: object
+      properties:
+        taskCompliance:
+          type: number
+          format: double
+        startDateTime:
+          type: string
+          format: date-time
+        openQueriesAmount:
+          type: integer
+        passedDueDateFormsAmount:
+          type: integer
+        passedDatesCounter:
+          type: array
+          items:
+            $ref: '#/components/schemas/PassedDueDateEventsAmountDRF'
+    LabelDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        authorId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        isStatic:
+          type: boolean
+        operations:
+          type: array
+          items:
+            type: string
+    AddRolesToUserResponseDRF:
+      type: object
+      properties:
+        updatedUsers:
+          type: integer
+    RetrieveFullConfigurationResponseObjectDRF:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationDTODRF'
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentConfigDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationRoleDRF'
+      required:
+      - deployments
+      - organizations
+    BackgroundDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - value
+    PassedDueDateEventsAmountDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+        amount:
+          type: integer
+    SdkConfigDRF:
+      type: object
+      properties:
+        sdkApiUrl:
+          type: string
+        accessKey:
+          type: string
+        secretKey:
+          type: string
+        teamId:
+          type: string
+        partnerId:
+          type: string
+    ThresholdRangeDRF:
+      type: object
+      properties:
+        minValue:
+          type: number
+          format: double
+        maxValue:
+          type: number
+          format: double
+        exactValueStr:
+          type: string
+    OffboardUsersResponseDRF:
+      type: object
+      properties:
+        offboardedUsers:
+          type: integer
+    IntegrationDeviceDRF:
+      type: object
+      properties:
+        model:
+          type: string
+        modelName:
+          type: string
+        displayName:
+          type: string
+        manufacturer:
+          $ref: '#/components/schemas/DeviceManufacturerDRF'
+        moduleIds:
+          type: array
+          items:
+            type: string
+        backgroundSync:
+          type: boolean
+        supportedMedications:
+          type: object
+          additionalProperties: {}
+      required:
+      - manufacturer
+      - model
+    KeyActionConfigDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        deltaFromTriggerTime:
+          type: string
+        durationFromTrigger:
+          type: string
+        durationIso:
+          type: string
+        instanceExpiresIn:
+          type: string
+        type:
+          type: string
+        trigger:
+          type: string
+        notifyEvery:
+          type: string
+        numberOfNotifications:
+          type: integer
+        learnArticleId:
+          type: string
+        learnArticle:
+          type: object
+          additionalProperties: {}
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - deltaFromTriggerTime
+      - durationIso
+      - trigger
+      - type
+    SsoInfoDRF:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        discoveryUrl:
+          type: string
+        redirectUri:
+          type: string
+        xmlsecBinary:
+          type: string
+        entityid:
+          type: string
+        service:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+        keyFile:
+          type: string
+        certFile:
+          type: string
+        encryptionKeypairs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        organization:
+          type: object
+          additionalProperties: {}
+        contactPerson:
+          type: object
+          additionalProperties: {}
+        certificateCrt:
+          type: string
+        samlMetadataXml:
+          type: string
+        privateKey:
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      - discoveryUrl
+      - redirectUri
+    SignConsentRequestDataDRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        middleName:
+          type: string
+        familyName:
+          type: string
+        signature:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        sharingOption:
+          type: string
+        privacy:
+          type: boolean
+        feedback:
+          type: boolean
+        agreement:
+          type: boolean
+        additionalConsentAnswers:
+          type: object
+          additionalProperties: {}
+    BuilderDRF:
+      type: object
+      properties:
+        tabs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UITabDRF'
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
+    UnlinkProxyRequestDataDRF:
+      type: object
+      properties:
+        proxyId:
+          type: string
+      required:
+      - proxyId
+    PatientPersonalizationDRF:
+      type: object
+      properties:
+        rag:
+          type: boolean
+        goal:
+          type: boolean
+    EmailTemplateDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        subject:
+          type: string
+        template:
+          type: string
+      required:
+      - name
+      - template
+    DeviceManufacturerDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        sdkKey:
+          type: string
+        sdkConfig:
+          $ref: '#/components/schemas/SdkConfigDRF'
+      required:
+      - name
+    RetrieveProfilesRequestDataDRF:
+      type: object
+      properties:
+        sort:
+          $ref: '#/components/schemas/SortParametersDRF'
+        skip:
+          type: integer
+        limit:
+          type: integer
+        search:
+          type: string
+        role:
+          type: string
+        patientIdentifiersOnly:
+          type: boolean
+        patientDataOnly:
+          type: boolean
+        clean:
+          type: boolean
+        managerId:
+          type: string
+        filters:
+          type: object
+          additionalProperties: {}
+        hash:
+          type: string
+        unassignedPatients:
+          type: boolean
+        deploymentIds:
+          type: array
+          items:
+            type: string
+    ConsentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        enabled:
+          type: string
+        review:
+          $ref: '#/components/schemas/ConsentReviewDRF'
+        revision:
+          type: integer
+        additionalConsentQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
+        signature:
+          $ref: '#/components/schemas/ConsentSignatureDRF'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionDRF'
+        instituteName:
+          type: string
+        instituteFullName:
+          type: string
+        instituteTextDetails:
+          type: string
+        admissionText:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - enabled
+    DeploymentInfoDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        draftId:
+          type: string
+        status:
+          type: string
+      required:
+      - id
+      - name
+    AdditionalContactDetailsDRF:
+      type: object
+      properties:
+        altContactNumber:
+          type: string
+        regularContactName:
+          type: string
+        regularContactNumber:
+          type: string
+        emergencyContactName:
+          type: string
+        emergencyContactNumber:
+          type: string
+    AssignLabelsToUsersRequestDataDRF:
+      type: object
+      properties:
+        labelIds:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+      required:
+      - labelIds
+      - userIds
+    TaskComplianceDRF:
+      type: object
+      properties:
+        current:
+          type: integer
+        total:
+          type: integer
+        due:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        percentage:
+          type: integer
+    DeploymentConfigDRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTODRF'
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+        draftId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        color:
+          type: string
+        icon:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        iconFileId:
+          type: string
+        templateThumbnailFileId:
+          type: string
+        descriptionUrl:
+          type: string
+        isSaMD:
+          type: boolean
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        moduleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfigDRF'
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        learn:
+          $ref: '#/components/schemas/LearnDRF'
+        consent:
+          $ref: '#/components/schemas/ConsentDRF'
+        econsent:
+          $ref: '#/components/schemas/EConsentDRF'
+        keyActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyActionConfigDRF'
+        keyActionsEnabled:
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/ProfileDRF'
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/SurgeryDetailsDRF'
+        contactUsURL:
+          type: string
+        version:
+          type: integer
+        integration:
+          $ref: '#/components/schemas/IntegrationConfigDRF'
+        language:
+          type: string
+        duration:
+          type: string
+        security:
+          $ref: '#/components/schemas/SecurityDRF'
+        mfaRequired:
+          type: boolean
+        code:
+          type: string
+        enrollmentCounter:
+          type: integer
+        staticEventConfig:
+          $ref: '#/components/schemas/StaticEventConfigDRF'
+        stats:
+          $ref: '#/components/schemas/DeploymentStatsDRF'
+        country:
+          type: string
+        dashboardConfiguration:
+          $ref: '#/components/schemas/DeploymentLevelConfigurationDRF'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelDRF'
+        tags:
+          type: array
+          items:
+            type: string
+        location:
+          $ref: '#/components/schemas/LocationDRF'
+        integrationDevices:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDeviceDRF'
+        componentConfigs:
+          type: object
+          additionalProperties: {}
+        defaultUnits:
+          type: object
+          additionalProperties: {}
+        builder:
+          $ref: '#/components/schemas/BuilderDRF'
+        programId:
+          type: integer
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        deploymentId:
+          type: string
+        instructionsForUseUrl:
+          type: string
+        eLabelTemplateUrl:
+          type: string
+    MoveUserReasonsDRF:
+      type: object
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReasonDRF'
+        otherReason:
+          type: boolean
+    AuthorisedRepDRF:
+      type: object
+      properties:
+        iconObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        addressTitle:
+          type: string
+        address:
+          type: string
+        showBuildNumber:
+          type: boolean
+      required:
+      - address
+      - addressTitle
+      - iconObject
+      - showBuildNumber
+    StaticEventDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        isoDuration:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - enabled
+      - title
+    SecurityDRF:
+      type: object
+      properties:
+        mfaRequired:
+          type: boolean
+        appLockRequired:
+          type: boolean
+      required:
+      - appLockRequired
+      - mfaRequired
+    OffBoardUsersRequestDataDRF:
+      type: object
+      properties:
+        userIds:
+          type: array
+          items:
+            type: string
+        detailsOffBoarded:
+          type: string
+      required:
+      - detailsOffBoarded
+      - userIds
+    FootnoteDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        text:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    OnboardingModuleConfigDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        preloadNeeded:
+          type: boolean
+        status:
+          type: string
+        configBody:
+          type: object
+          additionalProperties: {}
+        order:
+          type: integer
+        version:
+          type: integer
+        versionString:
+          type: string
+        userTypes:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        reason:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        versionInt:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - onboardingId
+      - order
+    FeedbackTextsDRF:
+      type: object
+      properties:
+        groupedBy:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    GenderOptionTypeDRF:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - value
+    StudyProgressDRF:
+      type: object
+      properties:
+        currentPeriod:
+          type: integer
+        totalPeriods:
+          type: integer
+        totalCompliance:
+          type: number
+          format: double
+        periodProgress:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodProgressDRF'
+        totalOpenQueriesAmount:
+          type: integer
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    SummaryReportDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    UnreadMessagesCountDRF:
+      type: object
+      properties:
+        manager:
+          type: integer
+        user:
+          type: integer
+    ConsentSignatureDRF:
+      type: object
+      properties:
+        signatureTitle:
+          type: string
+        signatureDetails:
+          type: string
+        nameTitle:
+          type: string
+        nameDetails:
+          type: string
+        hasMiddleName:
+          type: boolean
+        showFirstLastName:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - nameDetails
+      - nameTitle
+      - signatureDetails
+      - signatureTitle
+    RetrieveAnalyticsResponseDRF:
+      type: object
+      properties:
+        iframeUrl:
+          type: string
+    WithdrawEConsentRequestBodyDRF:
+      type: object
+      properties:
+        logId:
+          type: string
+      required:
+      - logId
+    RetrieveProxyInvitationsResponseObjectDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        proxy:
+          $ref: '#/components/schemas/ProxyDataDRF'
+        invitationId:
+          type: string
+      required:
+      - status
+    AdditionalConsentQuestionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        enabled:
+          type: string
+        format:
+          type: string
+        text:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - enabled
+      - format
+      - text
+      - type
+    AddRolesInputDRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - resource
+      - roleId
+    MessagingDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        twoWayMessaging:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: string
+        allowCustomMessage:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    ModuleGoalCreatedByDRF:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        creatorName:
+          type: string
+    RetrieveDeploymentConfigResponseObjectDRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTODRF'
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+        id:
+          type: string
+        draftId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        color:
+          type: string
+        icon:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        iconFileId:
+          type: string
+        templateThumbnailFileId:
+          type: string
+        descriptionUrl:
+          type: string
+        isSaMD:
+          type: boolean
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        moduleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfigDRF'
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        learn:
+          $ref: '#/components/schemas/LearnDRF'
+        consent:
+          $ref: '#/components/schemas/ConsentDRF'
+        econsent:
+          $ref: '#/components/schemas/EConsentDRF'
+        keyActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyActionConfigDRF'
+        keyActionsEnabled:
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/ProfileDRF'
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/SurgeryDetailsDRF'
+        contactUsURL:
+          type: string
+        version:
+          type: integer
+        integration:
+          $ref: '#/components/schemas/IntegrationConfigDRF'
+        language:
+          type: string
+        duration:
+          type: string
+        security:
+          $ref: '#/components/schemas/SecurityDRF'
+        mfaRequired:
+          type: boolean
+        code:
+          type: string
+        enrollmentCounter:
+          type: integer
+        staticEventConfig:
+          $ref: '#/components/schemas/StaticEventConfigDRF'
+        stats:
+          $ref: '#/components/schemas/DeploymentStatsDRF'
+        localizations:
+          type: object
+          additionalProperties: {}
+        country:
+          type: string
+        dashboardConfiguration:
+          $ref: '#/components/schemas/DeploymentLevelConfigurationDRF'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelDRF'
+        tags:
+          type: array
+          items:
+            type: string
+        location:
+          $ref: '#/components/schemas/LocationDRF'
+        integrationDevices:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDeviceDRF'
+        componentConfigs:
+          type: object
+          additionalProperties: {}
+        defaultUnits:
+          type: object
+          additionalProperties: {}
+        builder:
+          $ref: '#/components/schemas/BuilderDRF'
+        programId:
+          type: integer
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        deploymentId:
+          type: string
+        consentNeeded:
+          type: boolean
+        eConsentNeeded:
+          type: boolean
+        nextOnboardingTaskId:
+          type: string
+        isOffBoarded:
+          type: boolean
+        instructionsForUseUrl:
+          type: string
+        eLabelTemplateUrl:
+          type: string
+        deploymentLanguages:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+    LocationDRF:
+      type: object
+      properties:
+        address:
+          type: string
+        country:
+          type: string
+        countryCode:
+          type: string
+        city:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        postalCode:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+    ReasonDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        displayName:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - order
+    EmailConfigDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailTemplateDRF'
+    RagThresholdDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        severity:
+          type: integer
+        thresholdRange:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThresholdRangeDRF'
+        color:
+          type: string
+        fieldName:
+          type: string
+        enabled:
+          type: boolean
+        mealGroup:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - color
+      - enabled
+      - fieldName
+      - severity
+      - thresholdRange
+      - type
+    MovedUserDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        lastSubmitDateTime:
+          type: string
+          format: date-time
+        givenName:
+          type: string
+        familyName:
+          type: string
+        gender:
+          type: string
+        biologicalSex:
+          type: string
+        ethnicity:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date-time
+        email:
+          type: string
+        calendarLink:
+          type: string
+        phoneNumber:
+          type: string
+        primaryAddress:
+          type: string
+        race:
+          type: string
+        bloodGroup:
+          type: string
+        emergencyPhoneNumber:
+          type: string
+        height:
+          type: number
+          format: double
+        additionalContactDetails:
+          $ref: '#/components/schemas/AdditionalContactDetailsDRF'
+        familyMedicalHistory:
+          type: string
+        pastHistory:
+          type: string
+        presentSymptoms:
+          type: string
+        operationHistory:
+          type: string
+        chronicIllness:
+          type: string
+        allergyHistory:
+          type: string
+        pregnancy:
+          type: string
+        dateOfLastPhysicalExam:
+          type: string
+          format: date-time
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/UserSurgeryDetailsDRF'
+        fenlandCohortId:
+          type: string
+        nhsId:
+          type: string
+        insuranceNumber:
+          type: string
+        wechatId:
+          type: string
+        kardiaId:
+          type: string
+        pamThirdPartyIdentifier:
+          type: string
+        medicalRecordNumber:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+        timezone:
+          type: string
+        recentModuleResults:
+          type: object
+          additionalProperties: {}
+        tags:
+          type: object
+          additionalProperties: {}
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLabelDRF'
+        tagsAuthorId:
+          type: string
+        surgeryDateTime:
+          type: string
+          format: date-time
+        preferences:
+          type: object
+          additionalProperties: {}
+        preferredUnits:
+          type: object
+          additionalProperties: {}
+        addressComponent:
+          $ref: '#/components/schemas/AddressObjectDRF'
+        personalDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalDocumentDRF'
+        enrollmentId:
+          type: integer
+        enrollmentNumber:
+          type: string
+        deployments:
+          type: array
+          items:
+            type: string
+        deploymentsInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentInfoDRF'
+        boardingStatus:
+          $ref: '#/components/schemas/BoardingStatusDRF'
+        language:
+          type: string
+        finishedOnboarding:
+          type: boolean
+        stats:
+          $ref: '#/components/schemas/UserStatsDRF'
+        ragScore:
+          type: array
+          items:
+            type: integer
+        flags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        unseenFlags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        recentFlags:
+          $ref: '#/components/schemas/RecentFlagsDRF'
+        lastLoginDateTime:
+          type: string
+          format: date-time
+        badges:
+          type: object
+          additionalProperties: {}
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        researchTeamActions:
+          $ref: '#/components/schemas/ResearchTeamActionsDRF'
+        hasAssignedManagers:
+          type: boolean
+        componentsData:
+          type: object
+          additionalProperties: {}
+        contactEmail:
+          type: string
+        assignedManagers:
+          type: array
+          items:
+            type: string
+        assignedProxies:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedParticipants:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedUsersCount:
+          type: integer
+        proxyStatus:
+          type: string
+        status:
+          type: string
+        ragThresholds:
+          type: object
+          additionalProperties: {}
+        intercomHash:
+          type: string
+        managerNotifications:
+          $ref: '#/components/schemas/ManagerNotificationsDRF'
+        profilePicture:
+          $ref: '#/components/schemas/FileFieldDRF'
+        createdByManager:
+          type: boolean
+        unreadMessagesCount:
+          $ref: '#/components/schemas/UnreadMessagesCountDRF'
+        userId:
+          type: string
+        moveHistory:
+          $ref: '#/components/schemas/UserMoveHistoryDTODRF'
+    SeverityFilterDRF:
+      type: object
+      properties:
+        severity:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - severity
+      - tags
+    RetrieveUserResourcesResponseObjectDRF:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationDTODRF'
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentDTODRF'
+    SeenResultDataDRF:
+      type: object
+      properties:
+        primitiveName:
+          type: string
+        primitiveId:
+          type: string
+        moduleConfigId:
+          type: string
+        seenFrom:
+          type: string
+          format: date-time
+        seenTo:
+          type: string
+          format: date-time
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    ResearchTeamActionsDRF:
+      type: object
+      properties:
+        forms:
+          type: array
+          items:
+            type: string
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    ConsentReviewDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        details:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - details
+      - title
+    LinkProxyUserResponseObjectDRF:
+      type: object
+      properties:
+        proxyId:
+          type: string
+      required:
+      - proxyId
+    SurgeryDetailDRF:
+      type: object
+      properties:
+        displayString:
+          type: string
+        placeHolder:
+          type: string
+        order:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgeryDetailItemDRF'
+      required:
+      - displayString
+      - placeHolder
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    DeploymentDTODRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTODRF'
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+        id:
+          type: string
+        draftId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        color:
+          type: string
+        icon:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        iconFileId:
+          type: string
+        templateThumbnailFileId:
+          type: string
+        descriptionUrl:
+          type: string
+        isSaMD:
+          type: boolean
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        moduleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfigDRF'
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        learn:
+          $ref: '#/components/schemas/LearnDRF'
+        consent:
+          $ref: '#/components/schemas/ConsentDRF'
+        econsent:
+          $ref: '#/components/schemas/EConsentDRF'
+        keyActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyActionConfigDRF'
+        keyActionsEnabled:
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/ProfileDRF'
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/SurgeryDetailsDRF'
+        contactUsURL:
+          type: string
+        version:
+          type: integer
+        integration:
+          $ref: '#/components/schemas/IntegrationConfigDRF'
+        language:
+          type: string
+        duration:
+          type: string
+        security:
+          $ref: '#/components/schemas/SecurityDRF'
+        mfaRequired:
+          type: boolean
+        code:
+          type: string
+        enrollmentCounter:
+          type: integer
+        staticEventConfig:
+          $ref: '#/components/schemas/StaticEventConfigDRF'
+        stats:
+          $ref: '#/components/schemas/DeploymentStatsDRF'
+        localizations:
+          type: object
+          additionalProperties: {}
+        country:
+          type: string
+        dashboardConfiguration:
+          $ref: '#/components/schemas/DeploymentLevelConfigurationDRF'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelDRF'
+        tags:
+          type: array
+          items:
+            type: string
+        location:
+          $ref: '#/components/schemas/LocationDRF'
+        integrationDevices:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDeviceDRF'
+        componentConfigs:
+          type: object
+          additionalProperties: {}
+        defaultUnits:
+          type: object
+          additionalProperties: {}
+        builder:
+          $ref: '#/components/schemas/BuilderDRF'
+        programId:
+          type: integer
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    LinkProxyRequestDataDRF:
+      type: object
+      properties:
+        proxyEmail:
+          type: string
+      required:
+      - proxyEmail
+    ClinicianOnlyFieldsDRF:
+      type: object
+      properties:
+        surgeryDateTime:
+          type: boolean
+    ProfileFieldsDRF:
+      type: object
+      properties:
+        givenName:
+          type: boolean
+        familyName:
+          type: boolean
+        dateOfBirth:
+          type: boolean
+        height:
+          type: boolean
+        gender:
+          type: boolean
+        biologicalSex:
+          type: boolean
+        race:
+          type: boolean
+        ethnicity:
+          type: boolean
+        ethnicityOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EthnicityOptionDRF'
+        additionalContactDetails:
+          $ref: '#/components/schemas/AdditionalContactDetailsItemDRF'
+        mandatoryOnboardingFields:
+          type: array
+          items:
+            type: string
+        extraIds:
+          $ref: '#/components/schemas/ProfileExtraIdsDRF'
+        genderOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenderOptionTypeDRF'
+        bloodGroup:
+          type: boolean
+        phoneNumber:
+          type: boolean
+        email:
+          type: boolean
+        primaryAddress:
+          type: boolean
+        emergencyPhoneNumber:
+          type: boolean
+        familyMedicalHistory:
+          type: boolean
+        pastHistory:
+          type: boolean
+        presentSymptoms:
+          type: boolean
+        operationHistory:
+          type: boolean
+        chronicIllness:
+          type: boolean
+        allergyHistory:
+          type: boolean
+        pregnancy:
+          type: boolean
+        dateOfLastPhysicalExam:
+          type: boolean
+        unEditableFields:
+          type: array
+          items:
+            type: string
+        validators:
+          type: object
+          additionalProperties: {}
+        ordering:
+          type: array
+          items:
+            type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        ExcludedFromOrderingFields:
+          type: array
+          items:
+            type: string
+          title: ' excluded from ordering fields'
+    IntegrationConfigDRF:
+      type: object
+      properties:
+        pamConfig:
+          $ref: '#/components/schemas/PAMIntegrationConfigDRF'
+    ProfileExtraIdsDRF:
+      type: object
+      properties:
+        fenlandCohortId:
+          type: boolean
+        nhsId:
+          type: boolean
+        insuranceNumber:
+          type: boolean
+        wechatId:
+          type: boolean
+        aliveCorId:
+          type: boolean
+        medicalRecordNumber:
+          type: boolean
+        mandatoryOnboardingIds:
+          type: array
+          items:
+            type: string
+        unEditableIds:
+          type: array
+          items:
+            type: string
+    RetrieveStaffRequestDataDRF:
+      type: object
+      properties:
+        sort:
+          $ref: '#/components/schemas/SortParametersDRF'
+        deploymentId:
+          type: string
+        nameContains:
+          type: string
+        limit:
+          type: integer
+        skip:
+          type: integer
+        organizationId:
+          type: string
+    AdditionalContactDetailsItemDRF:
+      type: object
+      properties:
+        altContactNumber:
+          type: boolean
+        regularContactName:
+          type: boolean
+        regularContactNumber:
+          type: boolean
+        emergencyContactName:
+          type: boolean
+        emergencyContactNumber:
+          type: boolean
+        mandatoryFields:
+          type: array
+          items:
+            type: string
+    StaticEventConfigDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        preview:
+          type: string
+      required:
+      - description
+      - title
+    ConfigurationRoleDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        userType:
+          type: string
+        isThirdParty:
+          type: boolean
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+    StatDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        unit:
+          type: string
+      required:
+      - value
+    ModuleScheduleDRF:
+      type: object
+      properties:
+        isoDuration:
+          type: string
+        timesPerDuration:
+          type: integer
+        friendlyText:
+          type: string
+        timesOfDay:
+          type: array
+          items:
+            type: string
+        timesOfReadings:
+          type: array
+          items:
+            type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+    LearnSectionDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        order:
+          type: integer
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearnArticleDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    CreatePersonalDocumentRequestDataDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        fileType:
+          type: string
+        fileObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+      required:
+      - fileObject
+      - fileType
+      - name
+    BoardingStatusDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        reasonOffBoarded:
+          type: string
+        detailsOffBoarded:
+          type: string
+      required:
+      - status
+    EConsentSectionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+        reviewDetails:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        contentType:
+          type: string
+        thumbnailUrl:
+          type: string
+        thumbnailLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        videoUrl:
+          type: string
+        videoLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+      required:
+      - contentType
+      - type
+    LearnDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearnSectionDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    ProfileDRF:
+      type: object
+      properties:
+        fields:
+          $ref: '#/components/schemas/ProfileFieldsDRF'
+        clinicianOnlyFields:
+          $ref: '#/components/schemas/ClinicianOnlyFieldsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    RetrieveAnalyticsUrlRequestObjectDRF:
+      type: object
+      properties:
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        organizationIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        analyticsDashboard:
+          type: string
+      required:
+      - endDate
+      - startDate
+    MoveUserRequestDataDRF:
+      type: object
+      properties:
+        details:
+          $ref: '#/components/schemas/MoveUserDetailsDRF'
+      required:
+      - details
+    FeedbackConfigDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        upperBound:
+          type: integer
+        lowerBound:
+          type: integer
+        query:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        cmsContentIds:
+          type: array
+          items:
+            type: string
+        severityFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeverityFilterDRF'
+        variabilityFilter:
+          $ref: '#/components/schemas/VariabilityFilterDRF'
+        feedbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedBacksGroupedByRagDRF'
+      required:
+      - enabled
+    FeedBacksGroupedByRagDRF:
+      type: object
+      properties:
+        rag:
+          type: array
+          items:
+            type: string
+        texts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackTextDRF'
+      required:
+      - rag
+      - texts
+    ConsentSectionOptionsDRF:
+      type: object
+      properties:
+        type:
+          type: integer
+        text:
+          type: string
+        order:
+          type: integer
+        abortOnChoose:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - text
+      - type
+    ConsentSectionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+        reviewDetails:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - type
+    ReactivateUsersResponseDRF:
+      type: object
+      properties:
+        reactivatedUsers:
+          type: integer
+    PersonalDocumentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fileType:
+          type: string
+        fileObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - fileObject
+      - fileType
+      - name
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    RoleDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        userType:
+          type: string
+        isThirdParty:
+          type: boolean
+    MoveUserDetailsDRF:
+      type: object
+      properties:
+        reason:
+          type: string
+        situation:
+          type: string
+        background:
+          type: string
+        assessment:
+          type: string
+        message:
+          type: string
+        recommendation:
+          type: string
+      required:
+      - assessment
+      - background
+      - message
+      - reason
+      - situation
+    ProxyDataDRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        familyName:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+    ClearUserProfileDataRequestDataDRF:
+      type: object
+      properties:
+        fieldsToRemove:
+          type: array
+          items:
+            type: string
+      required:
+      - fieldsToRemove
+    SurgeryDateRuleDRF:
+      type: object
+      properties:
+        maxPastRange:
+          type: string
+        maxFutureRange:
+          type: string
+    RetrieveMoveUserHistoryResponseObjectDRF:
+      type: object
+      properties:
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserMoveHistoryDTODRF'
+    EConsentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        enabled:
+          type: string
+        review:
+          $ref: '#/components/schemas/ConsentReviewDRF'
+        revision:
+          type: integer
+        additionalConsentQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
+        signature:
+          $ref: '#/components/schemas/ConsentSignatureDRF'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/EConsentSectionDRF'
+        instituteName:
+          type: string
+        instituteFullName:
+          type: string
+        instituteTextDetails:
+          type: string
+        admissionText:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        title:
+          type: string
+        overviewText:
+          type: string
+        contactText:
+          type: string
+      required:
+      - contactText
+      - enabled
+      - overviewText
+      - sections
+      - title
+    RetrieveProfilesResponseObjectDRF:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/MovedUserDRF'
+        filtered:
+          type: integer
+        total:
+          type: integer
+      required:
+      - filtered
+      - total
+      - users
+    NotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    RoleAssignmentDTODRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - resource
+      - roleId
+    UserSurgeryDetailsDRF:
+      type: object
+      properties:
+        operationType:
+          type: string
+        implantType:
+          type: string
+        roboticAssistance:
+          type: string
+    LearnArticleDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        thumbnailUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        order:
+          type: integer
+        content:
+          $ref: '#/components/schemas/LearnArticleContentDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - content
+      - type
+    EthnicityOptionDRF:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - value
+    VariabilityFilterDRF:
+      type: object
+      properties:
+        increased:
+          type: array
+          items:
+            type: string
+        decreased:
+          type: array
+          items:
+            type: string
+        noChange:
+          type: array
+          items:
+            type: string
+        unavailable:
+          type: array
+          items:
+            type: string
+    LearnArticleContentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        cmsArticleId:
+          type: string
+        cmsThumbnail:
+          type: string
+        type:
+          type: string
+        timeToRead:
+          type: string
+        textDetails:
+          type: string
+        videoUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        url:
+          type: string
+        contentObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        read:
+          type: boolean
+        isValid:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - type
+    ModuleGoalDTODRF:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        notes:
+          type: string
+        completed:
+          type: boolean
+        dateOfCompletion:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/ModuleGoalCreatedByDRF'
+        createDateTime:
+          type: string
+          format: date-time
+        seenByApp:
+          type: boolean
+        seenByCPAfterCompletion:
+          type: boolean
+        achieveNotificationSent:
+          type: boolean
+    UserDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        lastSubmitDateTime:
+          type: string
+          format: date-time
+        givenName:
+          type: string
+        familyName:
+          type: string
+        gender:
+          type: string
+        biologicalSex:
+          type: string
+        ethnicity:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date-time
+        email:
+          type: string
+        calendarLink:
+          type: string
+        phoneNumber:
+          type: string
+        primaryAddress:
+          type: string
+        race:
+          type: string
+        bloodGroup:
+          type: string
+        emergencyPhoneNumber:
+          type: string
+        height:
+          type: number
+          format: double
+        additionalContactDetails:
+          $ref: '#/components/schemas/AdditionalContactDetailsDRF'
+        familyMedicalHistory:
+          type: string
+        pastHistory:
+          type: string
+        presentSymptoms:
+          type: string
+        operationHistory:
+          type: string
+        chronicIllness:
+          type: string
+        allergyHistory:
+          type: string
+        pregnancy:
+          type: string
+        dateOfLastPhysicalExam:
+          type: string
+          format: date-time
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/UserSurgeryDetailsDRF'
+        fenlandCohortId:
+          type: string
+        nhsId:
+          type: string
+        insuranceNumber:
+          type: string
+        wechatId:
+          type: string
+        kardiaId:
+          type: string
+        pamThirdPartyIdentifier:
+          type: string
+        medicalRecordNumber:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+        timezone:
+          type: string
+        recentModuleResults:
+          type: object
+          additionalProperties: {}
+        tags:
+          type: object
+          additionalProperties: {}
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLabelDRF'
+        tagsAuthorId:
+          type: string
+        surgeryDateTime:
+          type: string
+          format: date-time
+        preferences:
+          type: object
+          additionalProperties: {}
+        preferredUnits:
+          type: object
+          additionalProperties: {}
+        addressComponent:
+          $ref: '#/components/schemas/AddressObjectDRF'
+        personalDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalDocumentDRF'
+        enrollmentId:
+          type: integer
+        enrollmentNumber:
+          type: string
+        deployments:
+          type: array
+          items:
+            type: string
+        deploymentsInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentInfoDRF'
+        boardingStatus:
+          $ref: '#/components/schemas/BoardingStatusDRF'
+        language:
+          type: string
+        finishedOnboarding:
+          type: boolean
+        stats:
+          $ref: '#/components/schemas/UserStatsDRF'
+        ragScore:
+          type: array
+          items:
+            type: integer
+        flags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        unseenFlags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        recentFlags:
+          $ref: '#/components/schemas/RecentFlagsDRF'
+        lastLoginDateTime:
+          type: string
+          format: date-time
+        badges:
+          type: object
+          additionalProperties: {}
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        researchTeamActions:
+          $ref: '#/components/schemas/ResearchTeamActionsDRF'
+        hasAssignedManagers:
+          type: boolean
+        componentsData:
+          type: object
+          additionalProperties: {}
+        contactEmail:
+          type: string
+        assignedManagers:
+          type: array
+          items:
+            type: string
+        assignedProxies:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedParticipants:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedUsersCount:
+          type: integer
+        proxyStatus:
+          type: string
+        status:
+          type: string
+        ragThresholds:
+          type: object
+          additionalProperties: {}
+        intercomHash:
+          type: string
+        managerNotifications:
+          $ref: '#/components/schemas/ManagerNotificationsDRF'
+        profilePicture:
+          $ref: '#/components/schemas/FileFieldDRF'
+        createdByManager:
+          type: boolean
+        unreadMessagesCount:
+          $ref: '#/components/schemas/UnreadMessagesCountDRF'
+        userId:
+          type: string
+    SignEConsentRequestDataDRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        middleName:
+          type: string
+        familyName:
+          type: string
+        signature:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        sharingOption:
+          type: string
+        privacy:
+          type: boolean
+        feedback:
+          type: boolean
+        agreement:
+          type: boolean
+        additionalConsentAnswers:
+          type: object
+          additionalProperties: {}
+        consentOption:
+          type: string
+    AddressObjectDRF:
+      type: object
+      properties:
+        fiatNumber:
+          type: string
+        buildingNumber:
+          type: string
+        buildingName:
+          type: string
+        street:
+          type: string
+        subStreet:
+          type: string
+        town:
+          type: string
+        state:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

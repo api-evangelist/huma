@@ -1,0 +1,859 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Export API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Export
+paths:
+  /api/extensions/v1/export/deployment/{deployment_id}/task:
+    get:
+      operationId: api_extensions_v1_export_deployment_task_retrieve_[retrieve_export_deployment_processes]
+      description: 'Retrieve Export Deployment Processes
+
+        Fetches all the export processes related to a deployment.'
+      summary: Retrieve Export Deployment Processes
+      parameters:
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveExportProcessesResponseObjectDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_export_deployment_task_create_[run_export_deployment_task]
+      description: 'Run Export Task for Deployment
+
+        Executes an export task for a specific deployment and returns the ID of this task.'
+      summary: Run Export Deployment Task
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunExportTaskRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RunExportTaskRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RunExportTaskRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunExportDeploymentTaskResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/deployment/{deployment_id}/task/{export_process_id}:
+    get:
+      operationId: api_extensions_v1_export_deployment_task_retrieve_[check_export_deployment_task_status]
+      description: 'Check Export Task Status
+
+        Retrieves the status of a specific export task for a deployment.
+
+        Provides bucket link for the generated data if finished.'
+      summary: Check Export Deployment Task Status
+      parameters:
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: exportProcessId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: export_process_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckExportDeploymentTaskStatusResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/deployment/{deployment_id}/user_ratings:
+    post:
+      operationId: api_extensions_v1_export_deployment_user_ratings_create_[export_user_ratings]
+      description: 'Export user ratings
+
+        Exports user ratings of a specific deployment as a zip file, based on the deployment ID.'
+      summary: Export User Ratings
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/export/profile:
+    post:
+      operationId: api_extensions_v1_export_profile_create_[create_export_profile]
+      description: 'Create Export Profile
+
+        Creates a new export profile using the provided input data.'
+      summary: Create Export Profile
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExportProfileRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateExportProfileRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateExportProfileRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/profile/{profile_id}:
+    post:
+      operationId: api_extensions_v1_export_profile_create_[update_export_profile]
+      description: 'Update Export Profile
+
+        Updates an existing export profile with new content.'
+      summary: Update Export Profile
+      parameters:
+      - in: path
+        name: profile_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportProfileContentDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExportProfileContentDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExportProfileContentDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_export_profile_destroy_[delete_export_profile]
+      description: 'Delete Export Profile
+
+        Deletes an export profile using the provided profile ID.'
+      summary: Delete Export Profile
+      parameters:
+      - in: path
+        name: profile_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/extensions/v1/export/profile/search:
+    post:
+      operationId: api_extensions_v1_export_profile_search_create_[retrieve_export_deployment_profiles]
+      description: 'Retrieve Export Deployment Profiles
+
+        Searches and retrieves export profiles based on the provided input criteria.'
+      summary: Retrieve Export Deployment Profiles
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveExportProfilesRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveExportProfilesRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveExportProfilesRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveExportProfilesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/tabular-export:
+    post:
+      operationId: api_extensions_v1_export_tabular_export_create_[export_tabular_data]
+      description: 'Export Tabular Data
+
+        Exports tabular data for the given user in a csv format.'
+      summary: Export Tabular Data
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TabularExportUsersRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TabularExportUsersRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TabularExportUsersRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabularExportUsersResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/export/tabular-export-dictionary/{deployment_id}:
+    get:
+      operationId: api_extensions_v1_export_tabular_export_dictionary_retrieve_[export_tabular_data_dictionary]
+      description: 'Export Tabular Data Dictionary
+
+        Exports tabular data dictionary in a csv format.'
+      summary: Export Tabular Data Dictionary
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabularExportDataDictionaryResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/report/summary/user/{user_id}:
+    post:
+      operationId: api_extensions_v1_report_summary_user_create_[generate_report]
+      summary: Generate Report
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/report/summary/user/{user_id}/task:
+    post:
+      operationId: api_extensions_v1_report_summary_user_task_create_[generate_report_async]
+      summary: Generate Report Async
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateSummaryReportRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunExportDeploymentTaskResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    RetrieveExportProfilesResponseObjectDRF:
+      type: object
+      properties:
+        exportProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProfileDTODRF'
+    FieldBucketingDRF:
+      type: object
+      properties:
+        fieldPath:
+          type: string
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/BucketDRF'
+        undefineUnmatched:
+          type: boolean
+      required:
+      - buckets
+      - fieldPath
+    RetrieveExportProfilesRequestObjectDRF:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        nameContains:
+          type: string
+    RetrieveExportProcessesResponseObjectDRF:
+      type: object
+      properties:
+        exportProcesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProcessDTODRF'
+    ExportResultObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      - key
+    ExportProcessDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        resultObject:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
+        status:
+          type: string
+        seen:
+          type: boolean
+        exportParams:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        requesterId:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        exportType:
+          type: string
+        taskId:
+          type: string
+    RunExportTaskRequestDataDRF:
+      type: object
+      properties:
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        deIdentified:
+          type: boolean
+        maskFreeText:
+          type: boolean
+        includeNullFields:
+          type: boolean
+        includeUserMetaData:
+          type: boolean
+        useFlatStructure:
+          type: boolean
+        extraQuestionIds:
+          type: object
+          additionalProperties: {}
+        view:
+          type: string
+        format:
+          type: string
+        binaryOption:
+          type: string
+        layer:
+          type: string
+        quantity:
+          type: string
+        questionnairePerName:
+          type: boolean
+        splitMultipleChoice:
+          type: boolean
+        splitSymptoms:
+          type: boolean
+        translatePrimitives:
+          type: boolean
+        organizationId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        singleFileResponse:
+          type: boolean
+        translationShortCodesObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        translationShortCodesObjectFormat:
+          type: string
+        includeFields:
+          type: array
+          items:
+            type: string
+        excludeFields:
+          type: array
+          items:
+            type: string
+        deIdentifyHashFields:
+          type: array
+          items:
+            type: string
+        deIdentifyRemoveFields:
+          type: array
+          items:
+            type: string
+        exportBucket:
+          type: string
+        onboardingModuleNames:
+          type: array
+          items:
+            type: string
+        preferShortCode:
+          type: boolean
+        useCreationTime:
+          type: boolean
+        bucketing:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldBucketingDRF'
+        excludeMinors:
+          type: boolean
+        useExportProfile:
+          type: boolean
+        baseProfile:
+          type: string
+        doTranslate:
+          type: boolean
+        managerId:
+          type: string
+    ExportProfileDTODRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+    BucketDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
+    RunExportDeploymentTaskResponseObjectDRF:
+      type: object
+      properties:
+        exportProcessId:
+          type: string
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    ExportProfileContentDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+    CheckExportDeploymentTaskStatusResponseObjectDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        exportData:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    CreateExportProfileRequestObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+    TabularExportDataDictionaryResponseObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    GenerateSummaryReportRequestDataDRF:
+      type: object
+      properties:
+        format:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+      required:
+      - format
+    TabularExportUsersResponseObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    TabularExportUsersRequestObjectDRF:
+      type: object
+      properties:
+        userList:
+          type: array
+          items:
+            type: string
+        fromDateTime:
+          type: string
+        toDateTime:
+          type: string
+        deploymentId:
+          type: string
+        language:
+          type: string
+        machineReadable:
+          type: boolean
+      required:
+      - deploymentId
+      - userList
+    ExportParametersDRF:
+      type: object
+      properties:
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        deIdentified:
+          type: boolean
+        maskFreeText:
+          type: boolean
+        includeNullFields:
+          type: boolean
+        includeUserMetaData:
+          type: boolean
+        useFlatStructure:
+          type: boolean
+        extraQuestionIds:
+          type: object
+          additionalProperties: {}
+        view:
+          type: string
+        format:
+          type: string
+        binaryOption:
+          type: string
+        layer:
+          type: string
+        quantity:
+          type: string
+        questionnairePerName:
+          type: boolean
+        splitMultipleChoice:
+          type: boolean
+        splitSymptoms:
+          type: boolean
+        translatePrimitives:
+          type: boolean
+        organizationId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        singleFileResponse:
+          type: boolean
+        translationShortCodesObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        translationShortCodesObjectFormat:
+          type: string
+        includeFields:
+          type: array
+          items:
+            type: string
+        excludeFields:
+          type: array
+          items:
+            type: string
+        deIdentifyHashFields:
+          type: array
+          items:
+            type: string
+        deIdentifyRemoveFields:
+          type: array
+          items:
+            type: string
+        exportBucket:
+          type: string
+        onboardingModuleNames:
+          type: array
+          items:
+            type: string
+        preferShortCode:
+          type: boolean
+        useCreationTime:
+          type: boolean
+        bucketing:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldBucketingDRF'
+        forThirdParty:
+          type: boolean
+        excludeMinors:
+          type: boolean
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

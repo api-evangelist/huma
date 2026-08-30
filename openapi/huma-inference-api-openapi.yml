@@ -1,0 +1,199 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Inference API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Inference
+paths:
+  /api/extensions/v1/user/{user_id}/arm_fatigue/quality_check_angle:
+    post:
+      operationId: api_extensions_v1_user_arm_fatigue_quality_check_angle_create_[arm_angle_quality_check]
+      summary: Arm Angle Quality Check
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArmAngleQualityCheckRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArmAngleQualityCheckRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArmAngleQualityCheckRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArmAngleQualityCheckResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/ptosis/qc_orientation:
+    post:
+      operationId: api_extensions_v1_user_ptosis_qc_orientation_create_[head_orientation_quality_check]
+      summary: Head Orientation Quality Check
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Inference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeadOrientationQCRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HeadOrientationQCRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HeadOrientationQCRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeadOrientationQCResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    HeadOrientationQCResponseObjectDRF:
+      type: object
+      properties:
+        qcOutputMessage:
+          type: string
+        numPrompts:
+          type: integer
+        stopExercise:
+          type: boolean
+        canSubmitRecording:
+          type: boolean
+      required:
+      - canSubmitRecording
+      - numPrompts
+      - qcOutputMessage
+      - stopExercise
+    HeadOrientationQCRequestObjectDRF:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+        numPrompts:
+          type: integer
+        lastCheck:
+          type: boolean
+      required:
+      - image
+      - numPrompts
+    ArmAngleQualityCheckRequestObjectDRF:
+      type: object
+      properties:
+        arm:
+          type: string
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+        firstCheck:
+          type: boolean
+        numPrompt:
+          type: integer
+      required:
+      - arm
+      - firstCheck
+      - image
+      - numPrompt
+    ArmAngleQualityCheckResponseObjectDRF:
+      type: object
+      properties:
+        numPrompts:
+          type: integer
+        qcOutputMessage:
+          type: string
+        stopExercise:
+          type: boolean
+        canSubmitRecording:
+          type: boolean
+      required:
+      - canSubmitRecording
+      - numPrompts
+      - qcOutputMessage
+      - stopExercise
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

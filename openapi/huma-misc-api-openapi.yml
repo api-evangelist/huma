@@ -1,0 +1,258 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Misc API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Misc
+paths:
+  /.well-known/apple-app-site-association:
+    get:
+      operationId: .well_known_apple_app_site_association_retrieve_[retrieve_deeplink_for_apple_app]
+      description: 'Apple CDN Redirect
+
+        This is used by Apple CDN to redirect deeplink to ios app.'
+      summary: Retrieve Deeplink For Apple App
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDRF'
+          description: ''
+  /.well-known/assetlinks.json:
+    get:
+      operationId: .well_known_assetlinks.json_retrieve_[retrieve_deeplink_for_android_app]
+      description: 'Android CDN Redirect
+
+        This is used by Android CDN to redirect deeplink to android app.'
+      summary: Retrieve Deeplink For Android App
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AndroidAppLinksDRF'
+          description: ''
+  /api/public/v1/internationalization/languages:
+    get:
+      operationId: api_public_v1_internationalization_languages_retrieve_[list_languages_route]
+      summary: List Languages Route
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRetrieveLanguageDRF'
+          description: ''
+  /api/public/v1/region:
+    get:
+      operationId: api_public_v1_region_retrieve_[get_region]
+      summary: Get Region
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /install-app:
+    get:
+      operationId: install_app_retrieve_[install_app_html_page]
+      summary: Install App Html Page
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /install-huma-app:
+    get:
+      operationId: install_huma_app_retrieve_[get_install_app_link]
+      summary: Get Install App Link
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /version:
+    get:
+      operationId: version_retrieve_[retrieve_version]
+      description: 'Retrieve version
+
+        Provides detailed information about server build.'
+      summary: Retrieve Version
+      tags:
+      - Misc
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionDRF'
+          description: ''
+components:
+  schemas:
+    ListRetrieveLanguageDRF:
+      type: object
+      properties:
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/RetrieveLanguageDRF'
+      required:
+      - languages
+    AppleAppLinksDRF:
+      type: object
+      properties:
+        apps:
+          type: array
+          items:
+            type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppLinksDetailsDRF'
+    BaseVersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+      required:
+      - api
+      - server
+    RetrieveLanguageDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
+    NamedVersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+        repoName:
+          type: string
+      required:
+      - api
+      - repoName
+      - server
+    AppLinksDetailsDRF:
+      type: object
+      properties:
+        appIDs:
+          type: array
+          items:
+            type: string
+        paths:
+          type: array
+          items:
+            type: string
+    AndroidAppTargetDRF:
+      type: object
+      properties:
+        namespace:
+          type: string
+        packageName:
+          type: string
+        sha256CertFingerprints:
+          type: array
+          items:
+            type: string
+    AndroidAppLinksDRF:
+      type: object
+      properties:
+        relation:
+          type: array
+          items:
+            type: string
+        target:
+          $ref: '#/components/schemas/AndroidAppTargetDRF'
+    VersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+        sdk:
+          $ref: '#/components/schemas/BaseVersionDRF'
+        plugins:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedVersionDRF'
+      required:
+      - api
+      - sdk
+      - server
+    ResponseDRF:
+      type: object
+      properties:
+        applinks:
+          $ref: '#/components/schemas/AppleAppLinksDRF'
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

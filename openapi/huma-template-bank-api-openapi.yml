@@ -1,0 +1,316 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Template Bank API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Template Bank
+paths:
+  /api/extensions/template-bank/create:
+    post:
+      operationId: api_extensions_template_bank_create_create_[shared_templates_bank_create]
+      description: 'Create Shared Template
+
+        Add a new shared template in the template bank.'
+      summary: Shared Templates Bank Create
+      tags:
+      - Template Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedTemplateFileDRF'
+          description: ''
+  /api/extensions/template-bank/import:
+    post:
+      operationId: api_extensions_template_bank_import_create_[import_template_deployment_config]
+      description: 'Import Template Deployment Config
+
+        Import a template deployment configuration from the template bank.'
+      summary: Import Template Deployment Config
+      tags:
+      - Template Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateImportDeploymentConfigRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TemplateImportDeploymentConfigRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TemplateImportDeploymentConfigRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/template-bank/list:
+    get:
+      operationId: api_extensions_template_bank_list_retrieve_[shared_templates_bank_list]
+      description: 'List Shared Templates
+
+        Retrieve a list of shared templates from the template bank.'
+      summary: Shared Templates Bank List
+      parameters:
+      - in: query
+        name: organizationId
+        schema:
+          type: string
+        required: true
+      tags:
+      - Template Bank
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSharedTemplateBankResponseDRF'
+          description: ''
+  /api/extensions/template-bank/remove:
+    post:
+      operationId: api_extensions_template_bank_remove_create_[remove_template_deployment_config]
+      description: 'Remove Shared Template
+
+        Delete a shared template from the template bank.'
+      summary: Remove Template Deployment Config
+      tags:
+      - Template Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateIdRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TemplateIdRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TemplateIdRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexFileContentResponseDRF'
+          description: ''
+components:
+  schemas:
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    IndexFileContentResponseDRF:
+      type: object
+      properties:
+        deploymentTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileDRF'
+    RetrieveSharedTemplateBankResponseDRF:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
+    TemplateImportDeploymentConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        templateId:
+          type: string
+        organizationId:
+          type: string
+        deploymentOverride:
+          $ref: '#/components/schemas/TemplateDeploymentOverrideObjectDRF'
+      required:
+      - organizationId
+      - templateId
+      - userId
+    TemplateIdRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        templateId:
+          type: string
+      required:
+      - templateId
+      - userId
+    TemplateDeploymentOverrideObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+    SharedTemplateFileResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentName:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        sortingIndex:
+          type: integer
+        meta:
+          type: object
+          additionalProperties: {}
+        thumbnail:
+          type: string
+        test:
+          type: boolean
+        version:
+          type: string
+      required:
+      - deploymentName
+      - id
+      - meta
+      - sortingIndex
+      - thumbnail
+      - title
+      - version
+    SharedTemplateFileDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentName:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        templateFile:
+          type: string
+        sortingIndex:
+          type: integer
+        meta:
+          type: object
+          additionalProperties: {}
+        thumbnail:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        test:
+          type: boolean
+      required:
+      - deploymentName
+      - id
+      - meta
+      - sortingIndex
+      - templateFile
+      - thumbnail
+      - title
+    CreateTemplateRequestObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+        thumbnailFileId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        sortingIndex:
+          type: integer
+        test:
+          type: boolean
+      required:
+      - fileId
+      - sortingIndex
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

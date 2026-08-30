@@ -1,0 +1,123 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Location API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Location
+paths:
+  /api/location/v1/coordinates-search:
+    get:
+      operationId: api_location_v1_coordinates_search_retrieve_[search_location_by_coordinates]
+      summary: Search Location By Coordinates
+      parameters:
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: latitude
+        schema:
+          type: number
+          format: float
+        required: true
+      - in: query
+        name: longitude
+        schema:
+          type: number
+          format: float
+        required: true
+      tags:
+      - Location
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationInfoDRF'
+          description: ''
+  /api/location/v1/place-search:
+    get:
+      operationId: api_location_v1_place_search_retrieve_[search_locations_by_text]
+      summary: Search Locations By Text
+      parameters:
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: query
+        schema:
+          type: string
+        required: true
+      tags:
+      - Location
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationInfoDRF'
+          description: ''
+components:
+  schemas:
+    LocationInfoDRF:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        placeName:
+          type: string
+      required:
+      - latitude
+      - longitude
+      - placeName
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

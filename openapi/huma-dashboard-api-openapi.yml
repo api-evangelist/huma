@@ -1,0 +1,291 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Dashboard API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Dashboard
+paths:
+  /api/extensions/v1/dashboards/{resource_type}/{resource_id}:
+    get:
+      operationId: api_extensions_v1_dashboards_retrieve_[retrieve_dashboards]
+      summary: Retrieve Dashboards
+      parameters:
+      - in: path
+        name: resource_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: resource_type
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardDRF'
+          description: ''
+  /api/extensions/v1/dashboards/{resource_type}/{resource_id}/dashboard/{dashboard_id}:
+    get:
+      operationId: api_extensions_v1_dashboards_dashboard_retrieve_[retrieve_dashboard]
+      summary: Retrieve Dashboard
+      parameters:
+      - in: path
+        name: dashboard_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: resource_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: resource_type
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardDRF'
+          description: ''
+  /api/extensions/v1/dashboards/{resource_type}/{resource_id}/gadget/{gadget_id}/data:
+    post:
+      operationId: api_extensions_v1_dashboards_gadget_data_create_[retrieve_gadget_data]
+      summary: Retrieve Gadget Data
+      parameters:
+      - in: path
+        name: gadget_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: resource_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: resource_type
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveGadgetDataRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveGadgetDataRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveGadgetDataRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/dashboards/data:
+    post:
+      operationId: api_extensions_v1_dashboards_data_create_[multi_resource_dashboard_data]
+      summary: Multi Resource Dashboard Data
+      tags:
+      - Dashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiResourceDashboardDataRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MultiResourceDashboardDataRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MultiResourceDashboardDataRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/dashboards/deployment/{deployment_id}/stats:
+    get:
+      operationId: api_extensions_v1_dashboards_deployment_stats_retrieve_[retrieve_deployment_stats]
+      summary: Retrieve Deployment Stats
+      parameters:
+      - in: query
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: endDateTime
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: startDateTime
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - Dashboard
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentStatsResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    DeploymentStatsResponseObjectDRF:
+      type: object
+      properties:
+        numberOfActiveUsers:
+          type: integer
+        numberOfOffboardedUsers:
+          type: integer
+        numberOfOnboardedUsers:
+          type: integer
+    RetrieveGadgetDataRequestObjectDRF:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        resourceId:
+          type: string
+        gadgetId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        size:
+          type: string
+      required:
+      - gadgetId
+      - resourceId
+      - resourceType
+    GadgetLinkDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        size:
+          type: string
+      required:
+      - id
+      - order
+      - size
+    DashboardDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        gadgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/GadgetLinkDRF'
+      required:
+      - gadgets
+      - id
+      - title
+    MultiResourceDashboardDataRequestObjectDRF:
+      type: object
+      properties:
+        dataType:
+          type: string
+        organizationIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      required:
+      - dataType
+      - organizationIds
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

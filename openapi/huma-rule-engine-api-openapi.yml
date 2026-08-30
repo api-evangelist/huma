@@ -1,0 +1,557 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Rule Engine API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Rule Engine
+paths:
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/get-nodes:
+    get:
+      operationId: api_extensions_v1_rule_engine_deployment_get_nodes_retrieve_[get_nodes]
+      summary: Get Nodes
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetNodesResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow:
+    post:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_create_[create_workflow]
+      summary: Create Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkflowRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateWorkflowRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateWorkflowRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow-templates:
+    get:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_templates_retrieve_[get_workflow_templates]
+      summary: Get Workflow Templates
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTemplateWorkflowsResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow/{workflow_id}:
+    get:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_retrieve_[get_workflow]
+      summary: Get Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWorkflowResponseObjectDRF'
+          description: ''
+    put:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_update_[update_workflow]
+      summary: Update Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkflowRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkflowRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkflowRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_destroy_[delete_workflow]
+      summary: Delete Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow/{workflow_id}/activate:
+    post:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_activate_create_[activate_workflow]
+      summary: Activate Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow/{workflow_id}/deactivate:
+    post:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_deactivate_create_[deactivate_workflow]
+      summary: Deactivate Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflow/{workflow_id}/run:
+    post:
+      operationId: api_extensions_v1_rule_engine_deployment_workflow_run_create_[run_workflow]
+      summary: Run Workflow
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: workflow_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunWorkflowRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RunWorkflowRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RunWorkflowRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/rule-engine/deployment/{deployment_id}/workflows:
+    get:
+      operationId: api_extensions_v1_rule_engine_deployment_workflows_retrieve_[get_workflows]
+      summary: Get Workflows
+      parameters:
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Rule Engine
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWorkflowsResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    TaskDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        nodeName:
+          type: string
+        params:
+          type: object
+          additionalProperties: {}
+        output:
+          type: object
+          additionalProperties: {}
+        nextTaskIds:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+      required:
+      - id
+      - nodeName
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RunWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        params:
+          type: object
+          additionalProperties: {}
+        resource:
+          type: string
+        workflowId:
+          type: string
+      required:
+      - params
+    GetNodesResponseObjectDRF:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConvertibleDRF'
+      required:
+      - nodes
+    CreateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+      required:
+      - name
+      - tasks
+    NodeConvertibleDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+        output:
+          type: array
+          items:
+            type: string
+        isTrigger:
+          type: boolean
+        description:
+          type: string
+      required:
+      - name
+      - output
+      - parameters
+    GetTemplateWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflowTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflowTemplates
+    GetWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflows
+    UpdateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+        workflowId:
+          type: string
+      required:
+      - name
+      - tasks
+    WorkflowDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        submitterId:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+      required:
+      - name
+      - tasks
+    GetWorkflowResponseObjectDRF:
+      type: object
+      properties:
+        workflow:
+          $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflow
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,358 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Plugins API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Plugins
+paths:
+  /api/plugin/v1/deployment/{deployment_id}/configs/:
+    get:
+      operationId: api_plugin_v1_deployment_configs_retrieve_[retrieve_plugin_container_for_deployment]
+      description: Retrieve Plugin Container for a Deployment
+      summary: Retrieve Plugin Container For Deployment
+      parameters:
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievePluginContainerResponseObjectDRF'
+          description: ''
+  /api/plugin/v1/deployment/{deployment_id}/configs/{config_name}:
+    get:
+      operationId: api_plugin_v1_deployment_configs_retrieve_[retrieve_plugin_config_for_deployment]
+      description: Retrieve Plugin Config for a Deployment
+      summary: Retrieve Plugin Config For Deployment
+      parameters:
+      - in: path
+        name: configName
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: config_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievePluginConfigResponseObjectDRF'
+          description: ''
+    put:
+      operationId: api_plugin_v1_deployment_configs_update_[update_plugin_config_for_deployment]
+      description: Update Plugin Config for a Deployment
+      summary: Update Plugin Config For Deployment
+      parameters:
+      - in: path
+        name: config_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentPluginConfigRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentPluginConfigRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentPluginConfigRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePluginConfigResponseObjectDRF'
+          description: ''
+  /api/plugin/v1/organization/{organization_id}/configs/:
+    get:
+      operationId: api_plugin_v1_organization_configs_retrieve_[retrieve_plugin_container_for_org]
+      description: Retrieve Plugin Container for an Organization
+      summary: Retrieve Plugin Container For Org
+      parameters:
+      - in: path
+        name: organizationId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievePluginContainerResponseObjectDRF'
+          description: ''
+  /api/plugin/v1/organization/{organization_id}/configs/{config_name}:
+    get:
+      operationId: api_plugin_v1_organization_configs_retrieve_[retrieve_plugin_config_for_org]
+      description: Retrieve Plugin Config for an Organization
+      summary: Retrieve Plugin Config For Org
+      parameters:
+      - in: path
+        name: configName
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: config_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: organizationId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievePluginConfigResponseObjectDRF'
+          description: ''
+    put:
+      operationId: api_plugin_v1_organization_configs_update_[update_plugin_config_for_org]
+      description: Update Plugin Config for an Organization
+      summary: Update Plugin Config For Org
+      parameters:
+      - in: path
+        name: config_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Plugins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationPluginConfigRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationPluginConfigRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationPluginConfigRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePluginConfigResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    UpdateOrganizationPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        organizationId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - organizationId
+    ComponentUIDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        icon:
+          type: string
+        banner:
+          type: string
+        author:
+          type: string
+        descriptionLink:
+          type: string
+      required:
+      - author
+      - banner
+      - descriptionLink
+      - icon
+      - title
+    UpdateDeploymentPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - deploymentId
+    RetrievePluginContainerResponseObjectDRF:
+      type: object
+      properties:
+        componentsUI:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentUIDRF'
+      required:
+      - componentsUI
+    ConfigUIDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        isRequired:
+          type: boolean
+      required:
+      - name
+      - title
+      - type
+    UpdatePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        configName:
+          type: string
+      required:
+      - configName
+    RetrievePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

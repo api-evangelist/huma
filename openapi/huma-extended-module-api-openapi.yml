@@ -1,0 +1,422 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Extended Module API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Extended Module
+paths:
+  /api/extensions/v1/user/{user_id}/module-result/Questionnaire/{result_id}:
+    put:
+      operationId: api_extensions_v1_user_module_result_Questionnaire_update_[extended_update_module_result_questionnaire]
+      summary: Extended Update Module Result Questionnaire
+      parameters:
+      - in: path
+        name: result_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Extended Module
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedUpdateQuestionnaireObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExtendedUpdateQuestionnaireObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExtendedUpdateQuestionnaireObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateModuleResultFailureResponseDRF'
+          description: ''
+components:
+  schemas:
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    ExtendedUpdateQuestionnaireObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        moduleResultId:
+          type: string
+        deploymentId:
+          type: string
+        version:
+          type: integer
+        deviceName:
+          type: string
+        isAggregated:
+          type: boolean
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        correlationStartDateTime:
+          type: string
+          format: date-time
+        client:
+          $ref: '#/components/schemas/UserAgentDRF'
+        server:
+          $ref: '#/components/schemas/ServerDRF'
+        ragThreshold:
+          type: object
+          additionalProperties: {}
+        flags:
+          type: object
+          additionalProperties: {}
+        eventLogId:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        isAverage:
+          type: boolean
+        noteId:
+          type: string
+        feedback:
+          $ref: '#/components/schemas/ModuleFeedbackDRF'
+        meal:
+          type: string
+        userNote:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        appResult:
+          $ref: '#/components/schemas/QuestionnaireAppResultDRF'
+        isForManager:
+          type: boolean
+        questionnaireId:
+          type: string
+        questionnaireName:
+          type: string
+        value:
+          type: number
+          format: double
+        skipped:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        signOffDateTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        revision:
+          type: integer
+        type:
+          type: string
+        note:
+          type: string
+      required:
+      - answers
+      - deploymentId
+      - deviceName
+      - moduleId
+      - questionnaireId
+      - questionnaireName
+      - type
+      - userId
+    QuestionnaireAppResultDRF:
+      type: object
+      properties:
+        appType:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
+      required:
+      - appType
+      - values
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
+    UpdateModuleResultFailureResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - errors
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

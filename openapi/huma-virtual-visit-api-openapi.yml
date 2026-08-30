@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Virtual Visit API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Virtual Visit
+paths:
+  /api/v1/visit/user/{user_id}:
+    post:
+      operationId: api_v1_visit_user_create_[create_virtual_visit]
+      description: Create a virtual visit with multiple module results
+      summary: Create Virtual Visit
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Virtual Visit
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVirtualCareResponseObjectDRF'
+          description: ''
+  /api/v1/visit/user/{user_id}/search:
+    get:
+      operationId: api_v1_visit_user_search_retrieve_[search_virtual_visits]
+      description: Search for virtual visit instances grouped by moduleResultId
+      summary: Search Virtual Visits
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Virtual Visit
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchVirtualVisitResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    PrimaryStepViewDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        unit:
+          type: string
+        startDateTime:
+          type: string
+    SearchVirtualVisitResponseObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualVisitResponseDRF'
+      required:
+      - limit
+      - skip
+      - total
+    CreateVirtualCareResponseObjectDRF:
+      type: object
+      properties:
+        moduleResultId:
+          type: string
+        primitiveIds:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
+    VirtualVisitResponseDRF:
+      type: object
+      properties:
+        moduleResultId:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        primaryStepSummary:
+          $ref: '#/components/schemas/PrimaryStepViewDRF'
+        stepsSummary:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

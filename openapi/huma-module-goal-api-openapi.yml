@@ -1,0 +1,241 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Module Goal API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Module Goal
+paths:
+  /api/extensions/v1/user/{user_id}/module-goal/{module_config_id}:
+    get:
+      operationId: api_extensions_v1_user_module_goal_retrieve_[retrieve_latest_goal]
+      description: 'Retrieve Latest Module Goal
+
+        Retrieves the latest module goal for the specified user and module configuration.'
+      summary: Retrieve Latest Goal
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: api_extensions_v1_user_module_goal_create_[create_module_goal]
+      description: 'Create Module Goal
+
+        Creates a new module goal for the specified user and module configuration.'
+      summary: Create Module Goal
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_extensions_v1_user_module_goal_update_[update_module_goal]
+      description: 'Update Module Goal
+
+        Updates an existing module goal for the specified user and module configuration.'
+      summary: Update Module Goal
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/module-goal/{module_config_id}/all:
+    get:
+      operationId: api_extensions_v1_user_module_goal_all_retrieve_[retrieve_all_module_goals]
+      description: 'Retrieve All Module Goals
+
+        Retrieves all module goals for a specific user and module configuration.'
+      summary: Retrieve All Module Goals
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/module-goal/{module_config_id}/complete:
+    put:
+      operationId: api_extensions_v1_user_module_goal_complete_update_[complete_module_goal]
+      description: 'Complete Module Goal
+
+        Marks a module goal as complete for the specified user and module configuration.'
+      summary: Complete Module Goal
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/module-goal/{module_config_id}/seen:
+    put:
+      operationId: api_extensions_v1_user_module_goal_seen_update_[set_seen_module_goal]
+      description: 'Set Seen Module Goal
+
+        Marks a module goal as seen for the specified user and module configuration.'
+      summary: Set Seen Module Goal
+      parameters:
+      - in: path
+        name: module_config_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/module-goal/all:
+    get:
+      operationId: api_extensions_v1_user_module_goal_all_retrieve_[retrieve_all_latest_user_module_goals]
+      description: 'Retrieve All Latest Goals
+
+        Retrieves all the latest module goals for a specific user.'
+      summary: Retrieve All Latest User Module Goals
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Module Goal
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

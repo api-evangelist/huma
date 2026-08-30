@@ -1,0 +1,237 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Firmware Bank API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Firmware Bank
+paths:
+  /api/extensions/firmware-bank/archive:
+    post:
+      operationId: api_extensions_firmware_bank_archive_create_[archive_firmware]
+      summary: Archive Firmware
+      tags:
+      - Firmware Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveFirmwareRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveFirmwareRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveFirmwareRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '207':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveFirmwareResponseObjectDRF'
+          description: ''
+  /api/extensions/firmware-bank/list:
+    get:
+      operationId: api_extensions_firmware_bank_list_retrieve_[retrieve_firmware_updates]
+      summary: Retrieve Firmware Updates
+      parameters:
+      - in: query
+        name: make
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: minVersion
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: model
+        schema:
+          type: string
+        required: true
+      tags:
+      - Firmware Bank
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirmwareUpdateResponseObjectDRF'
+          description: ''
+  /api/extensions/firmware-bank/upload:
+    post:
+      operationId: api_extensions_firmware_bank_upload_create_[upload_firmware]
+      summary: Upload Firmware
+      tags:
+      - Firmware Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadFirmwareRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UploadFirmwareRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadFirmwareRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadFirmwareResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    UploadFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        fileURL:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/FirmwareMetadataDRF'
+      required:
+      - fileURL
+      - make
+      - metadata
+      - model
+    FirmwareMetadataDRF:
+      type: object
+      properties:
+        version:
+          type: string
+        releaseDate:
+          type: string
+        releaseNotes:
+          type: string
+        crc32Checksum:
+          type: string
+    ArchiveFirmwareResponseItemDRF:
+      type: object
+      properties:
+        filename:
+          type: string
+        error:
+          type: string
+      required:
+      - filename
+    ArchiveFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        archived:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+      required:
+      - archived
+      - failed
+    FirmwareUpdateResponseObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        fileURL:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/FirmwareMetadataDRF'
+      required:
+      - fileURL
+      - make
+      - metadata
+      - model
+    UploadFirmwareRequestObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        file:
+          type: string
+        version:
+          type: string
+        releaseNotes:
+          type: string
+        overwrite:
+          type: boolean
+      required:
+      - file
+      - make
+      - model
+      - version
+    ArchiveFirmwareRequestObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        version:
+          type: string
+      required:
+      - make
+      - model
+      - version
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Kardia API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Kardia
+paths:
+  /api/extensions/v1/kardia/ecg-pdf/{user_id}/{record_id}:
+    get:
+      operationId: api_extensions_v1_kardia_ecg_pdf_retrieve_[retrieve_single_ecg_pdf]
+      summary: Retrieve Single Ecg Pdf
+      parameters:
+      - in: path
+        name: record_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Kardia
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECGAliveCorDTODRF'
+          description: ''
+  /api/extensions/v1/kardia/ecg/{record_id}:
+    get:
+      operationId: api_extensions_v1_kardia_ecg_retrieve_[retrieve_single_ecg]
+      summary: Retrieve Single Ecg
+      parameters:
+      - in: path
+        name: record_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Kardia
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses: {}
+  /api/extensions/v1/kardia/patient/{user_id}:
+    post:
+      operationId: api_extensions_v1_kardia_patient_create_[create_kardia_patient]
+      summary: Create Kardia Patient
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Kardia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateKardiaPatientRequestBodyDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateKardiaPatientRequestBodyDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateKardiaPatientRequestBodyDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateKardiaPatientResponseDRF'
+          description: ''
+  /api/extensions/v1/kardia/recordings/{patient_id}:
+    get:
+      operationId: api_extensions_v1_kardia_recordings_retrieve_[retrieve_patient_recordings]
+      summary: Retrieve Patient Recordings
+      parameters:
+      - in: path
+        name: patient_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Kardia
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievePatientRecordingResponseDRF'
+          description: ''
+  /api/extensions/v1/kardia/sync/{user_id}:
+    get:
+      operationId: api_extensions_v1_kardia_sync_retrieve_[sync_kardia_data]
+      summary: Sync Kardia Data
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Kardia
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECGAliveCorDTODRF'
+          description: ''
+components:
+  schemas:
+    ECGAliveCorDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        moduleResultId:
+          type: string
+        deploymentId:
+          type: string
+        version:
+          type: integer
+        deviceName:
+          type: string
+        isAggregated:
+          type: boolean
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        correlationStartDateTime:
+          type: string
+          format: date-time
+        client:
+          $ref: '#/components/schemas/UserAgentDRF'
+        server:
+          $ref: '#/components/schemas/ServerDRF'
+        ragThreshold:
+          type: object
+          additionalProperties: {}
+        flags:
+          type: object
+          additionalProperties: {}
+        eventLogId:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        isAverage:
+          type: boolean
+        noteId:
+          type: string
+        feedback:
+          $ref: '#/components/schemas/ModuleFeedbackDRF'
+        meal:
+          type: string
+        userNote:
+          type: string
+        s3Object:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        kardiaEcgRecordId:
+          type: string
+      required:
+      - deploymentId
+      - deviceName
+      - kardiaEcgRecordId
+      - moduleId
+      - s3Object
+      - userId
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    CreateKardiaPatientRequestBodyDRF:
+      type: object
+      properties:
+        email:
+          type: string
+        dob:
+          type: string
+      required:
+      - dob
+      - email
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    CreateKardiaPatientResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        mrn:
+          type: string
+        dob:
+          type: string
+        email:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        sex:
+          type: integer
+        password:
+          type: string
+    PatientRecordingPageInfoDRF:
+      type: object
+      properties:
+        startCursor:
+          type: string
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+    PatientRecordingDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        patientID:
+          type: string
+        heartRate:
+          type: integer
+        duration:
+          type: integer
+        recordedAt:
+          type: string
+        algorithmDetermination:
+          type: string
+        note:
+          type: string
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    RetrievePatientRecordingResponseDRF:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+        recordings:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientRecordingDRF'
+        pageInfo:
+          $ref: '#/components/schemas/PatientRecordingPageInfoDRF'
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

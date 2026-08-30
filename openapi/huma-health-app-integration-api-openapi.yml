@@ -1,0 +1,421 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Health App Integration API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Health App Integration
+paths:
+  /api/extensions/v1/user/{user_id}/authorize-third-party-app:
+    post:
+      operationId: api_extensions_v1_user_authorize_third_party_app_create_[authorize_third_party_app]
+      description: 'Authorize Third-Party App
+
+        Authorizes a third-party app for the specified user.'
+      summary: Authorize Third Party App
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizeFitbitRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthorizeFitbitRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthorizeFitbitRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/retrieve-third-party-apps:
+    post:
+      operationId: api_extensions_v1_user_retrieve_third_party_apps_create_[retrieve_third_party_apps]
+      description: 'Retrieve Connected Third-Party Apps
+
+        Retrieves a list of connected third-party apps for the specified user.'
+      summary: Retrieve Third Party Apps
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveThirdPartyAppsRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveThirdPartyAppsRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveThirdPartyAppsRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyAppDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/third-party-app:
+    post:
+      operationId: api_extensions_v1_user_third_party_app_create_[create_third_party_app]
+      description: 'Create Third-Party App
+
+        Registers a new third-party app for the specified user.'
+      summary: Create Third Party App
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseThirdPartyAppRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BaseThirdPartyAppRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BaseThirdPartyAppRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/third-party-app-log/{app_type}:
+    get:
+      operationId: api_extensions_v1_user_third_party_app_log_retrieve_[retrieve_third_party_app_log]
+      description: 'Retrieve Third-Party App Log
+
+        Retrieves the log of activities for a specified third-party app.'
+      summary: Retrieve Third Party App Log
+      parameters:
+      - in: path
+        name: app_type
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyAppLogDTODRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/third-party-app/{app_type}:
+    get:
+      operationId: api_extensions_v1_user_third_party_app_retrieve_[retrieve_third_party_app]
+      description: 'Retrieve Third-Party App
+
+        Retrieves the details of a third-party app for the specified user and app type.'
+      summary: Retrieve Third Party App
+      parameters:
+      - in: path
+        name: app_type
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyAppDTODRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_user_third_party_app_create_[connect_third_party_app]
+      description: 'Connect Third-Party App
+
+        Connects a third-party app to the specified user''s account using the app type and authorization data.'
+      summary: Connect Third Party App
+      parameters:
+      - in: path
+        name: app_type
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectFitbitRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConnectFitbitRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConnectFitbitRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyAppStatusResponseDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_user_third_party_app_destroy_[disconnect_third_party_app]
+      description: 'Disconnect Third-Party App
+
+        Disconnects a third-party app for the specified user.'
+      summary: Disconnect Third Party App
+      parameters:
+      - in: path
+        name: app_type
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Health App Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThirdPartyAppStatusResponseDRF'
+          description: ''
+components:
+  schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    BaseThirdPartyAppRequestObjectDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        appUserId:
+          type: string
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        lastSyncDateTime:
+          type: string
+          format: date-time
+      required:
+      - accessToken
+      - appUserId
+      - refreshToken
+      - status
+      - type
+    ConnectFitbitRequestDataDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
+    ThirdPartyAppLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        appUserId:
+          type: string
+        moduleLogs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - type
+      - userId
+    ThirdPartyAppStatusResponseDRF:
+      type: object
+      properties:
+        status:
+          type: string
+    ThirdPartyAppDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        appUserId:
+          type: string
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        lastSyncDateTime:
+          type: string
+          format: date-time
+      required:
+      - accessToken
+      - appUserId
+      - refreshToken
+      - status
+      - type
+      - userId
+    AuthorizeFitbitRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - type
+    RetrieveThirdPartyAppsRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,220 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Storage API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Storage
+paths:
+  /api/storage/v1/download/{file_id}:
+    get:
+      operationId: api_storage_v1_download_retrieve_[download_file_v1]
+      description: 'Download file
+
+        Download requested file from bucket'
+      summary: Download File V1
+      parameters:
+      - in: path
+        name: file_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Storage
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/storage/v1/signed-url/{file_id}:
+    get:
+      operationId: api_storage_v1_signed_url_retrieve_[retrieve_download_url_v1]
+      description: 'Get signed url
+
+        Generate signed url for provided file'
+      summary: Retrieve Download Url V1
+      parameters:
+      - in: path
+        name: file_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Storage
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSignedUrlResponseObjectV1DRF'
+          description: ''
+  /api/storage/v1/signed-urls:
+    post:
+      operationId: api_storage_v1_signed_urls_create_[retrieve_download_urls_v1]
+      description: 'Retrieve signed URLs
+
+        Retrieve signed urls for multiple files provided'
+      summary: Retrieve Download Urls V1
+      tags:
+      - Storage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetSignedUrlsRequestObjectV1DRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GetSignedUrlsRequestObjectV1DRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GetSignedUrlsRequestObjectV1DRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSignedUrlsResponseObjectV1DRF'
+          description: ''
+  /api/storage/v1beta/download/{bucket}/{filename}:
+    get:
+      operationId: api_storage_v1beta_download_retrieve_[download_file]
+      summary: Download File
+      parameters:
+      - in: path
+        name: bucket
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: filename
+        schema:
+          type: string
+        required: true
+      tags:
+      - Storage
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      deprecated: true
+      responses: {}
+  /api/storage/v1beta/signed/url/{bucket}/{filename}:
+    get:
+      operationId: api_storage_v1beta_signed_url_retrieve_[retrieve_download_url]
+      summary: Retrieve Download Url
+      parameters:
+      - in: path
+        name: bucket
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: filename
+        schema:
+          type: string
+        required: true
+      tags:
+      - Storage
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      deprecated: true
+      responses: {}
+  /api/storage/v1beta/upload/{bucket}:
+    post:
+      operationId: api_storage_v1beta_upload_create_[upload_file]
+      summary: Upload File
+      parameters:
+      - in: path
+        name: bucket
+        schema:
+          type: string
+        required: true
+      tags:
+      - Storage
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      deprecated: true
+      responses: {}
+components:
+  schemas:
+    GetSignedUrlsResponseObjectV1DRF:
+      type: object
+      properties:
+        signedUrls:
+          type: array
+          items:
+            type: string
+    GetSignedUrlsRequestObjectV1DRF:
+      type: object
+      properties:
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
+    GetSignedUrlResponseObjectV1DRF:
+      type: object
+      properties:
+        url:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+        contentType:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

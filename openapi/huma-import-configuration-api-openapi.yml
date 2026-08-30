@@ -1,0 +1,287 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Import Configuration API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Import Configuration
+paths:
+  /api/extensions/v1/import_config/deployment:
+    post:
+      operationId: api_extensions_v1_import_config_deployment_create_[import_deployment_config]
+      description: 'Import Deployment Configuration
+
+        Imports a deployment configuration based on the provided data.'
+      summary: Import Deployment Config
+      tags:
+      - Import Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportDeploymentConfigRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImportDeploymentConfigRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportDeploymentConfigRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/import_config/deployment/file_validation:
+    post:
+      operationId: api_extensions_v1_import_config_deployment_file_validation_create_[deployment_import_file_validation]
+      description: 'Deployment File Validation
+
+        Validates the file for deployment configuration before importing it.'
+      summary: Deployment Import File Validation
+      tags:
+      - Import Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportDeploymentConfigurationValidateFileResponseDRF'
+          description: ''
+  /api/extensions/v1/import_config/organization:
+    post:
+      operationId: api_extensions_v1_import_config_organization_create_[import_organization_config]
+      description: 'Import Organization Configuration
+
+        Imports an organization configuration based on the provided data.'
+      summary: Import Organization Config
+      tags:
+      - Import Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportOrganizationConfigRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImportOrganizationConfigRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportOrganizationConfigRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/import_config/organization/file_validation:
+    post:
+      operationId: api_extensions_v1_import_config_organization_file_validation_create_[organization_import_file_validation]
+      description: 'Organization File Validation
+
+        Validates the file for organization configuration before importing it.'
+      summary: Organization Import File Validation
+      tags:
+      - Import Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportConfigurationValidateFileRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportOrgConfigurationValidateFileResponseDRF'
+          description: ''
+components:
+  schemas:
+    ImportConfigurationValidateFileRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
+      - userId
+    ImportDeploymentConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+      required:
+      - fileIds
+      - organizationId
+      - userId
+    ImportOrganizationConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
+      - userId
+    ImportDeploymentConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
+    ExportOrganizationConfigsServiceInfoDRF:
+      type: object
+      properties:
+        exporterEmail:
+          type: string
+        exportedDateTime:
+          type: string
+          format: date-time
+        platform:
+          type: string
+        fileSize:
+          type: integer
+        fileName:
+          type: string
+        exporterVersion:
+          type: string
+        fileId:
+          type: string
+        fileIntegrityVerified:
+          type: boolean
+        organizationName:
+          type: string
+        deploymentNames:
+          type: array
+          items:
+            type: string
+    ImportOrgConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportOrganizationConfigsServiceInfoDRF'
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    ExportDeploymentConfigsServiceInfoDRF:
+      type: object
+      properties:
+        exporterEmail:
+          type: string
+        exportedDateTime:
+          type: string
+          format: date-time
+        platform:
+          type: string
+        fileSize:
+          type: integer
+        fileName:
+          type: string
+        exporterVersion:
+          type: string
+        fileId:
+          type: string
+        fileIntegrityVerified:
+          type: boolean
+        deploymentName:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

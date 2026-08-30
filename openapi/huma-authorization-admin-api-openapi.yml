@@ -1,0 +1,1009 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Authorization Admin API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Authorization Admin
+paths:
+  /api/extensions/v1/admin/deployment/{deployment_id}/demo-url:
+    get:
+      operationId: api_extensions_v1_admin_deployment_demo_url_retrieve_[get_demo_user_url]
+      summary: Get Demo User Url
+      parameters:
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: submitter
+        schema:
+          type: string
+        required: true
+      tags:
+      - Authorization Admin
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlResponseDRF'
+          description: ''
+  /api/extensions/v1/admin/deployment/{deployment_id}/reset-demo-user:
+    post:
+      operationId: api_extensions_v1_admin_deployment_reset_demo_user_create_[reset_demo_user_url]
+      summary: Reset Demo User Url
+      parameters:
+      - in: path
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: deployment_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: submitter
+        schema:
+          type: string
+        required: true
+      tags:
+      - Authorization Admin
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlResponseDRF'
+          description: ''
+  /api/extensions/v1/admin/invites:
+    get:
+      operationId: api_extensions_v1_admin_invites_retrieve_[retrieve_invites]
+      description: Retrieve Admin Invitations
+      summary: Retrieve Invites
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: organizationIds
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Authorization Admin
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAdminInvitesResponseObjectDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_admin_invites_create_[invite]
+      description: 'Bulk Admin Invite
+
+        This enpoint is an advanced version of the Invite Admin Staff endpoint.
+
+        It allows to send invitation to multiple resources at once.'
+      summary: Invite
+      tags:
+      - Authorization Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteAdminRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InviteAdminRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InviteAdminRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InviteResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/admin/send-invitation:
+    post:
+      operationId: api_extensions_v1_admin_send_invitation_create_[send_admin_invitations]
+      description: Send Admin Invitations
+      summary: Send Admin Invitations
+      tags:
+      - Authorization Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendAdminInvitationsRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendAdminInvitationsRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendAdminInvitationsRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendInvitationsResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/admin/service-account:
+    post:
+      operationId: api_extensions_v1_admin_service_account_create_[generate_service_account_api_key]
+      description: 'Generate usr service account
+
+        Generate a service account with an API key for the user, without requiring
+
+        user interaction, facilitating automated tasks and integrations.'
+      summary: Generate Service Account Api Key
+      tags:
+      - Authorization Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserServiceAccountRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUserServiceAccountRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUserServiceAccountRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateAuthKeysResponseObjectDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_admin_service_account_destroy_[delete_user_service_account]
+      description: Delete a service account of a user
+      summary: Delete User Service Account
+      tags:
+      - Authorization Admin
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponseDRF'
+          description: ''
+  /api/extensions/v1/admin/staff:
+    get:
+      operationId: api_extensions_v1_admin_staff_retrieve_[search_staff]
+      summary: Search Staff
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: organizationIds
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Authorization Admin
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchAdminStaffResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    FileFieldDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    UserLabelDRF:
+      type: object
+      properties:
+        labelId:
+          type: string
+        assignedBy:
+          type: string
+        assignDateTime:
+          type: string
+          format: date-time
+    PeriodProgressDRF:
+      type: object
+      properties:
+        taskCompliance:
+          type: number
+          format: double
+        startDateTime:
+          type: string
+          format: date-time
+        openQueriesAmount:
+          type: integer
+        passedDueDateFormsAmount:
+          type: integer
+        passedDatesCounter:
+          type: array
+          items:
+            $ref: '#/components/schemas/PassedDueDateEventsAmountDRF'
+    PersonalDocumentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fileType:
+          type: string
+        fileObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - fileObject
+      - fileType
+      - name
+    RecentFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    PassedDueDateEventsAmountDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+        amount:
+          type: integer
+    SendAdminInvitationsRequestDataDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        roleId:
+          type: string
+        organizationId:
+          type: string
+        expiresIn:
+          type: string
+      required:
+      - clientId
+      - emails
+      - projectId
+      - roleId
+    UserStatsDRF:
+      type: object
+      properties:
+        taskCompliance:
+          $ref: '#/components/schemas/TaskComplianceDRF'
+        studyProgress:
+          $ref: '#/components/schemas/StudyProgressDRF'
+    DetailedInvitationDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        contactEmail:
+          type: string
+        phoneNumber:
+          type: string
+        text:
+          type: string
+        code:
+          type: string
+        shortenedCode:
+          type: string
+        givenName:
+          type: string
+        familyName:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+        numberOfTry:
+          type: integer
+        expiresAt:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        senderId:
+          type: string
+        clientId:
+          type: string
+        language:
+          type: string
+        extraInfo:
+          type: object
+          additionalProperties: {}
+        type:
+          type: string
+        status:
+          type: string
+        deferredLink:
+          type: string
+        deferredLinkExpiresAt:
+          type: string
+          format: date-time
+        deepLinkValue:
+          type: string
+        ssoEnabled:
+          type: boolean
+        userId:
+          type: string
+        invitedBy:
+          $ref: '#/components/schemas/UserDTODRF'
+      required:
+      - code
+      - expiresAt
+      - invitedBy
+    InviteResponseObjectDRF:
+      type: object
+      properties:
+        alreadySignedUpEmails:
+          type: array
+          items:
+            type: string
+        ids:
+          type: array
+          items:
+            type: string
+        ok:
+          type: boolean
+    CreateUserServiceAccountRequestObjectDRF:
+      type: object
+      properties:
+        serviceAccountName:
+          type: string
+        authType:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        roleId:
+          type: string
+        resourceId:
+          type: string
+        timezone:
+          type: string
+        singleResourceAccess:
+          type: boolean
+      required:
+      - resourceId
+      - roleId
+      - serviceAccountName
+      - validationData
+    ResearchTeamActionsDRF:
+      type: object
+      properties:
+        forms:
+          type: array
+          items:
+            type: string
+    DeploymentInfoDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        draftId:
+          type: string
+        status:
+          type: string
+      required:
+      - id
+      - name
+    AdditionalContactDetailsDRF:
+      type: object
+      properties:
+        altContactNumber:
+          type: string
+        regularContactName:
+          type: string
+        regularContactNumber:
+          type: string
+        emergencyContactName:
+          type: string
+        emergencyContactNumber:
+          type: string
+    TaskComplianceDRF:
+      type: object
+      properties:
+        current:
+          type: integer
+        total:
+          type: integer
+        due:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        percentage:
+          type: integer
+    RetrieveAdminInvitesResponseObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        invites:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetailedInvitationDRF'
+      required:
+      - limit
+      - skip
+      - total
+    SendInvitationsResponseObjectDRF:
+      type: object
+      properties:
+        alreadySignedUpEmails:
+          type: array
+          items:
+            type: string
+        ids:
+          type: array
+          items:
+            type: string
+        ok:
+          type: boolean
+    RoleAssignmentDTODRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - resource
+      - roleId
+    SearchAdminStaffResponseObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        staff:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDTODRF'
+      required:
+      - limit
+      - skip
+      - staff
+      - total
+    UserSurgeryDetailsDRF:
+      type: object
+      properties:
+        operationType:
+          type: string
+        implantType:
+          type: string
+        roboticAssistance:
+          type: string
+    UrlResponseDRF:
+      type: object
+      properties:
+        noDataUrl:
+          type: string
+        withDataUrl:
+          type: string
+    InviteAdminRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+        expiresIn:
+          type: string
+      required:
+      - clientId
+      - emails
+      - projectId
+      - roles
+    OnboardingModuleConfigDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        preloadNeeded:
+          type: boolean
+        status:
+          type: string
+        configBody:
+          type: object
+          additionalProperties: {}
+        order:
+          type: integer
+        version:
+          type: integer
+        versionString:
+          type: string
+        userTypes:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        reason:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        versionInt:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - onboardingId
+      - order
+    UnseenFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    ManagerNotificationsDRF:
+      type: object
+      properties:
+        demographicsChange:
+          type: boolean
+    StudyProgressDRF:
+      type: object
+      properties:
+        currentPeriod:
+          type: integer
+        totalPeriods:
+          type: integer
+        totalCompliance:
+          type: number
+          format: double
+        periodProgress:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodProgressDRF'
+        totalOpenQueriesAmount:
+          type: integer
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    GenerateAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authId:
+          type: string
+        authKey:
+          type: string
+      required:
+      - authId
+      - authKey
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    UnreadMessagesCountDRF:
+      type: object
+      properties:
+        manager:
+          type: integer
+        user:
+          type: integer
+    BoardingStatusDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        reasonOffBoarded:
+          type: string
+        detailsOffBoarded:
+          type: string
+      required:
+      - status
+    UserDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        lastSubmitDateTime:
+          type: string
+          format: date-time
+        givenName:
+          type: string
+        familyName:
+          type: string
+        gender:
+          type: string
+        biologicalSex:
+          type: string
+        ethnicity:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date-time
+        email:
+          type: string
+        calendarLink:
+          type: string
+        phoneNumber:
+          type: string
+        primaryAddress:
+          type: string
+        race:
+          type: string
+        bloodGroup:
+          type: string
+        emergencyPhoneNumber:
+          type: string
+        height:
+          type: number
+          format: double
+        additionalContactDetails:
+          $ref: '#/components/schemas/AdditionalContactDetailsDRF'
+        familyMedicalHistory:
+          type: string
+        pastHistory:
+          type: string
+        presentSymptoms:
+          type: string
+        operationHistory:
+          type: string
+        chronicIllness:
+          type: string
+        allergyHistory:
+          type: string
+        pregnancy:
+          type: string
+        dateOfLastPhysicalExam:
+          type: string
+          format: date-time
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/UserSurgeryDetailsDRF'
+        fenlandCohortId:
+          type: string
+        nhsId:
+          type: string
+        insuranceNumber:
+          type: string
+        wechatId:
+          type: string
+        kardiaId:
+          type: string
+        pamThirdPartyIdentifier:
+          type: string
+        medicalRecordNumber:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignmentDTODRF'
+        timezone:
+          type: string
+        recentModuleResults:
+          type: object
+          additionalProperties: {}
+        tags:
+          type: object
+          additionalProperties: {}
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLabelDRF'
+        tagsAuthorId:
+          type: string
+        surgeryDateTime:
+          type: string
+          format: date-time
+        preferences:
+          type: object
+          additionalProperties: {}
+        preferredUnits:
+          type: object
+          additionalProperties: {}
+        addressComponent:
+          $ref: '#/components/schemas/AddressObjectDRF'
+        personalDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalDocumentDRF'
+        enrollmentId:
+          type: integer
+        enrollmentNumber:
+          type: string
+        deployments:
+          type: array
+          items:
+            type: string
+        deploymentsInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentInfoDRF'
+        boardingStatus:
+          $ref: '#/components/schemas/BoardingStatusDRF'
+        language:
+          type: string
+        finishedOnboarding:
+          type: boolean
+        stats:
+          $ref: '#/components/schemas/UserStatsDRF'
+        ragScore:
+          type: array
+          items:
+            type: integer
+        flags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        unseenFlags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        recentFlags:
+          $ref: '#/components/schemas/RecentFlagsDRF'
+        lastLoginDateTime:
+          type: string
+          format: date-time
+        badges:
+          type: object
+          additionalProperties: {}
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        researchTeamActions:
+          $ref: '#/components/schemas/ResearchTeamActionsDRF'
+        hasAssignedManagers:
+          type: boolean
+        componentsData:
+          type: object
+          additionalProperties: {}
+        contactEmail:
+          type: string
+        assignedManagers:
+          type: array
+          items:
+            type: string
+        assignedProxies:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedParticipants:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        assignedUsersCount:
+          type: integer
+        proxyStatus:
+          type: string
+        status:
+          type: string
+        ragThresholds:
+          type: object
+          additionalProperties: {}
+        intercomHash:
+          type: string
+        managerNotifications:
+          $ref: '#/components/schemas/ManagerNotificationsDRF'
+        profilePicture:
+          $ref: '#/components/schemas/FileFieldDRF'
+        createdByManager:
+          type: boolean
+        unreadMessagesCount:
+          $ref: '#/components/schemas/UnreadMessagesCountDRF'
+        userId:
+          type: string
+    AddressObjectDRF:
+      type: object
+      properties:
+        fiatNumber:
+          type: string
+        buildingNumber:
+          type: string
+        buildingName:
+          type: string
+        street:
+          type: string
+        subStreet:
+          type: string
+        town:
+          type: string
+        state:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

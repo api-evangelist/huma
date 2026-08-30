@@ -1,0 +1,978 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Integration API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Integration
+paths:
+  /api/extensions/v1/integration:
+    post:
+      operationId: api_extensions_v1_integration_create_[create_integration]
+      description: 'Create Integration
+
+        Creates a new integration based on the provided data.'
+      summary: Create Integration
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/integration/{integration_id}:
+    post:
+      operationId: api_extensions_v1_integration_create_[retrieve_integration]
+      description: 'Retrieve Integration
+
+        Retrieves the details of the specified integration based on the integration ID.'
+      summary: Retrieve Integration
+      parameters:
+      - in: path
+        name: integration_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationDTODRF'
+          description: ''
+    put:
+      operationId: api_extensions_v1_integration_update_[update_integration]
+      description: 'Update Integration
+
+        Updates an existing integration with the specified integration ID.'
+      summary: Update Integration
+      parameters:
+      - in: path
+        name: integration_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIntegrationRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateIntegrationRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateIntegrationRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_integration_destroy_[delete_integration]
+      description: 'Delete Integration
+
+        Deletes the specified integration based on the integration ID.'
+      summary: Delete Integration
+      parameters:
+      - in: path
+        name: integration_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/extensions/v1/integration/ehr-logs/search:
+    post:
+      operationId: api_extensions_v1_integration_ehr_logs_search_create_[retrieve_ehr_logs]
+      description: 'Search EHR Logs
+
+        Retrieves EHR logs based on the search criteria provided.'
+      summary: Retrieve Ehr Logs
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveEhrLogsRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveEhrLogsRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveEhrLogsRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveEhrLogsResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/integration/search:
+    post:
+      operationId: api_extensions_v1_integration_search_create_[retrieve_integrations]
+      description: 'Retrieve Integrations
+
+        Retrieves integrations based on the search criteria provided.'
+      summary: Retrieve Integrations
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveIntegrationsRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveIntegrationsRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveIntegrationsRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveIntegrationsResponseObjectDRF'
+          description: ''
+  /api/integration/v1/auth/sign-consent:
+    post:
+      operationId: api_integration_v1_auth_sign_consent_create_[sign_consent]
+      summary: Sign Consent
+      parameters:
+      - in: header
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: header
+        name: signature
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignConsentRequestBodyDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignConsentRequestBodyDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignConsentRequestBodyDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          description: No response body
+  /api/integration/v1/auth/signin:
+    post:
+      operationId: api_integration_v1_auth_signin_create_[sign_in]
+      description: 'Sign in
+
+        Responsible for authenticating users and providing access to secure resources.'
+      summary: Sign In
+      parameters:
+      - in: header
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: header
+        name: signature
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignInRequestBodyDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignInRequestBodyDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignInRequestBodyDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInResponseObjectDRF'
+          description: ''
+  /api/integration/v1/auth/signup:
+    post:
+      operationId: api_integration_v1_auth_signup_create_[sign_up]
+      description: 'Sign up
+
+        Register new third party users securely with sign-up endpoint.'
+      summary: Sign Up
+      parameters:
+      - in: header
+        name: deploymentId
+        schema:
+          type: string
+        required: true
+      - in: header
+        name: signature
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignUpRequestBodyDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignUpRequestBodyDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntegrationSignUpRequestBodyDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationSignUpResponseObjectDRF'
+          description: ''
+  /api/integration/v1/configs/android:
+    get:
+      operationId: api_integration_v1_configs_android_retrieve_[retrieve_android_config]
+      description: 'Download Android JSON Config
+
+        Generate Android Configuration JSON file and provide as a file.'
+      summary: Retrieve Android Config
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/integration/v1/configs/backend:
+    get:
+      operationId: api_integration_v1_configs_backend_retrieve_[retrieve_backend_config]
+      description: 'Download Backend JSON Config
+
+        Generate Backend Configuration JSON file and provide as a file.'
+      summary: Retrieve Backend Config
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/integration/v1/configs/ios:
+    get:
+      operationId: api_integration_v1_configs_ios_retrieve_[retrieve_ios_config]
+      description: 'Download iOS JSON Config
+
+        Generate iOS Configuration JSON file and provide as a file.'
+      summary: Retrieve Ios Config
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/integration/v1/secrets/:
+    get:
+      operationId: api_integration_v1_secrets_retrieve_[retrieve_api_secret]
+      description: 'Retrieve API Secret
+
+        Retrieve already generated API secret.'
+      summary: Retrieve Api Secret
+      parameters:
+      - in: query
+        name: organizationId
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAPISecretDTODRF'
+          description: ''
+    post:
+      operationId: api_integration_v1_secrets_create_[generate_api_secret]
+      description: 'Generate API Secret
+
+        Generate new API secret for provided organization.'
+      summary: Generate Api Secret
+      tags:
+      - Integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateAPISecretRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateAPISecretRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateAPISecretRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationAPISecretDTODRF'
+          description: ''
+    delete:
+      operationId: api_integration_v1_secrets_destroy_[delete_api_secret]
+      description: 'Delete API Secret
+
+        Delete API secret for provided organization.'
+      summary: Delete Api Secret
+      tags:
+      - Integration
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    OrganizationAPISecretDTODRF:
+      type: object
+      properties:
+        value:
+          type: string
+        organizationId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - createDateTime
+      - organizationId
+      - value
+    GenericEHRDTODRF:
+      type: object
+      properties:
+        url:
+          type: string
+        tokenUrl:
+          type: string
+        authType:
+          type: string
+        apiKey:
+          type: string
+        apiSecret:
+          type: string
+        keyId:
+          type: string
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        privateKey:
+          type: string
+        sourceId:
+          type: string
+        sourceName:
+          type: string
+        destination:
+          type: array
+          items:
+            $ref: '#/components/schemas/DestinationDRF'
+        endpoint:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointDRF'
+        logsId:
+          type: string
+        logsAttemptId:
+          type: string
+        accessToken:
+          type: string
+        accessTokenExpiration:
+          type: string
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        retry:
+          type: integer
+      required:
+      - authType
+      - url
+    IntegrationSignConsentRequestBodyDRF:
+      type: object
+      properties:
+        email:
+          type: string
+    RetrieveIntegrationsRequestObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - skip
+    GCPFhirDTODRF:
+      type: object
+      properties:
+        url:
+          type: string
+        serviceAccountData:
+          type: string
+        config:
+          type: object
+          additionalProperties: {}
+      required:
+      - serviceAccountData
+      - url
+    UpdateIntegrationRequestDataDRF:
+      type: object
+      properties:
+        organizationIds:
+          type: array
+          items:
+            type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        integrationType:
+          type: string
+        webhook:
+          $ref: '#/components/schemas/WebhookDTODRF'
+        kafka:
+          $ref: '#/components/schemas/KafkaDRF'
+        gcpFhir:
+          $ref: '#/components/schemas/GCPFhirDTODRF'
+        genericEhr:
+          $ref: '#/components/schemas/GenericEHRDTODRF'
+        name:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - deploymentIds
+      - integrationType
+      - name
+      - organizationIds
+    EhrLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: integer
+        mongoId:
+          type: string
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        integrationId:
+          type: string
+        method:
+          type: string
+        endpoint:
+          type: string
+        requestHeaders:
+          type: string
+        requestData:
+          type: string
+        statusCode:
+          type: integer
+        responseHeaders:
+          type: string
+        responseData:
+          type: string
+        responseTime:
+          type: integer
+        errorMessage:
+          type: string
+        authType:
+          type: string
+        destinationFunc:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+    IntegrationSignInRequestBodyDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        deviceAgent:
+          type: string
+        email:
+          type: string
+      required:
+      - clientId
+      - projectId
+    InboundDRF:
+      type: object
+      properties:
+        topic:
+          type: string
+        eventTypes:
+          type: array
+          items:
+            type: string
+        extraArgs:
+          type: object
+          additionalProperties: {}
+      required:
+      - topic
+    KafkaDRF:
+      type: object
+      properties:
+        url:
+          type: string
+        authType:
+          type: string
+        saslUsername:
+          type: string
+        saslPassword:
+          type: string
+        inbound:
+          $ref: '#/components/schemas/InboundDRF'
+        outbound:
+          $ref: '#/components/schemas/OutboundDRF'
+      required:
+      - authType
+      - inbound
+      - outbound
+      - url
+    SignInResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    RetrieveIntegrationsResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+    CreateIntegrationRequestObjectDRF:
+      type: object
+      properties:
+        organizationIds:
+          type: array
+          items:
+            type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        integrationType:
+          type: string
+        webhook:
+          $ref: '#/components/schemas/WebhookDTODRF'
+        kafka:
+          $ref: '#/components/schemas/KafkaDRF'
+        gcpFhir:
+          $ref: '#/components/schemas/GCPFhirDTODRF'
+        genericEhr:
+          $ref: '#/components/schemas/GenericEHRDTODRF'
+        name:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - deploymentIds
+      - integrationType
+      - name
+      - organizationIds
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    GenerateAPISecretRequestObjectDRF:
+      type: object
+      properties:
+        organizationId:
+          type: string
+      required:
+      - organizationId
+    RetrieveEhrLogsResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EhrLogDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+    IntegrationSignUpResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    RetrieveEhrLogsRequestObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        integrationId:
+          type: string
+        method:
+          type: string
+        statusCode:
+          type: integer
+        destinationFunc:
+          type: string
+        fromDateTime:
+          type: string
+          format: date-time
+        toDateTime:
+          type: string
+          format: date-time
+        searchText:
+          type: string
+        sortFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+    EndpointDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        verificationToken:
+          type: string
+      required:
+      - id
+      - path
+      - verificationToken
+    WebhookDTODRF:
+      type: object
+      properties:
+        endpoint:
+          type: string
+        authType:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        retry:
+          type: integer
+        token:
+          type: string
+      required:
+      - authType
+      - endpoint
+    OutboundDRF:
+      type: object
+      properties:
+        topic:
+          type: string
+        eventTypes:
+          type: array
+          items:
+            type: string
+        extraArgs:
+          type: object
+          additionalProperties: {}
+      required:
+      - topic
+    IntegrationSignUpRequestBodyDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        email:
+          type: string
+        contactEmail:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        displayName:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        userAttributes:
+          type: object
+          additionalProperties: {}
+        timezone:
+          type: string
+        ssoEnabled:
+          type: boolean
+        userId:
+          type: string
+        deviceAgent:
+          type: string
+        ipAddress:
+          type: string
+      required:
+      - clientId
+      - ipAddress
+      - projectId
+    DestinationDRF:
+      type: object
+      properties:
+        destinationId:
+          type: string
+        destinationName:
+          type: string
+        destinationFunc:
+          type: string
+        isTest:
+          type: boolean
+      required:
+      - destinationFunc
+      - destinationId
+    IntegrationDTODRF:
+      type: object
+      properties:
+        organizationIds:
+          type: array
+          items:
+            type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        integrationType:
+          type: string
+        webhook:
+          $ref: '#/components/schemas/WebhookDTODRF'
+        kafka:
+          $ref: '#/components/schemas/KafkaDRF'
+        gcpFhir:
+          $ref: '#/components/schemas/GCPFhirDTODRF'
+        genericEhr:
+          $ref: '#/components/schemas/GenericEHRDTODRF'
+        id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - deploymentIds
+      - integrationType
+      - name
+      - organizationIds
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

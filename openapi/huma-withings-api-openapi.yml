@@ -1,0 +1,62 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Withings API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Withings
+paths:
+  /api/extensions/v1/withings/notify:
+    post:
+      operationId: api_extensions_v1_withings_notify_create_[receive_notification]
+      description: 'Receive Subscription Notification
+
+        https://developer.withings.com/api-reference/#tag/notify/operation/notify-get'
+      summary: Receive Notification
+      tags:
+      - Withings
+      security:
+      - {}
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Signature not found or Withings config is disabled
+components:
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,95 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Privacy Assets API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Privacy Assets
+paths:
+  /privacy/e-label:
+    get:
+      operationId: privacy_e_label_retrieve_[e_label]
+      summary: E Label
+      parameters:
+      - in: query
+        name: buildNumber
+        schema:
+          type: string
+      - in: query
+        name: deploymentId
+        schema:
+          type: string
+      - in: query
+        name: host
+        schema:
+          type: string
+      - in: query
+        name: organizationId
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+      tags:
+      - Privacy Assets
+      security:
+      - {}
+      responses:
+        '200':
+          description: HTML Template
+  /privacy/instructions-for-use:
+    get:
+      operationId: privacy_instructions_for_use_retrieve_[instructions_for_use]
+      summary: Instructions For Use
+      parameters:
+      - in: query
+        name: type
+        schema:
+          type: string
+        required: true
+      tags:
+      - Privacy Assets
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

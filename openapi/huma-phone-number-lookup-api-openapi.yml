@@ -1,0 +1,88 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Phone Number Lookup API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Phone Number Lookup
+paths:
+  /api/extensions/v1/phone-lookup/check-type:
+    post:
+      operationId: api_extensions_v1_phone_lookup_check_type_create_[check_phone_number_type]
+      summary: Check Phone Number Type
+      tags:
+      - Phone Number Lookup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatePhoneNumberTypeRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ValidatePhoneNumberTypeRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidatePhoneNumberTypeRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckPhoneNumberTypeResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    ValidatePhoneNumberTypeRequestObjectDRF:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+      required:
+      - phoneNumber
+    CheckPhoneNumberTypeResponseObjectDRF:
+      type: object
+      properties:
+        numberType:
+          type: string
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

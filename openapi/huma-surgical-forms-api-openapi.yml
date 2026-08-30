@@ -1,0 +1,572 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Surgical Forms API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Surgical Forms
+paths:
+  /api/extensions/v1/forms/user/{user_id}:
+    get:
+      operationId: api_extensions_v1_forms_user_retrieve_[retrieve_surgical_forms]
+      description: 'Retrieve Surgical Forms
+
+        Fetches a list of surgical forms for a specific user.'
+      summary: Retrieve Surgical Forms
+      parameters:
+      - in: query
+        name: status
+        schema:
+          type: string
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Surgical Forms
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalFormDataDRF'
+          description: ''
+  /api/extensions/v1/forms/user/{user_id}/form/{form_id}:
+    get:
+      operationId: api_extensions_v1_forms_user_form_retrieve_[retrieve_surgical_form_detail]
+      description: 'Retrieve Surgical Form Detail
+
+        Retrieves the detailed information for a specific surgical form..'
+      summary: Retrieve Surgical Form Detail
+      parameters:
+      - in: path
+        name: form_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Surgical Forms
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalFormDetailDRF'
+          description: ''
+  /api/extensions/v1/forms/user/{user_id}/history/{form_id}:
+    get:
+      operationId: api_extensions_v1_forms_user_history_retrieve_[retrieve_form_history]
+      description: 'Retrieve Form History
+
+        Retrieves the history of revisions for a specific form.'
+      summary: Retrieve Form History
+      parameters:
+      - in: path
+        name: form_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Surgical Forms
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormRevisionDTODRF'
+          description: ''
+components:
+  schemas:
+    QuestionnaireDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        moduleResultId:
+          type: string
+        deploymentId:
+          type: string
+        version:
+          type: integer
+        deviceName:
+          type: string
+        isAggregated:
+          type: boolean
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        correlationStartDateTime:
+          type: string
+          format: date-time
+        client:
+          $ref: '#/components/schemas/UserAgentDRF'
+        server:
+          $ref: '#/components/schemas/ServerDRF'
+        ragThreshold:
+          type: object
+          additionalProperties: {}
+        flags:
+          type: object
+          additionalProperties: {}
+        eventLogId:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        isAverage:
+          type: boolean
+        noteId:
+          type: string
+        feedback:
+          $ref: '#/components/schemas/ModuleFeedbackDRF'
+        meal:
+          type: string
+        userNote:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        appResult:
+          $ref: '#/components/schemas/QuestionnaireAppResultDRF'
+        isForManager:
+          type: boolean
+        questionnaireId:
+          type: string
+        questionnaireName:
+          type: string
+        value:
+          type: number
+          format: double
+        skipped:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        signOffDateTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        revision:
+          type: integer
+      required:
+      - answers
+      - deploymentId
+      - deviceName
+      - moduleId
+      - questionnaireId
+      - questionnaireName
+      - userId
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    KeyActionEventDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        keyActionConfigId:
+          type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - keyActionConfigId
+      - model
+    SurgicalFormDetailDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        event:
+          $ref: '#/components/schemas/KeyActionEventDRF'
+        result:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
+      required:
+      - result
+    FormRevisionDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+        note:
+          type: string
+        submitterId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        content:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
+        submitterName:
+          type: string
+      required:
+      - content
+      - submitterId
+      - version
+    SurgicalFormDataDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        draft:
+          type: boolean
+        dueDateTime:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        submitterId:
+          type: string
+        submitterName:
+          type: string
+        status:
+          type: string
+        questionnaire:
+          type: object
+          additionalProperties: {}
+        moduleConfigId:
+          type: string
+      required:
+      - dueDateTime
+      - moduleConfigId
+      - title
+      - userId
+    QuestionnaireAppResultDRF:
+      type: object
+      properties:
+        appType:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
+      required:
+      - appType
+      - values
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

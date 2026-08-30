@@ -1,0 +1,728 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Reminders API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Reminders
+paths:
+  /api/extensions/v1/user/{user_id}/reminder:
+    post:
+      operationId: api_extensions_v1_user_reminder_create_[create_reminder]
+      description: 'Create Module Reminder
+
+        Creates a module-based reminder for the specified user.'
+      summary: Create Reminder
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserModuleReminderRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUserModuleReminderRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUserModuleReminderRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reminder/{reminder_id}:
+    get:
+      operationId: api_extensions_v1_user_reminder_retrieve_[retrieve_reminder]
+      description: 'Retrieve Module Reminder
+
+        Retrieves a specific module-based reminder for the specified user by reminder ID.'
+      summary: Retrieve Reminder
+      parameters:
+      - in: path
+        name: reminder_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReminderResponseDataDRF'
+          description: ''
+    post:
+      operationId: api_extensions_v1_user_reminder_create_[update_reminder]
+      description: 'Update Module Reminder
+
+        Updates a module-based reminder for the specified user.'
+      summary: Update Reminder
+      parameters:
+      - in: path
+        name: reminder_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserModuleReminderRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateUserModuleReminderRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateUserModuleReminderRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+    delete:
+      operationId: api_extensions_v1_user_reminder_destroy_[delete_reminder]
+      description: 'Delete Module Reminder
+
+        Deletes a specific reminder for the specified user by reminder ID.'
+      summary: Delete Reminder
+      parameters:
+      - in: path
+        name: reminder_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/extensions/v1/user/{user_id}/reminder/personal:
+    post:
+      operationId: api_extensions_v1_user_reminder_personal_create_[create_personal_reminder]
+      description: 'Create Personal Reminder
+
+        Creates a personal reminder for the specified user.'
+      summary: Create Personal Reminder
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalReminderRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalReminderRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalReminderRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reminder/personal/{reminder_id}:
+    put:
+      operationId: api_extensions_v1_user_reminder_personal_update_[update_personal_reminder]
+      description: 'Update Personal Reminder
+
+        Updates a personal reminder for the specified user.'
+      summary: Update Personal Reminder
+      parameters:
+      - in: path
+        name: reminder_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonalReminderRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonalReminderRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonalReminderRequestDataDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reminder/personal/{reminder_id}/done:
+    post:
+      operationId: api_extensions_v1_user_reminder_personal_done_create_[complete_personal_reminder]
+      description: 'Complete Personal Reminder
+
+        Marks a personal reminder as complete for the specified user and reminder ID.'
+      summary: Complete Personal Reminder
+      parameters:
+      - in: path
+        name: reminder_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkCompleteUserReminderRequestDataDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MarkCompleteUserReminderRequestDataDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MarkCompleteUserReminderRequestDataDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultIdResponseObjectDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reminder/search:
+    put:
+      operationId: api_extensions_v1_user_reminder_search_update_[search_reminders]
+      description: 'Search Module Reminders
+
+        Searches for module-based reminders for the specified user, filtered by module ID or configuration ID.'
+      summary: Search Reminders
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveRemindersRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RetrieveRemindersRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RetrieveRemindersRequestObjectDRF'
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReminderResponseDataDRF'
+          description: ''
+  /api/extensions/v1/user/{user_id}/reminders:
+    post:
+      operationId: api_extensions_v1_user_reminders_create_[retrieve_reminders]
+      description: 'Retrieve Module Reminders
+
+        Retrieves multiple reminders for the specified user.'
+      summary: Retrieve Reminders
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Reminders
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveRemindersResponseDRF'
+          description: ''
+components:
+  schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    UpdatePersonalReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        oldReminder:
+          $ref: '#/components/schemas/CalendarEventDTODRF'
+    CalendarEventDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+      required:
+      - model
+    RetrieveRemindersResponseDRF:
+      type: object
+      properties:
+        reminders:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReminderResponseDataDRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - limit
+      - reminders
+      - skip
+      - total
+    RetrieveRemindersRequestObjectDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+    CreatePersonalReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+    MarkCompleteUserReminderRequestDataDRF:
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+      required:
+      - endDateTime
+      - startDateTime
+    UpdateUserModuleReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        oldReminder:
+          $ref: '#/components/schemas/CalendarEventDTODRF'
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - moduleConfigId
+      - moduleId
+    CreateUserModuleReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - moduleConfigId
+      - moduleId
+    ReminderResponseDataDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - model
+      - moduleConfigId
+      - moduleId
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

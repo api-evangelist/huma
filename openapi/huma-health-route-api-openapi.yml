@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Health Route API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Health Route
+paths:
+  /health/live:
+    get:
+      operationId: health_live_retrieve_[live]
+      description: 'Liveness check
+
+        Checks the liveness of the server'
+      summary: Live
+      tags:
+      - Health Route
+      security:
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponseObjectDRF'
+          description: ''
+  /health/ready:
+    get:
+      operationId: health_ready_retrieve_[ready]
+      description: 'Readiness check
+
+        Checks the readiness of the server'
+      summary: Ready
+      tags:
+      - Health Route
+      security:
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    StatusDetailsDRF:
+      type: object
+      properties:
+        status:
+          type: string
+    StatusResponseObjectDRF:
+      type: object
+      properties:
+        cache:
+          $ref: '#/components/schemas/StatusDetailsDRF'
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

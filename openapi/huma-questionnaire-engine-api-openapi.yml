@@ -1,0 +1,243 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Questionnaire Engine API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Questionnaire Engine
+paths:
+  /api/extensions/v1/questionnaire-engine/user/{user_id}:
+    post:
+      operationId: api_extensions_v1_questionnaire_engine_user_create_[handle_condition_flow]
+      summary: Handle Condition Flow
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          pattern: ^[a-f0-9]{24}$
+        required: true
+      tags:
+      - Questionnaire Engine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConditionFlowRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConditionFlowRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConditionFlowRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConditionFlowResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    CreateModuleResultResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+        moduleResultId:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+    ConditionFlowRequestObjectDRF:
+      type: object
+      properties:
+        action:
+          type: string
+        conditionCodeName:
+          type: string
+        responseId:
+          type: string
+        questionId:
+          type: string
+        answers:
+          type: array
+          items:
+            type: string
+      required:
+      - action
+    QuestionResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        codeName:
+          type: string
+        format:
+          type: string
+        selectionCriteria:
+          type: string
+        required:
+          type: boolean
+        text:
+          type: string
+        additionalTexts:
+          type: object
+          additionalProperties: {}
+        visibility:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        restrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionDRF'
+        mediaType:
+          type: array
+          items:
+            type: string
+        multipleAnswers:
+          $ref: '#/components/schemas/MultipleAnswerConfigDRF'
+        logic:
+          $ref: '#/components/schemas/QuestionLogicDRF'
+        extra:
+          type: object
+          additionalProperties: {}
+        questionnaireId:
+          type: string
+        responseId:
+          type: string
+      required:
+      - codeName
+      - questionnaireId
+      - responseId
+    QuestionLogicDRF:
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
+    LimitationDRF:
+      type: object
+      properties:
+        answerId:
+          type: string
+        minimumAge:
+          type: string
+        maximumAge:
+          type: string
+        gender:
+          type: string
+        showForSources:
+          type: array
+          items:
+            type: string
+        method:
+          type: string
+      required:
+      - method
+    MultipleAnswerConfigDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        maxAnswers:
+          type: integer
+        minAnswers:
+          type: integer
+    ConditionFlowResponseObjectDRF:
+      type: object
+      properties:
+        responseId:
+          type: string
+        question:
+          $ref: '#/components/schemas/QuestionResponseObjectDRF'
+        submitResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateModuleResultResponseObjectDRF'
+        allQuestionsCompleted:
+          type: boolean
+        flowCompleted:
+          type: boolean
+        currentProgress:
+          type: integer
+        totalQuestionnaires:
+          type: integer
+      required:
+      - responseId
+    OptionDRF:
+      type: object
+      properties:
+        codeName:
+          type: string
+        label:
+          type: string
+        value:
+          type: string
+        weight:
+          type: integer
+        visibility:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        restrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        triageLevel:
+          type: integer
+        selected:
+          type: boolean
+      required:
+      - codeName
+      - label
+      - value
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

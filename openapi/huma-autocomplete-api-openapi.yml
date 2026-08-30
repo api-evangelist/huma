@@ -1,0 +1,466 @@
+openapi: 3.2.0
+info:
+  title: Huma Platform Autocomplete API
+  version: 1.0.0
+  description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
+tags:
+- name: Autocomplete
+paths:
+  /api/autocomplete/v1/AZVaccineBatchNumber/search:
+    get:
+      operationId: api_autocomplete_v1_AZVaccineBatchNumber_search_retrieve_[func]
+      description: Retrieve Autocomplete AZVaccineBatchNumber
+      summary: Func
+      parameters:
+      - in: query
+        name: exactWord
+        schema:
+          type: boolean
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: header
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: listEndpointId
+        schema:
+          type: string
+      - in: query
+        name: region
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Autocomplete
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AZVaccineBatchNumberAutocompleteResponseDRF'
+          description: ''
+  /api/autocomplete/v1/Indications/search:
+    get:
+      operationId: api_autocomplete_v1_Indications_search_retrieve_[func]
+      description: Retrieve Autocomplete Indications
+      summary: Func
+      parameters:
+      - in: query
+        name: exactWord
+        schema:
+          type: boolean
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: header
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: listEndpointId
+        schema:
+          type: string
+      - in: query
+        name: region
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Autocomplete
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicationsAutocompleteResponseDRF'
+          description: ''
+  /api/autocomplete/v1/Medications/search:
+    get:
+      operationId: api_autocomplete_v1_Medications_search_retrieve_[func]
+      description: Retrieve Autocomplete Medications
+      summary: Func
+      parameters:
+      - in: query
+        name: exactWord
+        schema:
+          type: boolean
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: header
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: listEndpointId
+        schema:
+          type: string
+      - in: query
+        name: region
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Autocomplete
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicationsAutocompleteResponseDRF'
+          description: ''
+  /api/autocomplete/v1/MedicationsV2/search:
+    get:
+      operationId: api_autocomplete_v1_MedicationsV2_search_retrieve_[func]
+      description: Retrieve Autocomplete MedicationsV2
+      summary: Func
+      parameters:
+      - in: query
+        name: exactWord
+        schema:
+          type: boolean
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: header
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: listEndpointId
+        schema:
+          type: string
+      - in: query
+        name: region
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Autocomplete
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicationsV2AutocompleteResponseDRF'
+          description: ''
+  /api/autocomplete/v1/Symptoms/search:
+    get:
+      operationId: api_autocomplete_v1_Symptoms_search_retrieve_[func]
+      description: Retrieve Autocomplete Symptoms
+      summary: Func
+      parameters:
+      - in: query
+        name: exactWord
+        schema:
+          type: boolean
+      - in: query
+        name: language
+        schema:
+          type: string
+      - in: header
+        name: language
+        schema:
+          type: string
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: listEndpointId
+        schema:
+          type: string
+      - in: query
+        name: region
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: skip
+        schema:
+          type: integer
+      tags:
+      - Autocomplete
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymptomsAutocompleteResponseDRF'
+          description: ''
+  /api/autocomplete/v1/update:
+    post:
+      operationId: api_autocomplete_v1_update_create_[update_autocomplete_metadata]
+      summary: Update Autocomplete Metadata
+      tags:
+      - Autocomplete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAutoCompleteSearchMetadataRequestObjectDRF'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateAutoCompleteSearchMetadataRequestObjectDRF'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateAutoCompleteSearchMetadataRequestObjectDRF'
+        required: true
+      security:
+      - JWT Auth: []
+      - Hawk Auth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIdResponseObjectDRF'
+          description: ''
+components:
+  schemas:
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    UpdateAutoCompleteSearchMetadataRequestObjectDRF:
+      type: object
+      properties:
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
+      required:
+      - metadata
+    SnomedMedDataDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        system:
+          type: string
+      required:
+      - name
+    IndicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnomedMedDataDRF'
+      required:
+      - limit
+      - skip
+      - values
+    AutocompleteMetadataDTODRF:
+      type: object
+      properties:
+        moduleId:
+          type: string
+        language:
+          type: string
+        s3Object:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - language
+      - moduleId
+      - s3Object
+    SymptomsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    MedicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    MedicationsV2AutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    AZVaccineBatchNumberAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+  securitySchemes:
+    Hawk_Auth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Hawk MAC authentication. Paste a full Authorization header value.
+
+
+        Example:
+
+
+        Authorization: Hawk id="userId:clientId", ts="<unix_ts>", nonce="<nonce>", mac="<mac>"[, hash="<hash>"][, ext="<ext>"]
+
+
+        Note: Swagger UI cannot generate Hawk headers. Use your client to compute the MAC (e.g., with mohawk), then paste the full value here.'
+    JWT_Auth:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+      description: 'Use HTTP Bearer auth with a JWT.
+
+
+        Send the token in the Authorization header:
+
+
+        Authorization: Bearer <your_jwt_here>
+
+
+        The token should contain standard claims plus projectId and clientId in user claims.'
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
