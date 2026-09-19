@@ -148,6 +148,8 @@ apis:
   humanURL: https://docs.huma.com/api-integration/intro
   baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
   tags:
+  - Audit Logs
+  tags_raw:
   - Audit Log
   properties:
   - type: OpenAPI
@@ -370,6 +372,8 @@ apis:
   humanURL: https://docs.huma.com/api-integration/intro
   baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -965,6 +969,8 @@ apis:
   humanURL: https://docs.huma.com/api-integration/intro
   baseURL: https://workspace-gcp-uk.api.huma.com/api/integration/v1
   tags:
+  - Medication
+  tags_raw:
   - Medications
   properties:
   - type: OpenAPI
