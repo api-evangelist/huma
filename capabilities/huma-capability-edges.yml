@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 4
+edge_count: 9
 edges:
 - tag: Appointment
   spec_file: huma-appointment-api-openapi.yml
@@ -23,6 +23,18 @@ edges:
     'Bulk Delete Appointments'; AppointmentDTODRF
   reason: Full lifecycle of patient appointments (create, update, retrieve, search, delete) on a clinical
     remote-monitoring platform — squarely appointment booking and scheduling within patient access management.
+- tag: Auth
+  spec_file: huma-auth-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /api/auth/v1/signin "Sign In V1"; "Password Reset"; "Refresh Token V1"; "Create Service
+    Account"; SsoDTODRF
+  reason: Authentication, credential, SSO and service-account lifecycle endpoints map to Identity & Access
+    Management. Confidence tempered because pure authentication plumbing is arguably not a business capability
+    at all.
+  recovered_from: healthcare-vertical-edges.json
 - tag: Billing
   spec_file: huma-billing-api-openapi.yml
   capability_id: BC-2870.10
@@ -44,6 +56,17 @@ edges:
   reason: Spirometry is pulmonary function testing, and the operation retrieves per-patient spirometry
     reports with report/axis data structures. This matches cardiopulmonary diagnostics; only one operation
     is exposed, so confidence is tempered.
+- tag: Authorization Admin
+  spec_file: huma-authorization-admin-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Retrieve Invites", "Send Admin Invitations", "Generate Service Account Api Key", "Search
+    Staff", RoleAssignmentDTODRF'
+  reason: Administrative user provisioning, invitations, API keys and role assignment — access administration
+    for platform users, i.e. Identity & Access Management, not a clinical capability.
+  recovered_from: healthcare-vertical-edges.json
 - tag: Kardia
   spec_file: huma-kardia-api-openapi.yml
   capability_id: BC-2860.40
@@ -55,3 +78,38 @@ edges:
   reason: The tag integrates AliveCor Kardia devices to enrol a patient, sync data and retrieve ECG recordings
     and ECG PDF reports — electrocardiography diagnostic data capture and review. Some chance the better
     fit is remote/home monitoring rather than the diagnostics service line, hence 0.7.
+- tag: Module Results
+  spec_file: huma-module-results-api-openapi.yml
+  capability_id: BC-2810.80
+  capability_id_l1: BC-2810
+  capability_name: Home & Community Care Delivery
+  confidence: 0.7
+  evidence: POST /api/extensions/v1/user/{user_id}/module-result/AHQ 'Create Ahq'; schemas ECGResultsDRF,
+    SpirometryDTODRF, CreatePeakFlowDRF, DailyCheckInResultsDRF, CovidSymptomsItemDRF
+  reason: Large surface capturing patient vitals, device readings, symptom check-ins and ePRO instruments
+    submitted by patients between visits — the core remote patient monitoring data capture of this vendor,
+    i.e. care delivered in the patient's home setting.
+  recovered_from: healthcare-vertical-edges.json
+- tag: Plugins
+  spec_file: huma-plugins-api-openapi.yml
+  capability_id: BC-4230.20
+  capability_id_l1: BC-4230
+  capability_name: Tenant Configuration Management
+  confidence: 0.7
+  evidence: PUT /api/plugin/v1/organization/{organization_id}/configs/{config_name} 'Update Plugin Config
+    For Org'; schema UpdateOrganizationPluginConfigRequestObjectDRF
+  reason: Reads and writes per-organisation and per-deployment plugin configuration on a multi-tenant
+    platform — per-tenant feature configuration above the shared product baseline.
+  recovered_from: healthcare-vertical-edges.json
+- tag: Servier Care Plan
+  spec_file: huma-servier-care-plan-api-openapi.yml
+  capability_id: BC-2820.20
+  capability_id_l1: BC-2820
+  capability_name: Case & Care Management
+  confidence: 0.7
+  evidence: POST /api/care-plan/v1/user/{user_id}/care-plan  Assign Care Plan; AssignCarePlanRequestObjectDRF;
+    CreatePrescriptionRequestObjectDRF
+  reason: Assigns and retrieves a care plan for a specific patient and records prescriptions against it
+    — care planning and management for an enrolled patient. Some ambiguity because prescription creation
+    also touches medication management, hence 0.7.
+  recovered_from: healthcare-vertical-edges.json
