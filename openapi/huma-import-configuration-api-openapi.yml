@@ -139,18 +139,6 @@ paths:
           description: ''
 components:
   schemas:
-    ImportConfigurationValidateFileRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        fileIds:
-          type: array
-          items:
-            type: string
-      required:
-      - fileIds
-      - userId
     ImportDeploymentConfigRequestObjectDRF:
       type: object
       properties:
@@ -170,7 +158,21 @@ components:
       - fileIds
       - organizationId
       - userId
-    ImportOrganizationConfigRequestObjectDRF:
+    ImportOrgConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportOrganizationConfigsServiceInfoDRF'
+    ImportDeploymentConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
+    ImportConfigurationValidateFileRequestObjectDRF:
       type: object
       properties:
         userId:
@@ -182,13 +184,35 @@ components:
       required:
       - fileIds
       - userId
-    ImportDeploymentConfigurationValidateFileResponseDRF:
+    ExportDeploymentConfigsServiceInfoDRF:
       type: object
       properties:
-        items:
+        exporterEmail:
+          type: string
+        exportedDateTime:
+          type: string
+          format: date-time
+        platform:
+          type: string
+        fileSize:
+          type: integer
+        fileName:
+          type: string
+        exporterVersion:
+          type: string
+        fileId:
+          type: string
+        fileIntegrityVerified:
+          type: boolean
+        deploymentName:
+          type: string
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
           type: array
           items:
-            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
+            type: string
     ExportOrganizationConfigsServiceInfoDRF:
       type: object
       properties:
@@ -215,42 +239,18 @@ components:
           type: array
           items:
             type: string
-    ImportOrgConfigurationValidateFileResponseDRF:
+    ImportOrganizationConfigRequestObjectDRF:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportOrganizationConfigsServiceInfoDRF'
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
+        userId:
+          type: string
+        fileIds:
           type: array
           items:
             type: string
-    ExportDeploymentConfigsServiceInfoDRF:
-      type: object
-      properties:
-        exporterEmail:
-          type: string
-        exportedDateTime:
-          type: string
-          format: date-time
-        platform:
-          type: string
-        fileSize:
-          type: integer
-        fileName:
-          type: string
-        exporterVersion:
-          type: string
-        fileId:
-          type: string
-        fileIntegrityVerified:
-          type: boolean
-        deploymentName:
-          type: string
+      required:
+      - fileIds
+      - userId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

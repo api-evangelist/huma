@@ -321,163 +321,6 @@ paths:
           description: ''
 components:
   schemas:
-    TaskDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        nodeName:
-          type: string
-        params:
-          type: object
-          additionalProperties: {}
-        output:
-          type: object
-          additionalProperties: {}
-        nextTaskIds:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-      required:
-      - id
-      - nodeName
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    RunWorkflowRequestObjectDRF:
-      type: object
-      properties:
-        params:
-          type: object
-          additionalProperties: {}
-        resource:
-          type: string
-        workflowId:
-          type: string
-      required:
-      - params
-    GetNodesResponseObjectDRF:
-      type: object
-      properties:
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NodeConvertibleDRF'
-      required:
-      - nodes
-    CreateWorkflowRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskDTODRF'
-        resourceId:
-          type: array
-          items:
-            type: string
-        startNode:
-          type: string
-        schedule:
-          type: string
-        status:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        publishedWorkflowId:
-          type: string
-        isDraft:
-          type: boolean
-      required:
-      - name
-      - tasks
-    NodeConvertibleDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        parameters:
-          type: array
-          items:
-            type: string
-        output:
-          type: array
-          items:
-            type: string
-        isTrigger:
-          type: boolean
-        description:
-          type: string
-      required:
-      - name
-      - output
-      - parameters
-    GetTemplateWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflowTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflowTemplates
-    GetWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflows
-    UpdateWorkflowRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskDTODRF'
-        resourceId:
-          type: array
-          items:
-            type: string
-        startNode:
-          type: string
-        schedule:
-          type: string
-        status:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        publishedWorkflowId:
-          type: string
-        isDraft:
-          type: boolean
-        workflowId:
-          type: string
-      required:
-      - name
-      - tasks
     WorkflowDTODRF:
       type: object
       properties:
@@ -514,6 +357,102 @@ components:
       required:
       - name
       - tasks
+    RunWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        params:
+          type: object
+          additionalProperties: {}
+        resource:
+          type: string
+        workflowId:
+          type: string
+      required:
+      - params
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    GetTemplateWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflowTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflowTemplates
+    UpdateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+        workflowId:
+          type: string
+      required:
+      - name
+      - tasks
+    CreateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+      required:
+      - name
+      - tasks
     GetWorkflowResponseObjectDRF:
       type: object
       properties:
@@ -521,6 +460,67 @@ components:
           $ref: '#/components/schemas/WorkflowDTODRF'
       required:
       - workflow
+    TaskDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        nodeName:
+          type: string
+        params:
+          type: object
+          additionalProperties: {}
+        output:
+          type: object
+          additionalProperties: {}
+        nextTaskIds:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+      required:
+      - id
+      - nodeName
+    GetWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflows
+    NodeConvertibleDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+        output:
+          type: array
+          items:
+            type: string
+        isTrigger:
+          type: boolean
+        description:
+          type: string
+      required:
+      - name
+      - output
+      - parameters
+    GetNodesResponseObjectDRF:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConvertibleDRF'
+      required:
+      - nodes
   securitySchemes:
     Hawk_Auth:
       type: apiKey

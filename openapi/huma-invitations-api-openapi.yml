@@ -251,20 +251,121 @@ paths:
           description: ''
 components:
   schemas:
-    InviteeDRF:
+    SendUserSpecificInvitationRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        expiresIn:
+          type: string
+        linkExpiresIn:
+          type: string
+        invitationType:
+          type: string
+        text:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - clientId
+      - invitationType
+      - projectId
+    ResendInvitationsListRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        invitationsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvitationItemDRF'
+      required:
+      - clientId
+      - invitationsList
+      - projectId
+    RetrieveInvitationsV1ResponseObjectDRF:
+      type: object
+      properties:
+        invitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvitationResponseModelDRF'
+        filtered:
+          type: integer
+        total:
+          type: integer
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    SendInvitationsResponseObjectV1DRF:
+      type: object
+      properties:
+        alreadySignedUpEmails:
+          type: array
+          items:
+            type: string
+        alreadySignedUpPhoneNumbers:
+          type: array
+          items:
+            type: string
+        alreadyInvitedPhoneNumbers:
+          type: array
+          items:
+            type: string
+        ids:
+          type: array
+          items:
+            type: string
+        failedSendInvitePhoneNumbers:
+          type: array
+          items:
+            type: string
+        ok:
+          type: boolean
+    CreatePatientProfileRequestObjectDRF:
       type: object
       properties:
         givenName:
           type: string
         familyName:
           type: string
+        dateOfBirth:
+          type: string
+          format: date-time
         email:
           type: string
-        contactEmail:
+        gender:
           type: string
         phoneNumber:
           type: string
-        userId:
+        deploymentId:
+          type: string
+      required:
+      - dateOfBirth
+      - deploymentId
+      - familyName
+      - givenName
+    GetInvitationLinkResponseObjectDRF:
+      type: object
+      properties:
+        link:
           type: string
     InvitationResponseModelDRF:
       type: object
@@ -335,31 +436,43 @@ components:
       required:
       - code
       - expiresAt
-    SendUserSpecificInvitationRequestObjectDRF:
+    InvitationValidityResponseObjectDRF:
       type: object
       properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        expiresIn:
-          type: string
-        linkExpiresIn:
-          type: string
-        invitationType:
-          type: string
-        text:
+        ok:
+          type: boolean
+        invitationCode:
           type: string
         email:
           type: string
         phoneNumber:
           type: string
+        role:
+          type: string
+    RoleAssignmentDTODRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
       required:
-      - clientId
-      - invitationType
-      - projectId
+      - resource
+      - roleId
+    ResendInvitationsListResponseDRF:
+      type: object
+      properties:
+        resentInvitations:
+          type: integer
+    DeleteInvitationsListResponseDRF:
+      type: object
+      properties:
+        deletedInvitations:
+          type: integer
     SendInvitationsRequestDataV1DRF:
       type: object
       properties:
@@ -394,23 +507,53 @@ components:
       - projectId
       - roleId
       - type
-    ResendInvitationsListResponseDRF:
+    CreatePatientProfileResponseObjectDRF:
       type: object
       properties:
-        resentInvitations:
-          type: integer
-    InvitationValidityResponseObjectDRF:
-      type: object
-      properties:
+        userId:
+          type: string
         ok:
           type: boolean
-        invitationCode:
+      required:
+      - userId
+    GetInvitationLinkRequestDataDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        deploymentId:
+          type: string
+        roleId:
+          type: string
+        expiresIn:
+          type: string
+        retrieveShortened:
+          type: boolean
+        userId:
+          type: string
+      required:
+      - clientId
+      - deploymentId
+      - projectId
+      - roleId
+    InviteeDRF:
+      type: object
+      properties:
+        givenName:
+          type: string
+        familyName:
           type: string
         email:
           type: string
+        contactEmail:
+          type: string
         phoneNumber:
           type: string
-        role:
+        userId:
           type: string
     InvitationItemDRF:
       type: object
@@ -425,17 +568,6 @@ components:
           type: string
         text:
           type: string
-    RetrieveInvitationsV1ResponseObjectDRF:
-      type: object
-      properties:
-        invitations:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvitationResponseModelDRF'
-        filtered:
-          type: integer
-        total:
-          type: integer
     RetrieveInvitationsRequestDataDRF:
       type: object
       properties:
@@ -469,138 +601,6 @@ components:
       - projectId
       - roleType
       - skip
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    CreatePatientProfileResponseObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        ok:
-          type: boolean
-      required:
-      - userId
-    SendInvitationsResponseObjectV1DRF:
-      type: object
-      properties:
-        alreadySignedUpEmails:
-          type: array
-          items:
-            type: string
-        alreadySignedUpPhoneNumbers:
-          type: array
-          items:
-            type: string
-        alreadyInvitedPhoneNumbers:
-          type: array
-          items:
-            type: string
-        ids:
-          type: array
-          items:
-            type: string
-        failedSendInvitePhoneNumbers:
-          type: array
-          items:
-            type: string
-        ok:
-          type: boolean
-    GetInvitationLinkResponseObjectDRF:
-      type: object
-      properties:
-        link:
-          type: string
-    RoleAssignmentDTODRF:
-      type: object
-      properties:
-        roleId:
-          type: string
-        resource:
-          type: string
-        userType:
-          type: string
-        isActive:
-          type: boolean
-      required:
-      - resource
-      - roleId
-    ResendInvitationsListRequestObjectDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        invitationsList:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvitationItemDRF'
-      required:
-      - clientId
-      - invitationsList
-      - projectId
-    GetInvitationLinkRequestDataDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        deploymentId:
-          type: string
-        roleId:
-          type: string
-        expiresIn:
-          type: string
-        retrieveShortened:
-          type: boolean
-        userId:
-          type: string
-      required:
-      - clientId
-      - deploymentId
-      - projectId
-      - roleId
-    CreatePatientProfileRequestObjectDRF:
-      type: object
-      properties:
-        givenName:
-          type: string
-        familyName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date-time
-        email:
-          type: string
-        gender:
-          type: string
-        phoneNumber:
-          type: string
-        deploymentId:
-          type: string
-      required:
-      - dateOfBirth
-      - deploymentId
-      - familyName
-      - givenName
-    DeleteInvitationsListResponseDRF:
-      type: object
-      properties:
-        deletedInvitations:
-          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey

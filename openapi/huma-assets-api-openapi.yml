@@ -194,59 +194,7 @@ paths:
           description: ''
 components:
   schemas:
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    SearchContentRequestObjectDRF:
-      type: object
-      properties:
-        collection:
-          type: string
-        search:
-          type: string
-        filters:
-          type: object
-          additionalProperties: {}
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-        skip:
-          type: integer
-        limit:
-          type: integer
-        unpublished:
-          type: boolean
-      required:
-      - collection
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    CreateContentRequestObjectDRF:
+    UpdateContentRequestObjectDRF:
       type: object
       properties:
         id:
@@ -291,9 +239,60 @@ components:
           type: string
           format: date-time
       required:
-      - resources
       - schema
       - status
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
+    SearchContentRequestObjectDRF:
+      type: object
+      properties:
+        collection:
+          type: string
+        search:
+          type: string
+        filters:
+          type: object
+          additionalProperties: {}
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+        skip:
+          type: integer
+        limit:
+          type: integer
+        unpublished:
+          type: boolean
+      required:
+      - collection
+    CreateContentResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
     CMSContentDTODRF:
       type: object
       properties:
@@ -342,7 +341,15 @@ components:
       - resources
       - schema
       - status
-    UpdateContentRequestObjectDRF:
+    RetrieveSchemaResponseDRF:
+      type: object
+      properties:
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - schema
+    CreateContentRequestObjectDRF:
       type: object
       properties:
         id:
@@ -387,16 +394,9 @@ components:
           type: string
           format: date-time
       required:
+      - resources
       - schema
       - status
-    RetrieveSchemaResponseDRF:
-      type: object
-      properties:
-        schema:
-          type: object
-          additionalProperties: {}
-      required:
-      - schema
   securitySchemes:
     Hawk_Auth:
       type: apiKey

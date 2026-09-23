@@ -247,6 +247,38 @@ components:
       - configContents
       - configName
       - organizationId
+    UpdateDeploymentPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - deploymentId
+    RetrievePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
+    RetrievePluginContainerResponseObjectDRF:
+      type: object
+      properties:
+        componentsUI:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentUIDRF'
+      required:
+      - componentsUI
     ComponentUIDRF:
       type: object
       properties:
@@ -266,29 +298,13 @@ components:
       - descriptionLink
       - icon
       - title
-    UpdateDeploymentPluginConfigRequestObjectDRF:
+    UpdatePluginConfigResponseObjectDRF:
       type: object
       properties:
-        deploymentId:
-          type: string
-        configContents:
-          type: object
-          additionalProperties: {}
         configName:
           type: string
       required:
-      - configContents
       - configName
-      - deploymentId
-    RetrievePluginContainerResponseObjectDRF:
-      type: object
-      properties:
-        componentsUI:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentUIDRF'
-      required:
-      - componentsUI
     ConfigUIDRF:
       type: object
       properties:
@@ -306,22 +322,6 @@ components:
       - name
       - title
       - type
-    UpdatePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        configName:
-          type: string
-      required:
-      - configName
-    RetrievePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigUIDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

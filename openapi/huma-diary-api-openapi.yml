@@ -125,19 +125,91 @@ paths:
           description: ''
 components:
   schemas:
-    DiaryDetailItemResponseDRF:
+    DiaryItemResponseDRF:
       type: object
       properties:
-        key:
+        id:
+          type: string
+        userId:
+          type: string
+        diaryId:
+          type: string
+        diarySourceId:
+          type: string
+        moduleConfigId:
+          type: string
+        diaryType:
+          type: string
+        primitiveType:
+          type: string
+        title:
           type: string
         value:
+          type: array
+          items:
+            type: string
+        unit:
+          type: array
+          items:
+            type: string
+        diaryBG:
           type: string
-        valueColor:
+        diarySidebar:
           type: string
-        icon:
+        diaryChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryChipResponseDRF'
+        mealEventType:
           type: string
-        iconColor:
+        flags:
+          type: object
+          additionalProperties: {}
+        detailsTitle:
           type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryDetailItemResponseDRF'
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryButtonDRF'
+        detailsPresentation:
+          type: string
+        visibility:
+          type: array
+          items:
+            type: string
+        localizationData:
+          type: object
+          additionalProperties: {}
+        extraFields:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+      required:
+      - createDateTime
+      - details
+      - diaryBG
+      - diaryId
+      - diarySidebar
+      - diarySourceId
+      - diaryType
+      - id
+      - startDateTime
+      - title
+      - updateDateTime
+      - userId
+      - visibility
     DiaryChipResponseDRF:
       type: object
       properties:
@@ -153,60 +225,6 @@ components:
           type: string
       required:
       - text
-    RetrieveDiariesRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        skip:
-          type: integer
-        limit:
-          type: integer
-        fromDateTime:
-          type: string
-          format: date-time
-        toDateTime:
-          type: string
-          format: date-time
-        diaryType:
-          type: array
-          items:
-            type: string
-        context:
-          type: string
-        rawDiaries:
-          type: boolean
-        excludedDiaryTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - skip
-    RetrieveDiariesResponseObjectDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryItemResponseDRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
-      required:
-      - total
-    DiaryButtonDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        action:
-          type: string
-      required:
-      - action
-      - label
     RetrieveDiaryByIdResponseDRF:
       type: object
       properties:
@@ -311,91 +329,83 @@ components:
       - count
       - gray
       - red
-    DiaryItemResponseDRF:
+    DiaryButtonDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+      required:
+      - action
+      - label
+    ItemDRF:
       type: object
       properties:
         id:
           type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+    RetrieveDiariesResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryItemResponseDRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - total
+    RetrieveDiariesRequestObjectDRF:
+      type: object
+      properties:
         userId:
           type: string
-        diaryId:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        fromDateTime:
           type: string
-        diarySourceId:
+          format: date-time
+        toDateTime:
           type: string
-        moduleConfigId:
-          type: string
+          format: date-time
         diaryType:
+          type: array
+          items:
+            type: string
+        context:
           type: string
-        primitiveType:
-          type: string
-        title:
+        rawDiaries:
+          type: boolean
+        excludedDiaryTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - skip
+    DiaryDetailItemResponseDRF:
+      type: object
+      properties:
+        key:
           type: string
         value:
-          type: array
-          items:
-            type: string
-        unit:
-          type: array
-          items:
-            type: string
-        diaryBG:
           type: string
-        diarySidebar:
+        valueColor:
           type: string
-        diaryChips:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryChipResponseDRF'
-        mealEventType:
+        icon:
           type: string
-        flags:
-          type: object
-          additionalProperties: {}
-        detailsTitle:
+        iconColor:
           type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryDetailItemResponseDRF'
-        buttons:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryButtonDRF'
-        detailsPresentation:
-          type: string
-        visibility:
-          type: array
-          items:
-            type: string
-        localizationData:
-          type: object
-          additionalProperties: {}
-        extraFields:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        startDateTime:
-          type: string
-          format: date-time
-      required:
-      - createDateTime
-      - details
-      - diaryBG
-      - diaryId
-      - diarySidebar
-      - diarySourceId
-      - diaryType
-      - id
-      - startDateTime
-      - title
-      - updateDateTime
-      - userId
-      - visibility
     DiaryCategoryResponseDRF:
       type: object
       properties:
@@ -407,16 +417,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ItemDRF'
-      required:
-      - id
-      - name
-    ItemDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
       required:
       - id
       - name

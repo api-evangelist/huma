@@ -146,31 +146,6 @@ paths:
           description: ''
 components:
   schemas:
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    UpdateOrderRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        orderId:
-          type: string
-        status:
-          type: string
-        cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDRF'
-    ProductsResponseDRF:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDTODRF'
     OrderDTODRF:
       type: object
       properties:
@@ -196,13 +171,6 @@ components:
       - status
       - updateDateTime
       - userId
-    ListOrdersResponseObjectDRF:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDTODRF'
     CreateOrderRequestObjectDRF:
       type: object
       properties:
@@ -215,6 +183,40 @@ components:
       required:
       - cart
       - userId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    ProductDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+        sku:
+          type: string
+      required:
+      - image
+      - sku
+      - title
+    ProductsResponseDRF:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTODRF'
+    ListOrdersResponseObjectDRF:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDTODRF'
     OrderItemDRF:
       type: object
       properties:
@@ -232,21 +234,19 @@ components:
       - productId
       - quantity
       - sku
-    ProductDTODRF:
+    UpdateOrderRequestObjectDRF:
       type: object
       properties:
-        id:
+        userId:
           type: string
-        title:
+        orderId:
           type: string
-        image:
+        status:
           type: string
-        sku:
-          type: string
-      required:
-      - image
-      - sku
-      - title
+        cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

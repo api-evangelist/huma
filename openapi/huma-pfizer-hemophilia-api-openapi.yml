@@ -111,6 +111,47 @@ components:
       required:
       - answers
       - userId
+    HemophiliaPrerequisitesRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        targetJoints:
+          type: array
+          items:
+            type: string
+        prophylacticMedication:
+          type: object
+          additionalProperties: {}
+        asNeededMedication:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - answers
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
     QuestionnaireAnswerDRF:
       type: object
       properties:
@@ -182,47 +223,6 @@ components:
             additionalProperties: {}
       required:
       - question
-    QuestionnaireAnswerMediaFileDRF:
-      type: object
-      properties:
-        file:
-          type: string
-        thumbnail:
-          type: string
-        mediaType:
-          type: string
-      required:
-      - file
-      - mediaType
-    HemophiliaPrerequisitesRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
-        targetJoints:
-          type: array
-          items:
-            type: string
-        prophylacticMedication:
-          type: object
-          additionalProperties: {}
-        asNeededMedication:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - answers
   securitySchemes:
     Hawk_Auth:
       type: apiKey

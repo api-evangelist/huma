@@ -415,121 +415,6 @@ paths:
           description: ''
 components:
   schemas:
-    ReorderTabsRequestObjectDRF:
-      type: object
-      properties:
-        tabOrders:
-          type: array
-          items:
-            $ref: '#/components/schemas/TabOrderItemDRF'
-      required:
-      - tabOrders
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    MoveWidgetRequestObjectDRF:
-      type: object
-      properties:
-        widgetId:
-          type: string
-        sourceTabId:
-          type: string
-        targetTabId:
-          type: string
-      required:
-      - sourceTabId
-      - targetTabId
-      - widgetId
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    ValidateWidgetRequestDataDRF:
-      type: object
-      properties:
-        order:
-          type: integer
-        enabled:
-          type: boolean
-        config:
-          type: object
-          additionalProperties: {}
-        type:
-          type: string
-        id:
-          type: string
-      required:
-      - config
-      - type
-    TabOrderItemDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - order
-    ReorderWidgetsRequestObjectDRF:
-      type: object
-      properties:
-        tabId:
-          type: string
-        widgetOrders:
-          type: array
-          items:
-            $ref: '#/components/schemas/TabOrderItemDRF'
-      required:
-      - tabId
-      - widgetOrders
-    UpdateTabRequestDataDRF:
-      type: object
-      properties:
-        order:
-          type: integer
-        screenId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        icon:
-          type: string
-        status:
-          type: string
-        background:
-          $ref: '#/components/schemas/BackgroundDRF'
-        extras:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - background
-      - icon
-      - name
-      - order
-      - status
-    BackgroundDRF:
-      type: object
-      properties:
-        value:
-          type: string
-        type:
-          type: string
-      required:
-      - type
-      - value
     CreateTabRequestObjectDRF:
       type: object
       properties:
@@ -583,6 +468,121 @@ components:
       - config
       - order
       - type
+    UpdateTabRequestDataDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        screenId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        status:
+          type: string
+        background:
+          $ref: '#/components/schemas/BackgroundDRF'
+        extras:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - background
+      - icon
+      - name
+      - order
+      - status
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    MoveWidgetRequestObjectDRF:
+      type: object
+      properties:
+        widgetId:
+          type: string
+        sourceTabId:
+          type: string
+        targetTabId:
+          type: string
+      required:
+      - sourceTabId
+      - targetTabId
+      - widgetId
+    ReorderTabsRequestObjectDRF:
+      type: object
+      properties:
+        tabOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/TabOrderItemDRF'
+      required:
+      - tabOrders
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    ReorderWidgetsRequestObjectDRF:
+      type: object
+      properties:
+        tabId:
+          type: string
+        widgetOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/TabOrderItemDRF'
+      required:
+      - tabId
+      - widgetOrders
+    ValidateWidgetRequestDataDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        enabled:
+          type: boolean
+        config:
+          type: object
+          additionalProperties: {}
+        type:
+          type: string
+        id:
+          type: string
+      required:
+      - config
+      - type
+    BackgroundDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - value
+    TabOrderItemDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - order
   securitySchemes:
     Hawk_Auth:
       type: apiKey

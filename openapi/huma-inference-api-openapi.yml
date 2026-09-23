@@ -83,50 +83,6 @@ paths:
           description: ''
 components:
   schemas:
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    HeadOrientationQCResponseObjectDRF:
-      type: object
-      properties:
-        qcOutputMessage:
-          type: string
-        numPrompts:
-          type: integer
-        stopExercise:
-          type: boolean
-        canSubmitRecording:
-          type: boolean
-      required:
-      - canSubmitRecording
-      - numPrompts
-      - qcOutputMessage
-      - stopExercise
-    HeadOrientationQCRequestObjectDRF:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
-          type: string
-        numPrompts:
-          type: integer
-        lastCheck:
-          type: boolean
-      required:
-      - image
-      - numPrompts
     ArmAngleQualityCheckRequestObjectDRF:
       type: object
       properties:
@@ -147,6 +103,38 @@ components:
       - firstCheck
       - image
       - numPrompt
+    HeadOrientationQCRequestObjectDRF:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+        numPrompts:
+          type: integer
+        lastCheck:
+          type: boolean
+      required:
+      - image
+      - numPrompts
+    HeadOrientationQCResponseObjectDRF:
+      type: object
+      properties:
+        qcOutputMessage:
+          type: string
+        numPrompts:
+          type: integer
+        stopExercise:
+          type: boolean
+        canSubmitRecording:
+          type: boolean
+      required:
+      - canSubmitRecording
+      - numPrompts
+      - qcOutputMessage
+      - stopExercise
     ArmAngleQualityCheckResponseObjectDRF:
       type: object
       properties:
@@ -163,6 +151,18 @@ components:
       - numPrompts
       - qcOutputMessage
       - stopExercise
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

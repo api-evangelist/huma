@@ -168,6 +168,94 @@ paths:
           description: ''
 components:
   schemas:
+    CarePlanResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - name
+      - startDate
+      - type
+      - userId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    MockADPCyclerDataRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        cycle:
+          type: integer
+    PrescriptionsResponseObjectDRF:
+      type: object
+      properties:
+        prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionDTODRF'
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    CreatePrescriptionRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        carePlanId:
+          type: string
+        name:
+          type: string
+        dosage:
+          type: string
+        unit:
+          type: string
+        frequency:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - carePlanId
+      - dosage
+      - frequency
+      - name
+      - startTime
+      - unit
     AssignCarePlanRequestObjectDRF:
       type: object
       properties:
@@ -197,11 +285,6 @@ components:
       - name
       - startDate
       - type
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     PrescriptionDTODRF:
       type: object
       properties:
@@ -237,89 +320,6 @@ components:
       - startTime
       - unit
       - userId
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    PrescriptionsResponseObjectDRF:
-      type: object
-      properties:
-        prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionDTODRF'
-    MockADPCyclerDataRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        cycle:
-          type: integer
-    CarePlanResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - name
-      - startDate
-      - type
-      - userId
-    CreatePrescriptionRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        carePlanId:
-          type: string
-        name:
-          type: string
-        dosage:
-          type: string
-        unit:
-          type: string
-        frequency:
-          type: string
-        startTime:
-          type: string
-        endTime:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - carePlanId
-      - dosage
-      - frequency
-      - name
-      - startTime
-      - unit
   securitySchemes:
     Hawk_Auth:
       type: apiKey

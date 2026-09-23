@@ -47,36 +47,20 @@ paths:
           description: ''
 components:
   schemas:
-    CreateModuleResultResponseObjectDRF:
+    QuestionLogicDRF:
       type: object
       properties:
-        ids:
-          type: array
-          items:
-            type: string
-        moduleResultId:
-          type: string
-        errors:
-          type: array
-          items:
-            type: string
-    ConditionFlowRequestObjectDRF:
+        isEnabled:
+          type: boolean
+    MultipleAnswerConfigDRF:
       type: object
       properties:
-        action:
-          type: string
-        conditionCodeName:
-          type: string
-        responseId:
-          type: string
-        questionId:
-          type: string
-        answers:
-          type: array
-          items:
-            type: string
-      required:
-      - action
+        enabled:
+          type: boolean
+        maxAnswers:
+          type: integer
+        minAnswers:
+          type: integer
     QuestionResponseObjectDRF:
       type: object
       properties:
@@ -126,39 +110,6 @@ components:
       - codeName
       - questionnaireId
       - responseId
-    QuestionLogicDRF:
-      type: object
-      properties:
-        isEnabled:
-          type: boolean
-    LimitationDRF:
-      type: object
-      properties:
-        answerId:
-          type: string
-        minimumAge:
-          type: string
-        maximumAge:
-          type: string
-        gender:
-          type: string
-        showForSources:
-          type: array
-          items:
-            type: string
-        method:
-          type: string
-      required:
-      - method
-    MultipleAnswerConfigDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        maxAnswers:
-          type: integer
-        minAnswers:
-          type: integer
     ConditionFlowResponseObjectDRF:
       type: object
       properties:
@@ -180,6 +131,25 @@ components:
           type: integer
       required:
       - responseId
+    LimitationDRF:
+      type: object
+      properties:
+        answerId:
+          type: string
+        minimumAge:
+          type: string
+        maximumAge:
+          type: string
+        gender:
+          type: string
+        showForSources:
+          type: array
+          items:
+            type: string
+        method:
+          type: string
+      required:
+      - method
     OptionDRF:
       type: object
       properties:
@@ -207,6 +177,36 @@ components:
       - codeName
       - label
       - value
+    CreateModuleResultResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+        moduleResultId:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+    ConditionFlowRequestObjectDRF:
+      type: object
+      properties:
+        action:
+          type: string
+        conditionCodeName:
+          type: string
+        responseId:
+          type: string
+        questionId:
+          type: string
+        answers:
+          type: array
+          items:
+            type: string
+      required:
+      - action
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -93,6 +93,18 @@ components:
             $ref: '#/components/schemas/DeviceDTODRF'
         total:
           type: integer
+    RegisterDeviceRequestObjectDRF:
+      type: object
+      properties:
+        devicePushId:
+          type: string
+        devicePushIdType:
+          type: string
+        deviceDetails:
+          type: string
+      required:
+      - devicePushId
+      - devicePushIdType
     DeviceDTODRF:
       type: object
       properties:
@@ -112,18 +124,6 @@ components:
         updateDateTime:
           type: string
           format: date-time
-      required:
-      - devicePushId
-      - devicePushIdType
-    RegisterDeviceRequestObjectDRF:
-      type: object
-      properties:
-        devicePushId:
-          type: string
-        devicePushIdType:
-          type: string
-        deviceDetails:
-          type: string
       required:
       - devicePushId
       - devicePushIdType

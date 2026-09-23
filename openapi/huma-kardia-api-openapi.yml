@@ -142,6 +142,183 @@ paths:
           description: ''
 components:
   schemas:
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    PatientRecordingPageInfoDRF:
+      type: object
+      properties:
+        startCursor:
+          type: string
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    RetrievePatientRecordingResponseDRF:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+        recordings:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientRecordingDRF'
+        pageInfo:
+          $ref: '#/components/schemas/PatientRecordingPageInfoDRF'
+    PatientRecordingDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        patientID:
+          type: string
+        heartRate:
+          type: integer
+        duration:
+          type: integer
+        recordedAt:
+          type: string
+        algorithmDetermination:
+          type: string
+        note:
+          type: string
+    CreateKardiaPatientRequestBodyDRF:
+      type: object
+      properties:
+        email:
+          type: string
+        dob:
+          type: string
+      required:
+      - dob
+      - email
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    CreateKardiaPatientResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        mrn:
+          type: string
+        dob:
+          type: string
+        email:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        sex:
+          type: integer
+        password:
+          type: string
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
     ECGAliveCorDTODRF:
       type: object
       properties:
@@ -214,183 +391,6 @@ components:
       - moduleId
       - s3Object
       - userId
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    CreateKardiaPatientRequestBodyDRF:
-      type: object
-      properties:
-        email:
-          type: string
-        dob:
-          type: string
-      required:
-      - dob
-      - email
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    CreateKardiaPatientResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        mrn:
-          type: string
-        dob:
-          type: string
-        email:
-          type: string
-        firstname:
-          type: string
-        lastname:
-          type: string
-        sex:
-          type: integer
-        password:
-          type: string
-    PatientRecordingPageInfoDRF:
-      type: object
-      properties:
-        startCursor:
-          type: string
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-    PatientRecordingDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        patientID:
-          type: string
-        heartRate:
-          type: integer
-        duration:
-          type: integer
-        recordedAt:
-          type: string
-        algorithmDetermination:
-          type: string
-        note:
-          type: string
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    RetrievePatientRecordingResponseDRF:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-        recordings:
-          type: array
-          items:
-            $ref: '#/components/schemas/PatientRecordingDRF'
-        pageInfo:
-          $ref: '#/components/schemas/PatientRecordingPageInfoDRF'
-    UserAgentDRF:
-      type: object
-      properties:
-        product:
-          type: string
-        version:
-          type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
-          type: string
-      required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
-    ModuleFeedbackDRF:
-      type: object
-      properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
-          type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
   securitySchemes:
     Hawk_Auth:
       type: apiKey

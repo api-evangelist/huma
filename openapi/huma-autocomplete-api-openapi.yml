@@ -300,92 +300,7 @@ paths:
           description: ''
 components:
   schemas:
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    UpdateAutoCompleteSearchMetadataRequestObjectDRF:
-      type: object
-      properties:
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
-      required:
-      - metadata
-    SnomedMedDataDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-        system:
-          type: string
-      required:
-      - name
-    IndicationsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnomedMedDataDRF'
-      required:
-      - limit
-      - skip
-      - values
-    AutocompleteMetadataDTODRF:
-      type: object
-      properties:
-        moduleId:
-          type: string
-        language:
-          type: string
-        s3Object:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-      required:
-      - language
-      - moduleId
-      - s3Object
-    SymptomsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            type: string
-      required:
-      - limit
-      - skip
-      - values
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-    MedicationsAutocompleteResponseDRF:
+    AZVaccineBatchNumberAutocompleteResponseDRF:
       type: object
       properties:
         limit:
@@ -415,7 +330,18 @@ components:
       - limit
       - skip
       - values
-    AZVaccineBatchNumberAutocompleteResponseDRF:
+    SnomedMedDataDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        system:
+          type: string
+      required:
+      - name
+    SymptomsAutocompleteResponseDRF:
       type: object
       properties:
         limit:
@@ -430,6 +356,80 @@ components:
       - limit
       - skip
       - values
+    UpdateAutoCompleteSearchMetadataRequestObjectDRF:
+      type: object
+      properties:
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
+      required:
+      - metadata
+    AutocompleteMetadataDTODRF:
+      type: object
+      properties:
+        moduleId:
+          type: string
+        language:
+          type: string
+        s3Object:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - language
+      - moduleId
+      - s3Object
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    MedicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    IndicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnomedMedDataDRF'
+      required:
+      - limit
+      - skip
+      - values
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

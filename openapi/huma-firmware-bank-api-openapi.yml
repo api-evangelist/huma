@@ -102,6 +102,20 @@ paths:
           description: ''
 components:
   schemas:
+    ArchiveFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        archived:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+      required:
+      - archived
+      - failed
     UploadFirmwareResponseObjectDRF:
       type: object
       properties:
@@ -138,36 +152,6 @@ components:
           type: string
       required:
       - filename
-    ArchiveFirmwareResponseObjectDRF:
-      type: object
-      properties:
-        archived:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-        failed:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-      required:
-      - archived
-      - failed
-    FirmwareUpdateResponseObjectDRF:
-      type: object
-      properties:
-        make:
-          type: string
-        model:
-          type: string
-        fileURL:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/FirmwareMetadataDRF'
-      required:
-      - fileURL
-      - make
-      - metadata
-      - model
     UploadFirmwareRequestObjectDRF:
       type: object
       properties:
@@ -201,6 +185,22 @@ components:
       - make
       - model
       - version
+    FirmwareUpdateResponseObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        fileURL:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/FirmwareMetadataDRF'
+      required:
+      - fileURL
+      - make
+      - metadata
+      - model
   securitySchemes:
     Hawk_Auth:
       type: apiKey

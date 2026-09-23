@@ -214,74 +214,6 @@ paths:
           description: ''
 components:
   schemas:
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
-    RevereTestWordObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        initialWords:
-          type: array
-          items:
-            type: string
-      required:
-      - id
-    StartRevereTestResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        wordLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/RevereTestWordObjectDRF'
-      required:
-      - id
-    ExportRevereResultsRequestObjectDRF:
-      type: object
-      properties:
-        status:
-          type: string
     RevereTestResultDTODRF:
       type: object
       properties:
@@ -363,61 +295,50 @@ components:
       - initialWords
       - moduleId
       - userId
-    FeedbackTextDRF:
+    RevereTestWordObjectDRF:
       type: object
       properties:
         id:
           type: string
-        text:
-          type: string
-        order:
-          type: integer
+        initialWords:
+          type: array
+          items:
+            type: string
       required:
       - id
-      - text
-    UserAgentDRF:
+    ExportRevereResultsRequestObjectDRF:
       type: object
       properties:
-        product:
+        status:
           type: string
-        version:
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
           type: string
-        softwareName:
+        server:
           type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
+        api:
           type: string
       required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
-    ModuleFeedbackDRF:
+      - api
+      - hostUrl
+      - server
+    DeviceDetailsDRF:
       type: object
       properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
+        uuid:
           type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
     ProcessAudioResultRequestBodyDRF:
       type: object
       properties:
@@ -508,21 +429,100 @@ components:
       required:
       - deploymentId
       - moduleId
-    DeviceDetailsDRF:
+    ModuleFeedbackDRF:
       type: object
       properties:
-        uuid:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
           type: string
-        serialNumber:
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
           type: string
-        modelName:
+        text:
           type: string
-        manufacturer:
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
           type: string
       required:
-      - manufacturer
-      - modelName
-      - uuid
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    StartRevereTestResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        wordLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevereTestWordObjectDRF'
+      required:
+      - id
   securitySchemes:
     Hawk_Auth:
       type: apiKey

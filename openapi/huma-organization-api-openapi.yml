@@ -559,39 +559,126 @@ paths:
           description: ''
 components:
   schemas:
-    EConsentSectionDRF:
+    EmailTemplateDRF:
       type: object
       properties:
-        type:
+        name:
           type: string
-        title:
+        subject:
           type: string
-        details:
+        template:
           type: string
-        reviewDetails:
+      required:
+      - name
+      - template
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
           type: string
-        options:
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
           type: array
           items:
-            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+            type: string
+    MessagingDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        twoWayMessaging:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: string
+        allowCustomMessage:
+          type: boolean
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-        contentType:
+    ApplyEConsentActionRequestBodyDRF:
+      type: object
+      properties:
+        enabled:
           type: string
-        thumbnailUrl:
+        review:
+          $ref: '#/components/schemas/ConsentReviewDRF'
+        revision:
+          type: integer
+        additionalConsentQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
+        signature:
+          $ref: '#/components/schemas/ConsentSignatureDRF'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/EConsentSectionDRF'
+        instituteName:
           type: string
-        thumbnailLocation:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        videoUrl:
+        instituteFullName:
           type: string
-        videoLocation:
-          $ref: '#/components/schemas/S3ObjectDRF'
+        instituteTextDetails:
+          type: string
+        admissionText:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        title:
+          type: string
+        overviewText:
+          type: string
+        contactText:
+          type: string
+        state:
+          type: string
+        reason:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        action:
+          type: string
       required:
-      - contentType
-      - type
+      - action
+      - contactText
+      - deploymentIds
+      - enabled
+      - overviewText
+      - sections
+      - title
+    DeviceIntegrationDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    PatientPersonalizationDRF:
+      type: object
+      properties:
+        rag:
+          type: boolean
+        goal:
+          type: boolean
     AdditionalConsentQuestionDRF:
       type: object
       properties:
@@ -617,7 +704,35 @@ components:
       - format
       - text
       - type
-    OffBoardingReasonsDRF:
+    RetrieveOrganizationsResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationDTODRF'
+    ConsentReviewDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        details:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - details
+      - title
+    MoveUserReasonsDRF:
       type: object
       properties:
         reasons:
@@ -626,7 +741,7 @@ components:
             $ref: '#/components/schemas/ReasonDRF'
         otherReason:
           type: boolean
-    OrganizationDTODRF:
+    OrganizationWithExtrasDRF:
       type: object
       properties:
         termAndConditionUrl:
@@ -684,74 +799,62 @@ components:
           type: string
         sso:
           $ref: '#/components/schemas/SsoDRF'
-    PaginatedRequestBodyDRF:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentInfoDRF'
+        plugins:
+          type: object
+          additionalProperties: {}
+    CloneOrganizationRequestBodyDRF:
       type: object
       properties:
-        skip:
-          type: integer
-        limit:
-          type: integer
-    ConsentSectionOptionsDRF:
-      type: object
-      properties:
-        type:
-          type: integer
-        text:
+        name:
           type: string
-        order:
-          type: integer
-        abortOnChoose:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - text
-      - type
-    MessagingDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        twoWayMessaging:
-          type: boolean
-        messages:
-          type: array
-          items:
-            type: string
-        allowCustomMessage:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    ReasonDRF:
-      type: object
-      properties:
-        order:
-          type: integer
-        displayName:
+        referenceId:
           type: string
-        LocalizableFields:
+        deploymentIds:
           type: array
           items:
             type: string
-          title: ' localizablefields'
       required:
-      - displayName
-      - order
-    EmailConfigDRF:
+      - deploymentIds
+      - name
+      - referenceId
+    CloneOrganizationResponseObjectDRF:
       type: object
       properties:
-        enabled:
-          type: boolean
-        templates:
+        id:
+          type: string
+        deploymentIds:
           type: array
           items:
-            $ref: '#/components/schemas/EmailTemplateDRF'
+            type: string
+    OffBoardingReasonsDRF:
+      type: object
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReasonDRF'
+        otherReason:
+          type: boolean
+    DeploymentInfoDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        draftId:
+          type: string
+        status:
+          type: string
+      required:
+      - id
+      - name
     RoleDTODRF:
       type: object
       properties:
@@ -839,38 +942,17 @@ components:
           items:
             type: string
           title: ' localizablefields'
-    EConsentFormDRF:
+    IntercomSettingsDRF:
       type: object
       properties:
-        id:
+        appId:
           type: string
-        econsentId:
+        webSecretKey:
           type: string
-        title:
+        androidSecretKey:
           type: string
-        lastUpdated:
+        iosSecretKey:
           type: string
-          format: date-time
-        state:
-          type: string
-        versionString:
-          type: string
-      required:
-      - econsentId
-      - id
-      - lastUpdated
-      - state
-      - title
-      - versionString
-    SsoDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        org:
-          type: string
-        info:
-          $ref: '#/components/schemas/SsoInfoDRF'
     SsoInfoDRF:
       type: object
       properties:
@@ -918,82 +1000,15 @@ components:
       - clientSecret
       - discoveryUrl
       - redirectUri
-    EmailTemplateDRF:
+    EmailConfigDRF:
       type: object
       properties:
-        name:
-          type: string
-        subject:
-          type: string
-        template:
-          type: string
-      required:
-      - name
-      - template
-    PatientPersonalizationDRF:
-      type: object
-      properties:
-        rag:
+        enabled:
           type: boolean
-        goal:
-          type: boolean
-    SurgeryDateRuleDRF:
-      type: object
-      properties:
-        maxPastRange:
-          type: string
-        maxFutureRange:
-          type: string
-    CreateEConsentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        econsentId:
-          type: string
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
+        templates:
           type: array
           items:
-            type: string
-    DeploymentInfoDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        draftId:
-          type: string
-        status:
-          type: string
-      required:
-      - id
-      - name
-    ConsentReviewDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        details:
-          type: string
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - details
-      - title
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
+            $ref: '#/components/schemas/EmailTemplateDRF'
     OrganizationRoleUpdateRequestBodyDRF:
       type: object
       properties:
@@ -1003,54 +1018,64 @@ components:
             $ref: '#/components/schemas/RoleDTODRF'
       required:
       - roles
-    MoveUserReasonsDRF:
+    LinkUnlinkDeploymentsRequestBodyDRF:
       type: object
       properties:
-        reasons:
+        deploymentIds:
           type: array
           items:
-            $ref: '#/components/schemas/ReasonDRF'
-        otherReason:
-          type: boolean
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
+            type: string
       required:
-      - direction
-      - field
-    AuthorisedRepDRF:
+      - deploymentIds
+    PaginatedRequestBodyDRF:
       type: object
       properties:
-        iconObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        addressTitle:
-          type: string
-        address:
-          type: string
-        showBuildNumber:
-          type: boolean
-      required:
-      - address
-      - addressTitle
-      - iconObject
-      - showBuildNumber
-    RetrieveEConsentsResponseObjectDRF:
-      type: object
-      properties:
-        total:
+        skip:
           type: integer
         limit:
           type: integer
-        skip:
+    CreateOrganizationDTORequestBodyDRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        name:
+          type: string
+        status:
+          type: string
+        enrollmentTarget:
           type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EConsentFormDRF'
+        studyCompletionTarget:
+          type: integer
+        viewType:
+          type: string
+        dashboardId:
+          type: string
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        intercom:
+          $ref: '#/components/schemas/IntercomSettingsDRF'
+        security:
+          type: object
+          additionalProperties: {}
+        pluginConfigContainerId:
+          type: string
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+      required:
+      - name
     CreateEConsentRequestBodyDRF:
       type: object
       properties:
@@ -1104,187 +1129,41 @@ components:
       - overviewText
       - sections
       - title
-    LinkUnlinkDeploymentsRequestBodyDRF:
+    AuthorisedRepDRF:
       type: object
       properties:
-        deploymentIds:
-          type: array
-          items:
-            type: string
-      required:
-      - deploymentIds
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    UpdateOrganizationDTORequestBodyDRF:
-      type: object
-      properties:
-        termAndConditionUrl:
-          type: string
-        privacyPolicyUrl:
-          type: string
-        eulaUrl:
-          type: string
-        privacyPolicyObject:
+        iconObject:
           $ref: '#/components/schemas/S3ObjectDRF'
-        termAndConditionObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        eulaObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        authorisedRep:
-          $ref: '#/components/schemas/AuthorisedRepDRF'
-        id:
+        addressTitle:
           type: string
-        name:
+        address:
           type: string
-        status:
-          type: string
-        enrollmentTarget:
-          type: integer
-        studyCompletionTarget:
-          type: integer
-        viewType:
-          type: string
-        targetConsented:
-          type: integer
-        dashboardId:
-          type: string
-        features:
-          $ref: '#/components/schemas/FeaturesDRF'
-        intercom:
-          $ref: '#/components/schemas/IntercomSettingsDRF'
-        security:
-          type: object
-          additionalProperties: {}
-        pluginConfigContainerId:
-          type: string
-        sso:
-          $ref: '#/components/schemas/SsoDRF'
-    SummaryReportDRF:
-      type: object
-      properties:
-        enabled:
+        showBuildNumber:
           type: boolean
-    RetrieveOrganizationsRequestObjectDRF:
-      type: object
-      properties:
-        skip:
-          type: integer
-        limit:
-          type: integer
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-        nameContains:
-          type: string
-        searchCriteria:
-          type: string
-        status:
-          type: array
-          items:
-            type: string
       required:
-      - limit
-      - skip
-    RetrieveOrganizationsResponseObjectDRF:
+      - address
+      - addressTitle
+      - iconObject
+      - showBuildNumber
+    ConsentSectionOptionsDRF:
       type: object
       properties:
-        total:
+        type:
           type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationDTODRF'
-    CloneOrganizationRequestBodyDRF:
-      type: object
-      properties:
-        name:
+        text:
           type: string
-        referenceId:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-      required:
-      - deploymentIds
-      - name
-      - referenceId
-    DeviceIntegrationDRF:
-      type: object
-      properties:
-        enabled:
+        order:
+          type: integer
+        abortOnChoose:
           type: boolean
-    ApplyEConsentActionRequestBodyDRF:
-      type: object
-      properties:
-        enabled:
-          type: string
-        review:
-          $ref: '#/components/schemas/ConsentReviewDRF'
-        revision:
-          type: integer
-        additionalConsentQuestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
-        signature:
-          $ref: '#/components/schemas/ConsentSignatureDRF'
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/EConsentSectionDRF'
-        instituteName:
-          type: string
-        instituteFullName:
-          type: string
-        instituteTextDetails:
-          type: string
-        admissionText:
-          type: string
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-        title:
-          type: string
-        overviewText:
-          type: string
-        contactText:
-          type: string
-        state:
-          type: string
-        reason:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        action:
-          type: string
       required:
-      - action
-      - contactText
-      - deploymentIds
-      - enabled
-      - overviewText
-      - sections
-      - title
+      - text
+      - type
     ConsentSignatureDRF:
       type: object
       properties:
@@ -1310,60 +1189,31 @@ components:
       - nameTitle
       - signatureDetails
       - signatureTitle
-    CreateOrganizationDTORequestBodyDRF:
+    ReasonDRF:
       type: object
       properties:
-        termAndConditionUrl:
+        order:
+          type: integer
+        displayName:
           type: string
-        privacyPolicyUrl:
-          type: string
-        eulaUrl:
-          type: string
-        privacyPolicyObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        termAndConditionObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        eulaObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        authorisedRep:
-          $ref: '#/components/schemas/AuthorisedRepDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - order
+    SsoDRF:
+      type: object
+      properties:
         name:
           type: string
-        status:
+        org:
           type: string
-        enrollmentTarget:
-          type: integer
-        studyCompletionTarget:
-          type: integer
-        viewType:
-          type: string
-        dashboardId:
-          type: string
-        features:
-          $ref: '#/components/schemas/FeaturesDRF'
-        intercom:
-          $ref: '#/components/schemas/IntercomSettingsDRF'
-        security:
-          type: object
-          additionalProperties: {}
-        pluginConfigContainerId:
-          type: string
-        sso:
-          $ref: '#/components/schemas/SsoDRF'
-      required:
-      - name
-    IntercomSettingsDRF:
-      type: object
-      properties:
-        appId:
-          type: string
-        webSecretKey:
-          type: string
-        androidSecretKey:
-          type: string
-        iosSecretKey:
-          type: string
-    OrganizationWithExtrasDRF:
+        info:
+          $ref: '#/components/schemas/SsoInfoDRF'
+    OrganizationDTODRF:
       type: object
       properties:
         termAndConditionUrl:
@@ -1421,22 +1271,172 @@ components:
           type: string
         sso:
           $ref: '#/components/schemas/SsoDRF'
-        deployments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentInfoDRF'
-        plugins:
+    UpdateOrganizationDTORequestBodyDRF:
+      type: object
+      properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        enrollmentTarget:
+          type: integer
+        studyCompletionTarget:
+          type: integer
+        viewType:
+          type: string
+        targetConsented:
+          type: integer
+        dashboardId:
+          type: string
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        intercom:
+          $ref: '#/components/schemas/IntercomSettingsDRF'
+        security:
           type: object
           additionalProperties: {}
-    CloneOrganizationResponseObjectDRF:
+        pluginConfigContainerId:
+          type: string
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
+    CreateEConsentResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-        deploymentIds:
+        econsentId:
+          type: string
+    EConsentFormDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        econsentId:
+          type: string
+        title:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        state:
+          type: string
+        versionString:
+          type: string
+      required:
+      - econsentId
+      - id
+      - lastUpdated
+      - state
+      - title
+      - versionString
+    EConsentSectionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+        reviewDetails:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        LocalizableFields:
           type: array
           items:
             type: string
+          title: ' localizablefields'
+        contentType:
+          type: string
+        thumbnailUrl:
+          type: string
+        thumbnailLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        videoUrl:
+          type: string
+        videoLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+      required:
+      - contentType
+      - type
+    SurgeryDateRuleDRF:
+      type: object
+      properties:
+        maxPastRange:
+          type: string
+        maxFutureRange:
+          type: string
+    RetrieveOrganizationsRequestObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+        nameContains:
+          type: string
+        searchCriteria:
+          type: string
+        status:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+    RetrieveEConsentsResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EConsentFormDRF'
+    SummaryReportDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

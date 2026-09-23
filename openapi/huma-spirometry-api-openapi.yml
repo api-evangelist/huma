@@ -41,6 +41,107 @@ paths:
           description: ''
 components:
   schemas:
+    DataValueDRF:
+      type: object
+      properties:
+        axisId:
+          type: string
+        element:
+          type: integer
+        valueDate:
+          type: string
+          format: date-time
+        valueInt:
+          type: integer
+        valueDouble:
+          type: number
+          format: double
+        valueString:
+          type: string
+      required:
+      - axisId
+    ReportAxeDRF:
+      type: object
+      properties:
+        axisId:
+          type: string
+        axisName:
+          type: string
+        axisType:
+          type: string
+        dataType:
+          type: string
+        axisDescription:
+          type: string
+        axisData:
+          type: array
+          items:
+            $ref: '#/components/schemas/AxisDataDRF'
+        axisSteps:
+          $ref: '#/components/schemas/AxisStepsDRF'
+        axisFromDate:
+          type: string
+          format: date-time
+        axisToDate:
+          type: string
+          format: date-time
+        axisFromInt:
+          type: integer
+        axisToInt:
+          type: integer
+        axisFromDouble:
+          type: number
+          format: double
+        axisToDouble:
+          type: number
+          format: double
+      required:
+      - axisId
+      - axisName
+      - axisType
+      - dataType
+    AxisStepsDRF:
+      type: object
+      properties:
+        default:
+          type: number
+          format: double
+        min:
+          type: number
+          format: double
+        max:
+          type: number
+          format: double
+      required:
+      - default
+    DataPointDRF:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataValueDRF'
+        legend:
+          type: string
+        ref:
+          type: string
+      required:
+      - values
+    AxisDataDRF:
+      type: object
+      properties:
+        mainText:
+          type: string
+        secondaryText:
+          type: string
+        valueDate:
+          type: string
+          format: date-time
+        valueInt:
+          type: integer
+        valueDouble:
+          type: number
+          format: double
     ReportSeriesDRF:
       type: object
       properties:
@@ -90,70 +191,6 @@ components:
           format: date-time
       required:
       - userId
-    DataValueDRF:
-      type: object
-      properties:
-        axisId:
-          type: string
-        element:
-          type: integer
-        valueDate:
-          type: string
-          format: date-time
-        valueInt:
-          type: integer
-        valueDouble:
-          type: number
-          format: double
-        valueString:
-          type: string
-      required:
-      - axisId
-    ReportGroupElementDRF:
-      type: object
-      properties:
-        elementName:
-          type: string
-        elementDescription:
-          type: string
-        elementSymbolChar:
-          type: string
-        elementSymbolSvgPath:
-          type: string
-        axes:
-          type: array
-          items:
-            type: string
-      required:
-      - axes
-      - elementName
-    DataPointDRF:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataValueDRF'
-        legend:
-          type: string
-        ref:
-          type: string
-      required:
-      - values
-    AxisStepsDRF:
-      type: object
-      properties:
-        default:
-          type: number
-          format: double
-        min:
-          type: number
-          format: double
-        max:
-          type: number
-          format: double
-      required:
-      - default
     ReportInfoDRF:
       type: object
       properties:
@@ -181,61 +218,24 @@ components:
       required:
       - groupElements
       - groupId
-    AxisDataDRF:
+    ReportGroupElementDRF:
       type: object
       properties:
-        mainText:
+        elementName:
           type: string
-        secondaryText:
+        elementDescription:
           type: string
-        valueDate:
+        elementSymbolChar:
           type: string
-          format: date-time
-        valueInt:
-          type: integer
-        valueDouble:
-          type: number
-          format: double
-    ReportAxeDRF:
-      type: object
-      properties:
-        axisId:
+        elementSymbolSvgPath:
           type: string
-        axisName:
-          type: string
-        axisType:
-          type: string
-        dataType:
-          type: string
-        axisDescription:
-          type: string
-        axisData:
+        axes:
           type: array
           items:
-            $ref: '#/components/schemas/AxisDataDRF'
-        axisSteps:
-          $ref: '#/components/schemas/AxisStepsDRF'
-        axisFromDate:
-          type: string
-          format: date-time
-        axisToDate:
-          type: string
-          format: date-time
-        axisFromInt:
-          type: integer
-        axisToInt:
-          type: integer
-        axisFromDouble:
-          type: number
-          format: double
-        axisToDouble:
-          type: number
-          format: double
+            type: string
       required:
-      - axisId
-      - axisName
-      - axisType
-      - dataType
+      - axes
+      - elementName
   securitySchemes:
     Hawk_Auth:
       type: apiKey

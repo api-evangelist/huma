@@ -3,6 +3,9 @@ info:
   title: Huma Platform API
   version: 1.0.0
   description: Huma Platform
+servers:
+- url: https://workspace-gcp-uk.api.huma.com/api/integration/v1
+  description: Base URL declared by the provider in apis.yml (roadmap#122).
 paths:
   /.well-known/apple-app-site-association:
     get:

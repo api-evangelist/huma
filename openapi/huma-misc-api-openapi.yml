@@ -113,60 +113,15 @@ paths:
           description: ''
 components:
   schemas:
-    ListRetrieveLanguageDRF:
+    AndroidAppLinksDRF:
       type: object
       properties:
-        languages:
-          type: array
-          items:
-            $ref: '#/components/schemas/RetrieveLanguageDRF'
-      required:
-      - languages
-    AppleAppLinksDRF:
-      type: object
-      properties:
-        apps:
+        relation:
           type: array
           items:
             type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppLinksDetailsDRF'
-    BaseVersionDRF:
-      type: object
-      properties:
-        server:
-          type: string
-        api:
-          type: string
-        build:
-          type: string
-      required:
-      - api
-      - server
-    RetrieveLanguageDRF:
-      type: object
-      properties:
-        code:
-          type: string
-      required:
-      - code
-    NamedVersionDRF:
-      type: object
-      properties:
-        server:
-          type: string
-        api:
-          type: string
-        build:
-          type: string
-        repoName:
-          type: string
-      required:
-      - api
-      - repoName
-      - server
+        target:
+          $ref: '#/components/schemas/AndroidAppTargetDRF'
     AppLinksDetailsDRF:
       type: object
       properties:
@@ -178,26 +133,6 @@ components:
           type: array
           items:
             type: string
-    AndroidAppTargetDRF:
-      type: object
-      properties:
-        namespace:
-          type: string
-        packageName:
-          type: string
-        sha256CertFingerprints:
-          type: array
-          items:
-            type: string
-    AndroidAppLinksDRF:
-      type: object
-      properties:
-        relation:
-          type: array
-          items:
-            type: string
-        target:
-          $ref: '#/components/schemas/AndroidAppTargetDRF'
     VersionDRF:
       type: object
       properties:
@@ -217,11 +152,76 @@ components:
       - api
       - sdk
       - server
+    RetrieveLanguageDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
     ResponseDRF:
       type: object
       properties:
         applinks:
           $ref: '#/components/schemas/AppleAppLinksDRF'
+    ListRetrieveLanguageDRF:
+      type: object
+      properties:
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/RetrieveLanguageDRF'
+      required:
+      - languages
+    BaseVersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+      required:
+      - api
+      - server
+    AndroidAppTargetDRF:
+      type: object
+      properties:
+        namespace:
+          type: string
+        packageName:
+          type: string
+        sha256CertFingerprints:
+          type: array
+          items:
+            type: string
+    NamedVersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+        repoName:
+          type: string
+      required:
+      - api
+      - repoName
+      - server
+    AppleAppLinksDRF:
+      type: object
+      properties:
+        apps:
+          type: array
+          items:
+            type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppLinksDetailsDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -230,18 +230,15 @@ paths:
           description: ''
 components:
   schemas:
-    ResultIdResponseObjectDRF:
+    RetrieveAppointmentsRequestBodyDRF:
       type: object
       properties:
-        id:
+        fromDateTime:
           type: string
-    BulkDeleteAppointmentsResponseObjectDRF:
-      type: object
-      properties:
-        deletedAppointments:
-          type: integer
-      required:
-      - deletedAppointments
+          format: date-time
+        toDateTime:
+          type: string
+          format: date-time
     AppointmentDTODRF:
       type: object
       properties:
@@ -278,15 +275,18 @@ components:
         updateDateTime:
           type: string
           format: date-time
-    RetrieveAppointmentsRequestBodyDRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
-        fromDateTime:
+        id:
           type: string
-          format: date-time
-        toDateTime:
-          type: string
-          format: date-time
+    BulkDeleteAppointmentsResponseObjectDRF:
+      type: object
+      properties:
+        deletedAppointments:
+          type: integer
+      required:
+      - deletedAppointments
     RetrieveAppointmentsResponseObjectDRF:
       type: object
       properties:

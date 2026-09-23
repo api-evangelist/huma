@@ -69,15 +69,6 @@ paths:
           description: ''
 components:
   schemas:
-    PrimaryStepViewDRF:
-      type: object
-      properties:
-        value:
-          type: string
-        unit:
-          type: string
-        startDateTime:
-          type: string
     SearchVirtualVisitResponseObjectDRF:
       type: object
       properties:
@@ -122,6 +113,15 @@ components:
           type: array
           items:
             type: string
+    PrimaryStepViewDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        unit:
+          type: string
+        startDateTime:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

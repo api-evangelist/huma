@@ -2172,32 +2172,6 @@ paths:
           description: ''
 components:
   schemas:
-    FiveLivesWidgetResponseDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        about:
-          type: string
-        rank:
-          type: string
-        scoreTables:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScoreTableDRF'
-        gameId:
-          type: string
-        buttonText:
-          type: string
-      required:
-      - about
-      - buttonText
-      - description
-      - gameId
-      - rank
-      - title
     VADataResponseObjectDRF:
       type: object
       properties:
@@ -2234,19 +2208,29 @@ components:
       - chartConfig
       - seen
       - unit
-    ChecklistDRF:
+    ScoreTableDRF:
       type: object
       properties:
         title:
           type: string
-        subtitle:
-          type: string
-        checklist:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/CalendarEventDTODRF'
-        isActive:
-          type: boolean
+            $ref: '#/components/schemas/ScoreItemDRF'
+      required:
+      - data
+      - title
+    LearnWidgetSectionResponseDRF:
+      type: object
+      properties:
+        sectionId:
+          type: string
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSLearnArticleDRF'
+      required:
+      - sectionId
     ServerDRF:
       type: object
       properties:
@@ -2260,54 +2244,207 @@ components:
       - api
       - hostUrl
       - server
-    ScoreItemDRF:
+    VitalsDataFieldDRF:
       type: object
       properties:
-        value:
+        x:
           type: integer
-        date:
+        y:
+          type: array
+          items:
+            type: number
+            format: double
+        t:
           type: string
       required:
-      - date
-      - value
-    DiaryOverviewDRF:
+      - t
+      - x
+      - y
+    OrderDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDRF'
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - cart
+      - createDateTime
+      - status
+      - updateDateTime
+      - userId
+    HemophiliaJournalAnswersDRF:
+      type: object
+      properties:
+        accidentDate:
+          type: string
+          format: date-time
+        treatment:
+          type: object
+          additionalProperties: {}
+        reason:
+          type: string
+        severity:
+          type: string
+        scale:
+          type: integer
+        factorUnits:
+          type: integer
+        note:
+          type: string
+        photos:
+          type: array
+          items:
+            type: string
+      required:
+      - accidentDate
+      - reason
+      - scale
+      - severity
+    WelcomeWidgetResponseObjectDRF:
+      type: object
+      properties:
+        completed:
+          type: boolean
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppSectionDRF'
+      required:
+      - completed
+    LegendItemDRF:
+      type: object
+      properties:
+        color:
+          type: string
+        label:
+          type: string
+    TreatmentWidgetResponseDRF:
       type: object
       properties:
         title:
           type: string
-        value:
-          type: string
-        diarySidebar:
-          type: string
-        valueTextColor:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        localizationData:
-          type: object
-          additionalProperties: {}
-      required:
-      - startDateTime
-      - title
-    MGChartConfigDRF:
+        totalCount:
+          type: integer
+        completedCount:
+          type: integer
+    VirtualCareWidgetResponseDRF:
       type: object
       properties:
-        legends:
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSRecommendationDTODRF'
+        value:
           type: array
           items:
             type: string
-        yMinValue:
+        units:
+          type: array
+          items:
+            type: string
+        date:
+          type: string
+          format: date-time
+        greeting:
+          type: string
+        title:
+          type: string
+    WHOWidgetResponseDRF:
+      type: object
+      properties:
+        unit:
+          type: array
+          items:
+            type: string
+        data:
+          type: array
+          items:
+            type: string
+        value:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        seen:
+          type: boolean
+        footer:
+          type: array
+          items:
+            $ref: '#/components/schemas/FootnoteDRF'
+        learnArticles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSLearnArticleDRF'
+      required:
+      - unit
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
           type: integer
-        yMaxValue:
-          type: integer
-        thresholdLineValue:
+    ToDoWidgetResponseDRF:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToDoItemsResponseDRF'
+        total:
           type: integer
       required:
-      - legends
-      - thresholdLineValue
-      - yMaxValue
-      - yMinValue
+      - total
+    HypertensionWidgetResponseDRF:
+      type: object
+      properties:
+        learnArticle:
+          $ref: '#/components/schemas/CMSLearnArticleDRF'
+        range:
+          type: string
+        value:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        date:
+          type: string
+          format: date-time
+        iconColor:
+          type: string
+        greeting:
+          type: string
+        source:
+          type: string
     MGDataResponseObjectDRF:
       type: object
       properties:
@@ -2344,21 +2481,240 @@ components:
       - chartConfig
       - seen
       - unit
-    ProductDTODRF:
+    OrderItemDRF:
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+        sku:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+      required:
+      - productId
+      - quantity
+      - sku
+    OMSWidgetResponseDRF:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTODRF'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDTODRF'
+    DiaryWidgetResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryOverviewDRF'
+      required:
+      - items
+    CDSDataResponseObjectDRF:
+      type: object
+      properties:
+        pregnancyDate:
+          type: string
+        state:
+          type: string
+        stage:
+          type: string
+        title:
+          type: string
+        subtitle:
+          type: string
+        description:
+          type: string
+        primaryCTAtext:
+          type: string
+        secondaryCTAtext:
+          type: string
+        progress:
+          type: number
+          format: double
+        progressText:
+          type: string
+        message:
+          $ref: '#/components/schemas/_CDSCardMessageDRF'
+        imageUrl:
+          type: string
+        dueDate:
+          type: string
+    GeolocationDataResponseObjectDRF:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PointDataFieldDRF'
+        value:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+    LearnArticleContentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        cmsArticleId:
+          type: string
+        cmsThumbnail:
+          type: string
+        type:
+          type: string
+        timeToRead:
+          type: string
+        textDetails:
+          type: string
+        videoUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        url:
+          type: string
+        contentObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        read:
+          type: boolean
+        isValid:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - type
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    MGChartConfigDRF:
+      type: object
+      properties:
+        legends:
+          type: array
+          items:
+            type: string
+        yMinValue:
+          type: integer
+        yMaxValue:
+          type: integer
+        thresholdLineValue:
+          type: integer
+      required:
+      - legends
+      - thresholdLineValue
+      - yMaxValue
+      - yMinValue
+    ScoreItemDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        date:
+          type: string
+      required:
+      - date
+      - value
+    FootnoteDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        text:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    CMSRecommendationDTODRF:
       type: object
       properties:
         id:
           type: string
         title:
           type: string
-        image:
+        content:
           type: string
-        sku:
+        reviewer:
+          type: string
+        language:
+          type: string
+        photo:
           type: string
       required:
-      - image
-      - sku
+      - content
+      - language
       - title
+    VitalsDataResponseObjectDRF:
+      type: object
+      properties:
+        unit:
+          type: array
+          items:
+            type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VitalsDataFieldDRF'
+        value:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        seen:
+          type: boolean
+        footer:
+          type: array
+          items:
+            $ref: '#/components/schemas/FootnoteDRF'
+        learnArticles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSLearnArticleDRF'
+      required:
+      - seen
+      - unit
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
     BodyMapItemDRF:
       type: object
       properties:
@@ -2366,30 +2722,70 @@ components:
           type: string
         color:
           type: string
-    HypertensionWidgetResponseDRF:
+    _CDSCardMessageDRF:
       type: object
       properties:
-        learnArticle:
-          $ref: '#/components/schemas/CMSLearnArticleDRF'
-        range:
+        type:
           type: string
-        value:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        date:
+        text:
+          type: string
+    ToDoItemsResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        appointmentDateTime:
           type: string
           format: date-time
-        iconColor:
+        appointmentStatus:
           type: string
-        greeting:
+        appointmentId:
           type: string
-        source:
+        keyActionConfigId:
           type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+        learnArticle:
+          $ref: '#/components/schemas/CMSLearnArticleDRF'
+      required:
+      - keyActionConfigId
+      - model
     HemophiliaResponseObjectDRF:
       type: object
       properties:
@@ -2445,186 +2841,48 @@ components:
       - status
       - title
       - type
-    CMSRecommendationDTODRF:
+    SurgeryChecklistWidgetResponseDRF:
       type: object
       properties:
-        id:
+        checklists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChecklistDRF'
+        surgeryDate:
           type: string
+    ChecklistDRF:
+      type: object
+      properties:
         title:
           type: string
-        content:
+        subtitle:
           type: string
-        reviewer:
-          type: string
-        language:
-          type: string
-        photo:
-          type: string
-      required:
-      - content
-      - language
-      - title
-    OnboardingItemDRF:
+        checklist:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarEventDTODRF'
+        isActive:
+          type: boolean
+    DiaryOverviewDRF:
       type: object
       properties:
-        onboardingId:
+        title:
           type: string
-        order:
-          type: integer
-        completed:
-          type: boolean
-        configBody:
+        value:
+          type: string
+        diarySidebar:
+          type: string
+        valueTextColor:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        localizationData:
           type: object
           additionalProperties: {}
       required:
-      - completed
-      - onboardingId
-      - order
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    OMSWidgetResponseDRF:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDTODRF'
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDTODRF'
-    WHOWidgetResponseDRF:
-      type: object
-      properties:
-        unit:
-          type: array
-          items:
-            type: string
-        data:
-          type: array
-          items:
-            type: string
-        value:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        date:
-          type: string
-          format: date-time
-        seen:
-          type: boolean
-        footer:
-          type: array
-          items:
-            $ref: '#/components/schemas/FootnoteDRF'
-        learnArticles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSLearnArticleDRF'
-      required:
-      - unit
-    PointDataFieldDRF:
-      type: object
-      properties:
-        latitude:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
-        longitude:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
-        altitude:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
-        samplingDateTime:
-          type: string
-          format: date-time
-      required:
-      - latitude
-      - longitude
-      - samplingDateTime
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    CMSLearnArticleDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        thumbnailUrl:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        order:
-          type: integer
-        content:
-          $ref: '#/components/schemas/CMSLearnArticleContentDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        tags:
-          type: array
-          items:
-            type: string
-        thumbnailImageUrl:
-          type: string
-      required:
-      - content
-      - type
-    OrderItemDRF:
-      type: object
-      properties:
-        productId:
-          type: string
-        quantity:
-          type: integer
-        sku:
-          type: string
-        title:
-          type: string
-        image:
-          type: string
-      required:
-      - productId
-      - quantity
-      - sku
+      - startDateTime
+      - title
     DeviceDetailsDRF:
       type: object
       properties:
@@ -2640,65 +2898,6 @@ components:
       - manufacturer
       - modelName
       - uuid
-    CMSLearnArticleResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        thumbnailUrl:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        order:
-          type: integer
-        content:
-          $ref: '#/components/schemas/CMSLearnArticleContentDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        tags:
-          type: array
-          items:
-            type: string
-        thumbnailImageUrl:
-          type: string
-      required:
-      - content
-      - type
-    VAChartConfigDRF:
-      type: object
-      properties:
-        legends:
-          type: array
-          items:
-            type: string
-        yMinValue:
-          type: integer
-        yMaxValue:
-          type: integer
-        yMinLabel:
-          type: string
-        yMaxLabel:
-          type: string
-        backgroundLinesNumber:
-          type: integer
-      required:
-      - backgroundLinesNumber
-      - legends
-      - yMaxLabel
-      - yMaxValue
-      - yMinLabel
-      - yMinValue
     CalendarEventDTODRF:
       type: object
       properties:
@@ -2743,102 +2942,6 @@ components:
           type: string
       required:
       - model
-    VirtualCareWidgetResponseDRF:
-      type: object
-      properties:
-        recommendations:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSRecommendationDTODRF'
-        value:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        date:
-          type: string
-          format: date-time
-        greeting:
-          type: string
-        title:
-          type: string
-    CDSDataResponseObjectDRF:
-      type: object
-      properties:
-        pregnancyDate:
-          type: string
-        state:
-          type: string
-        stage:
-          type: string
-        title:
-          type: string
-        subtitle:
-          type: string
-        description:
-          type: string
-        primaryCTAtext:
-          type: string
-        secondaryCTAtext:
-          type: string
-        progress:
-          type: number
-          format: double
-        progressText:
-          type: string
-        message:
-          $ref: '#/components/schemas/_CDSCardMessageDRF'
-        imageUrl:
-          type: string
-        dueDate:
-          type: string
-    FootnoteDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        text:
-          type: string
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    LearnArticleContentDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        cmsArticleId:
-          type: string
-        cmsThumbnail:
-          type: string
-        type:
-          type: string
-        timeToRead:
-          type: string
-        textDetails:
-          type: string
-        videoUrl:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        url:
-          type: string
-        contentObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        read:
-          type: boolean
-        isValid:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - type
     QuestionnaireWidgetResponseDRF:
       type: object
       properties:
@@ -2872,63 +2975,40 @@ components:
       required:
       - seen
       - unit
-    VitalsDataFieldDRF:
+    CMSLearnArticleContentDRF:
       type: object
       properties:
-        x:
+        id:
+          type: string
+        cmsArticleId:
+          type: string
+        cmsThumbnail:
+          type: string
+        type:
+          type: string
+        timeToRead:
           type: integer
-        y:
+        textDetails:
+          type: string
+        videoUrl:
+          type: string
+        url:
+          type: string
+        contentObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        read:
+          type: boolean
+        isValid:
+          type: boolean
+        LocalizableFields:
           type: array
           items:
-            type: number
-            format: double
-        t:
+            type: string
+          title: ' localizablefields'
+        body:
           type: string
-      required:
-      - t
-      - x
-      - y
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
+        contentType:
           type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    SurgeryChecklistWidgetResponseDRF:
-      type: object
-      properties:
-        checklists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChecklistDRF'
-        surgeryDate:
-          type: string
-    DiaryWidgetResponseObjectDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryOverviewDRF'
-      required:
-      - items
-    ToDoWidgetResponseDRF:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/ToDoItemsResponseDRF'
-        total:
-          type: integer
-      required:
-      - total
     HemophiliaJournalDTODRF:
       type: object
       properties:
@@ -3004,134 +3084,144 @@ components:
       - deviceName
       - moduleId
       - userId
-    OrderDTODRF:
+    PointDataFieldDRF:
+      type: object
+      properties:
+        latitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
+        longitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
+        altitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,15}(?:\.\d{0,4})?$
+        samplingDateTime:
+          type: string
+          format: date-time
+      required:
+      - latitude
+      - longitude
+      - samplingDateTime
+    ProductDTODRF:
       type: object
       properties:
         id:
           type: string
-        userId:
+        title:
           type: string
-        cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDRF'
-        status:
+        image:
           type: string
-        createDateTime:
+        sku:
           type: string
-          format: date-time
+      required:
+      - image
+      - sku
+      - title
+    OnboardingItemDRF:
+      type: object
+      properties:
+        onboardingId:
+          type: string
+        order:
+          type: integer
+        completed:
+          type: boolean
+        configBody:
+          type: object
+          additionalProperties: {}
+      required:
+      - completed
+      - onboardingId
+      - order
+    CMSLearnArticleDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        thumbnailUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        order:
+          type: integer
+        content:
+          $ref: '#/components/schemas/CMSLearnArticleContentDRF'
         updateDateTime:
           type: string
           format: date-time
-      required:
-      - cart
-      - createDateTime
-      - status
-      - updateDateTime
-      - userId
-    WelcomeWidgetResponseObjectDRF:
-      type: object
-      properties:
-        completed:
-          type: boolean
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppSectionDRF'
-      required:
-      - completed
-    HemophiliaJournalAnswersDRF:
-      type: object
-      properties:
-        accidentDate:
+        createDateTime:
           type: string
           format: date-time
-        treatment:
-          type: object
-          additionalProperties: {}
-        reason:
-          type: string
-        severity:
-          type: string
-        scale:
-          type: integer
-        factorUnits:
-          type: integer
-        note:
-          type: string
-        photos:
+        LocalizableFields:
           type: array
           items:
             type: string
+          title: ' localizablefields'
+        tags:
+          type: array
+          items:
+            type: string
+        thumbnailImageUrl:
+          type: string
       required:
-      - accidentDate
-      - reason
-      - scale
-      - severity
-    ToDoItemsResponseDRF:
+      - content
+      - type
+    VAChartConfigDRF:
       type: object
       properties:
-        id:
+        legends:
+          type: array
+          items:
+            type: string
+        yMinValue:
+          type: integer
+        yMaxValue:
+          type: integer
+        yMinLabel:
           type: string
-        userId:
+        yMaxLabel:
           type: string
+        backgroundLinesNumber:
+          type: integer
+      required:
+      - backgroundLinesNumber
+      - legends
+      - yMaxLabel
+      - yMaxValue
+      - yMinLabel
+      - yMinValue
+    FiveLivesWidgetResponseDRF:
+      type: object
+      properties:
         title:
           type: string
         description:
           type: string
-        model:
+        about:
           type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
+        rank:
           type: string
-        startDateTime:
+        scoreTables:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoreTableDRF'
+        gameId:
           type: string
-        endDateTime:
+        buttonText:
           type: string
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        appointmentDateTime:
-          type: string
-          format: date-time
-        appointmentStatus:
-          type: string
-        appointmentId:
-          type: string
-        keyActionConfigId:
-          type: string
-        learnArticleId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        deploymentId:
-          type: string
-        learnArticle:
-          $ref: '#/components/schemas/CMSLearnArticleDRF'
       required:
-      - keyActionConfigId
-      - model
-    _CDSCardMessageDRF:
-      type: object
-      properties:
-        type:
-          type: string
-        text:
-          type: string
+      - about
+      - buttonText
+      - description
+      - gameId
+      - rank
+      - title
     UserAgentDRF:
       type: object
       properties:
@@ -3160,143 +3250,53 @@ components:
       - softwareName
       - softwareVersion
       - version
-    CMSLearnArticleContentDRF:
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    CMSLearnArticleResponseDRF:
       type: object
       properties:
         id:
           type: string
-        cmsArticleId:
-          type: string
-        cmsThumbnail:
+        title:
           type: string
         type:
           type: string
-        timeToRead:
-          type: integer
-        textDetails:
-          type: string
-        videoUrl:
-          type: string
-        url:
-          type: string
-        contentObject:
+        thumbnailUrl:
           $ref: '#/components/schemas/S3ObjectDRF'
-        read:
-          type: boolean
-        isValid:
-          type: boolean
+        order:
+          type: integer
+        content:
+          $ref: '#/components/schemas/CMSLearnArticleContentDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-        body:
-          type: string
-        contentType:
-          type: string
-    LearnWidgetSectionResponseDRF:
-      type: object
-      properties:
-        sectionId:
-          type: string
-        articles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSLearnArticleDRF'
-      required:
-      - sectionId
-    TreatmentWidgetResponseDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        totalCount:
-          type: integer
-        completedCount:
-          type: integer
-    ModuleFeedbackDRF:
-      type: object
-      properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
-          type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    ScoreTableDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScoreItemDRF'
-      required:
-      - data
-      - title
-    LegendItemDRF:
-      type: object
-      properties:
-        color:
-          type: string
-        label:
-          type: string
-    GeolocationDataResponseObjectDRF:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PointDataFieldDRF'
-        value:
+        tags:
           type: array
           items:
             type: string
-        description:
+        thumbnailImageUrl:
           type: string
-        date:
-          type: string
-          format: date-time
-    VitalsDataResponseObjectDRF:
-      type: object
-      properties:
-        unit:
-          type: array
-          items:
-            type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VitalsDataFieldDRF'
-        value:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        date:
-          type: string
-          format: date-time
-        seen:
-          type: boolean
-        footer:
-          type: array
-          items:
-            $ref: '#/components/schemas/FootnoteDRF'
-        learnArticles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSLearnArticleDRF'
       required:
-      - seen
-      - unit
+      - content
+      - type
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -144,18 +144,6 @@ paths:
           description: ''
 components:
   schemas:
-    UpdateInstructionsShownHistoryRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        keys:
-          type: array
-          items:
-            type: string
-      required:
-      - keys
-      - userId
     FiveLivesTokenResponseObjectDRF:
       type: object
       properties:
@@ -163,6 +151,26 @@ components:
           type: string
       required:
       - authToken
+    ScoreHistoryItemDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        timestamp:
+          type: integer
+        rank:
+          type: string
+      required:
+      - rank
+      - timestamp
+      - value
+    FiveLivesTokenRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+      - userId
     UserDataResponseDRF:
       type: object
       properties:
@@ -182,19 +190,6 @@ components:
       - rank
       - scoreHistory
       - userId
-    ScoreHistoryItemDRF:
-      type: object
-      properties:
-        value:
-          type: integer
-        timestamp:
-          type: integer
-        rank:
-          type: string
-      required:
-      - rank
-      - timestamp
-      - value
     UpdateHistoryRequestObjectDRF:
       type: object
       properties:
@@ -219,12 +214,17 @@ components:
       - updatedHistory
       - updatedRank
       - userId
-    FiveLivesTokenRequestObjectDRF:
+    UpdateInstructionsShownHistoryRequestObjectDRF:
       type: object
       properties:
         userId:
           type: string
+        keys:
+          type: array
+          items:
+            type: string
       required:
+      - keys
       - userId
   securitySchemes:
     Hawk_Auth:

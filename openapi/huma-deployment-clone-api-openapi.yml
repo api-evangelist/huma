@@ -40,11 +40,6 @@ paths:
           description: ''
 components:
   schemas:
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     CloneDeploymentRequestObjectDRF:
       type: object
       properties:
@@ -60,6 +55,11 @@ components:
       - name
       - organizationId
       - referenceId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

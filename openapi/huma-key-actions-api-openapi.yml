@@ -261,6 +261,380 @@ paths:
           description: ''
 components:
   schemas:
+    QuestionnaireAppResultDRF:
+      type: object
+      properties:
+        appType:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
+      required:
+      - appType
+      - values
+    PeriodProgressResponseDRF:
+      type: object
+      properties:
+        taskCompliance:
+          type: number
+          format: double
+        startDateTime:
+          type: string
+          format: date-time
+        openQueriesAmount:
+          type: integer
+        passedDueDateFormsAmount:
+          type: integer
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
+    KeyActionResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        keyActionConfigId:
+          type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - keyActionConfigId
+      - model
+    CreateKeyActionLogDTORequestBodyDRF:
+      type: object
+      properties:
+        model:
+          type: string
+        userId:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        completeDateTime:
+          type: string
+          format: date-time
+      required:
+      - endDateTime
+      - model
+      - startDateTime
+    FormDataDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+          format: date-time
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        keyActionConfigId:
+          type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+        result:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
+        status:
+          type: string
+      required:
+      - keyActionConfigId
+      - model
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    RetrieveToDoItemsResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        appointmentDateTime:
+          type: string
+          format: date-time
+        appointmentStatus:
+          type: string
+        appointmentId:
+          type: string
+        keyActionConfigId:
+          type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - keyActionConfigId
+      - model
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
     QuestionnaireDTODRF:
       type: object
       properties:
@@ -359,203 +733,6 @@ components:
       - questionnaireId
       - questionnaireName
       - userId
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
-    PeriodProgressResponseDRF:
-      type: object
-      properties:
-        taskCompliance:
-          type: number
-          format: double
-        startDateTime:
-          type: string
-          format: date-time
-        openQueriesAmount:
-          type: integer
-        passedDueDateFormsAmount:
-          type: integer
-    RetrieveToDoItemsResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        appointmentDateTime:
-          type: string
-          format: date-time
-        appointmentStatus:
-          type: string
-        appointmentId:
-          type: string
-        keyActionConfigId:
-          type: string
-        learnArticleId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        deploymentId:
-          type: string
-      required:
-      - keyActionConfigId
-      - model
-    QuestionnaireAppResultDRF:
-      type: object
-      properties:
-        appType:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
-      required:
-      - appType
-      - values
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    QuestionnaireAnswerDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        answerText:
-          type: string
-        answersList:
-          type: array
-          items:
-            type: string
-        filesList:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
-        otherText:
-          type: string
-        value:
-          type: string
-        compositeAnswer:
-          type: object
-          additionalProperties: {}
-        answerScore:
-          type: integer
-        questionId:
-          type: string
-        question:
-          type: string
-        format:
-          type: string
-        choices:
-          type: array
-          items:
-            type: string
-        selectedChoices:
-          type: array
-          items:
-            type: string
-        otherSelectedChoices:
-          type: array
-          items:
-            type: string
-        selectionCriteria:
-          type: string
-        lowerBound:
-          type: number
-          format: double
-        upperBound:
-          type: number
-          format: double
-        lists:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        selectedUnit:
-          type: string
-        recalledText:
-          type: array
-          items:
-            type: string
-        options:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-      required:
-      - question
     UserAgentDRF:
       type: object
       properties:
@@ -584,183 +761,6 @@ components:
       - softwareName
       - softwareVersion
       - version
-    ModuleFeedbackDRF:
-      type: object
-      properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
-          type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    QuestionnaireAnswerMediaFileDRF:
-      type: object
-      properties:
-        file:
-          type: string
-        thumbnail:
-          type: string
-        mediaType:
-          type: string
-      required:
-      - file
-      - mediaType
-    QuestionnaireAppResultValueDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        valueType:
-          type: string
-        valueFloat:
-          type: number
-          format: double
-      required:
-      - label
-      - valueFloat
-      - valueType
-    CreateKeyActionLogDTORequestBodyDRF:
-      type: object
-      properties:
-        model:
-          type: string
-        userId:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        completeDateTime:
-          type: string
-          format: date-time
-      required:
-      - endDateTime
-      - model
-      - startDateTime
-    KeyActionResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        keyActionConfigId:
-          type: string
-        learnArticleId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        deploymentId:
-          type: string
-      required:
-      - keyActionConfigId
-      - model
-    FormDataDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-          format: date-time
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        keyActionConfigId:
-          type: string
-        learnArticleId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        deploymentId:
-          type: string
-        result:
-          $ref: '#/components/schemas/QuestionnaireDTODRF'
-        status:
-          type: string
-      required:
-      - keyActionConfigId
-      - model
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -234,23 +234,16 @@ paths:
           description: No response body
 components:
   schemas:
-    ResultIdResponseObjectDRF:
+    CompleteVideoCallRequestObjectDRF:
       type: object
       properties:
-        id:
+        token:
           type: string
-    CompleteVideoCallByUserRequestObjectDRF:
-      type: object
-      properties:
-        reason:
-          type: string
-        userId:
-          type: string
-        videoCallId:
+        callId:
           type: string
       required:
-      - userId
-      - videoCallId
+      - callId
+      - token
     InitiateVideoCallRequestObjectDRF:
       type: object
       properties:
@@ -263,6 +256,18 @@ components:
       required:
       - managerId
       - userId
+    CompleteVideoCallByUserRequestObjectDRF:
+      type: object
+      properties:
+        reason:
+          type: string
+        userId:
+          type: string
+        videoCallId:
+          type: string
+      required:
+      - userId
+      - videoCallId
     OfflineVideoCallDTODRF:
       type: object
       properties:
@@ -304,6 +309,11 @@ components:
           type: string
         managerName:
           type: string
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     CreateOfflineCallRequestObjectDRF:
       type: object
       properties:
@@ -319,6 +329,20 @@ components:
       - endDateTime
       - note
       - startDateTime
+    VideoCallLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+        identity:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - event
     RetrieveCallsPaginatedResponseObjectDRF:
       type: object
       properties:
@@ -337,30 +361,6 @@ components:
       - limit
       - skip
       - total
-    CompleteVideoCallRequestObjectDRF:
-      type: object
-      properties:
-        token:
-          type: string
-        callId:
-          type: string
-      required:
-      - callId
-      - token
-    VideoCallLogDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        event:
-          type: string
-        identity:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - event
     InitiateVideoCallResponseObjectDRF:
       type: object
       properties:

@@ -423,69 +423,6 @@ paths:
           description: ''
 components:
   schemas:
-    PublicContentSearchResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            type: string
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    SearchContentRequestObjectDRF:
-      type: object
-      properties:
-        collection:
-          type: string
-        search:
-          type: string
-        filters:
-          type: object
-          additionalProperties: {}
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-        skip:
-          type: integer
-        limit:
-          type: integer
-        unpublished:
-          type: boolean
-      required:
-      - collection
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
     UpdateContentRequestObjectDRF:
       type: object
       properties:
@@ -533,6 +470,74 @@ components:
       required:
       - schema
       - status
+    ListCollectionsResponseDRF:
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            type: string
+      required:
+      - collections
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
+    SearchContentRequestObjectDRF:
+      type: object
+      properties:
+        collection:
+          type: string
+        search:
+          type: string
+        filters:
+          type: object
+          additionalProperties: {}
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+        skip:
+          type: integer
+        limit:
+          type: integer
+        unpublished:
+          type: boolean
+      required:
+      - collection
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    TagsListResponseDRF:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - tags
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
     CreateContentResponseObjectDRF:
       type: object
       properties:
@@ -540,54 +545,19 @@ components:
           type: string
       required:
       - id
-    CreateContentRequestObjectDRF:
+    PublicContentSearchResponseObjectDRF:
       type: object
       properties:
-        id:
-          type: string
-        status:
-          type: string
-        data:
-          type: object
-          additionalProperties: {}
-        draftData:
-          type: object
-          additionalProperties: {}
-        schema:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        resources:
-          type: array
-          items:
-            type: string
-        owner:
-          type: string
-        editors:
-          type: array
-          items:
-            type: string
-        viewers:
-          type: array
-          items:
-            type: string
-        version:
+        total:
           type: integer
-        updateDateTime:
-          type: string
-          format: date-time
-        publishDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - resources
-      - schema
-      - status
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            type: string
     CMSContentDTODRF:
       type: object
       properties:
@@ -636,24 +606,6 @@ components:
       - resources
       - schema
       - status
-    ListCollectionsResponseDRF:
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            type: string
-      required:
-      - collections
-    TagsListResponseDRF:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - tags
     RetrieveSchemaResponseDRF:
       type: object
       properties:
@@ -662,6 +614,54 @@ components:
           additionalProperties: {}
       required:
       - schema
+    CreateContentRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}
+        draftData:
+          type: object
+          additionalProperties: {}
+        schema:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        resources:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        editors:
+          type: array
+          items:
+            type: string
+        viewers:
+          type: array
+          items:
+            type: string
+        version:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        publishDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - resources
+      - schema
+      - status
   securitySchemes:
     Hawk_Auth:
       type: apiKey
