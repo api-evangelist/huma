@@ -133,6 +133,52 @@ paths:
           description: ''
 components:
   schemas:
+    IndexFileContentResponseDRF:
+      type: object
+      properties:
+        deploymentTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileDRF'
+    TemplateDeploymentOverrideObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RetrieveSharedTemplateBankResponseDRF:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
+    CreateTemplateRequestObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+        thumbnailFileId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        sortingIndex:
+          type: integer
+        test:
+          type: boolean
+      required:
+      - fileId
+      - sortingIndex
     TemplateIdRequestObjectDRF:
       type: object
       properties:
@@ -143,18 +189,6 @@ components:
       required:
       - templateId
       - userId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    IndexFileContentResponseDRF:
-      type: object
-      properties:
-        deploymentTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SharedTemplateFileDRF'
     SharedTemplateFileResponseDRF:
       type: object
       properties:
@@ -202,40 +236,18 @@ components:
       - organizationId
       - templateId
       - userId
-    TemplateDeploymentOverrideObjectDRF:
+    S3ObjectDRF:
       type: object
       properties:
-        name:
+        bucket:
           type: string
-        isSaMD:
-          type: boolean
-    CreateTemplateRequestObjectDRF:
-      type: object
-      properties:
-        fileId:
+        key:
           type: string
-        thumbnailFileId:
+        region:
           type: string
-        title:
-          type: string
-        description:
-          type: string
-        descriptionUrl:
-          type: string
-        sortingIndex:
-          type: integer
-        test:
-          type: boolean
       required:
-      - fileId
-      - sortingIndex
-    RetrieveSharedTemplateBankResponseDRF:
-      type: object
-      properties:
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
+      - bucket
+      - key
     SharedTemplateFileDRF:
       type: object
       properties:
@@ -268,18 +280,6 @@ components:
       - templateFile
       - thumbnail
       - title
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

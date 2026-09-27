@@ -214,6 +214,218 @@ paths:
           description: ''
 components:
   schemas:
+    ProcessAudioResultRequestBodyDRF:
+      type: object
+      properties:
+        moduleConfigId:
+          type: string
+        moduleResultId:
+          type: string
+        deploymentId:
+          type: string
+        version:
+          type: integer
+        deviceName:
+          type: string
+        isAggregated:
+          type: boolean
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        correlationStartDateTime:
+          type: string
+          format: date-time
+        client:
+          $ref: '#/components/schemas/UserAgentDRF'
+        server:
+          $ref: '#/components/schemas/ServerDRF'
+        ragThreshold:
+          type: object
+          additionalProperties: {}
+        flags:
+          type: object
+          additionalProperties: {}
+        eventLogId:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        isAverage:
+          type: boolean
+        noteId:
+          type: string
+        feedback:
+          $ref: '#/components/schemas/ModuleFeedbackDRF'
+        meal:
+          type: string
+        userNote:
+          type: string
+        audioResult:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        initialWords:
+          type: array
+          items:
+            type: string
+      required:
+      - audioResult
+      - deploymentId
+      - deviceName
+      - initialWords
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    RevereTestWordObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        initialWords:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    RevereTestDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevereTestResultDTODRF'
+        status:
+          type: string
+        moduleId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - deploymentId
+      - moduleId
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
     RevereTestResultDTODRF:
       type: object
       properties:
@@ -295,223 +507,6 @@ components:
       - initialWords
       - moduleId
       - userId
-    RevereTestWordObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        initialWords:
-          type: array
-          items:
-            type: string
-      required:
-      - id
-    ExportRevereResultsRequestObjectDRF:
-      type: object
-      properties:
-        status:
-          type: string
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
-    ProcessAudioResultRequestBodyDRF:
-      type: object
-      properties:
-        moduleConfigId:
-          type: string
-        moduleResultId:
-          type: string
-        deploymentId:
-          type: string
-        version:
-          type: integer
-        deviceName:
-          type: string
-        isAggregated:
-          type: boolean
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        correlationStartDateTime:
-          type: string
-          format: date-time
-        client:
-          $ref: '#/components/schemas/UserAgentDRF'
-        server:
-          $ref: '#/components/schemas/ServerDRF'
-        ragThreshold:
-          type: object
-          additionalProperties: {}
-        flags:
-          type: object
-          additionalProperties: {}
-        eventLogId:
-          type: string
-        device:
-          $ref: '#/components/schemas/DeviceDetailsDRF'
-        source:
-          type: string
-        isAverage:
-          type: boolean
-        noteId:
-          type: string
-        feedback:
-          $ref: '#/components/schemas/ModuleFeedbackDRF'
-        meal:
-          type: string
-        userNote:
-          type: string
-        audioResult:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        initialWords:
-          type: array
-          items:
-            type: string
-      required:
-      - audioResult
-      - deploymentId
-      - deviceName
-      - initialWords
-    RevereTestDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/RevereTestResultDTODRF'
-        status:
-          type: string
-        moduleId:
-          type: string
-        deploymentId:
-          type: string
-      required:
-      - deploymentId
-      - moduleId
-    ModuleFeedbackDRF:
-      type: object
-      properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
-          type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    UserAgentDRF:
-      type: object
-      properties:
-        product:
-          type: string
-        version:
-          type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
-          type: string
-      required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
     StartRevereTestResponseDRF:
       type: object
       properties:
@@ -523,6 +518,11 @@ components:
             $ref: '#/components/schemas/RevereTestWordObjectDRF'
       required:
       - id
+    ExportRevereResultsRequestObjectDRF:
+      type: object
+      properties:
+        status:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

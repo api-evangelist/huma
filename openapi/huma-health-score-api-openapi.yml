@@ -77,16 +77,6 @@ components:
           $ref: '#/components/schemas/ScoreDRF'
         submittedTotal:
           $ref: '#/components/schemas/ScoreDRF'
-    ScoreDRF:
-      type: object
-      properties:
-        value:
-          type: integer
-        level:
-          type: string
-      required:
-      - level
-      - value
     HealthMetricDRF:
       type: object
       properties:
@@ -110,6 +100,16 @@ components:
       - healthTypes
       - source
       - userId
+    ScoreDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        level:
+          type: string
+      required:
+      - level
+      - value
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -87,13 +87,6 @@ paths:
           description: ''
 components:
   schemas:
-    QualityCheckErrorResponseObjectDRF:
-      type: object
-      properties:
-        error:
-          type: string
-      required:
-      - error
     QualityCheckRequestObjectDRF:
       type: object
       properties:
@@ -108,17 +101,13 @@ components:
       required:
       - arm
       - image
-    PtosisQualityCheckRequestObjectDRF:
+    QualityCheckErrorResponseObjectDRF:
       type: object
       properties:
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
+        error:
           type: string
       required:
-      - image
+      - error
     S3ObjectDRF:
       type: object
       properties:
@@ -131,6 +120,17 @@ components:
       required:
       - bucket
       - key
+    PtosisQualityCheckRequestObjectDRF:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+      required:
+      - image
   securitySchemes:
     Hawk_Auth:
       type: apiKey

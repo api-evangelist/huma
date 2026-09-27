@@ -47,16 +47,16 @@ paths:
           description: ''
 components:
   schemas:
-    StatusResponseObjectDRF:
-      type: object
-      properties:
-        cache:
-          $ref: '#/components/schemas/StatusDetailsDRF'
     StatusDetailsDRF:
       type: object
       properties:
         status:
           type: string
+    StatusResponseObjectDRF:
+      type: object
+      properties:
+        cache:
+          $ref: '#/components/schemas/StatusDetailsDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

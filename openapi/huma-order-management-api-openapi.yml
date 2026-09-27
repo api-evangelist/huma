@@ -171,6 +171,11 @@ components:
       - status
       - updateDateTime
       - userId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     CreateOrderRequestObjectDRF:
       type: object
       properties:
@@ -183,40 +188,6 @@ components:
       required:
       - cart
       - userId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    ProductDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        image:
-          type: string
-        sku:
-          type: string
-      required:
-      - image
-      - sku
-      - title
-    ProductsResponseDRF:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDTODRF'
-    ListOrdersResponseObjectDRF:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDTODRF'
     OrderItemDRF:
       type: object
       properties:
@@ -234,6 +205,13 @@ components:
       - productId
       - quantity
       - sku
+    ListOrdersResponseObjectDRF:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDTODRF'
     UpdateOrderRequestObjectDRF:
       type: object
       properties:
@@ -247,6 +225,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItemDRF'
+    ProductsResponseDRF:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTODRF'
+    ProductDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        image:
+          type: string
+        sku:
+          type: string
+      required:
+      - image
+      - sku
+      - title
   securitySchemes:
     Hawk_Auth:
       type: apiKey

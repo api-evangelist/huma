@@ -321,6 +321,106 @@ paths:
           description: ''
 components:
   schemas:
+    RunWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        params:
+          type: object
+          additionalProperties: {}
+        resource:
+          type: string
+        workflowId:
+          type: string
+      required:
+      - params
+    CreateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
+      required:
+      - name
+      - tasks
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    TaskDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        nodeName:
+          type: string
+        params:
+          type: object
+          additionalProperties: {}
+        output:
+          type: object
+          additionalProperties: {}
+        nextTaskIds:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+      required:
+      - id
+      - nodeName
+    GetWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflows
+    GetNodesResponseObjectDRF:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConvertibleDRF'
+      required:
+      - nodes
+    GetTemplateWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflowTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflowTemplates
     WorkflowDTODRF:
       type: object
       properties:
@@ -357,32 +457,34 @@ components:
       required:
       - name
       - tasks
-    RunWorkflowRequestObjectDRF:
+    GetWorkflowResponseObjectDRF:
       type: object
       properties:
-        params:
-          type: object
-          additionalProperties: {}
-        resource:
-          type: string
-        workflowId:
-          type: string
+        workflow:
+          $ref: '#/components/schemas/WorkflowDTODRF'
       required:
-      - params
-    ResultIdResponseObjectDRF:
+      - workflow
+    NodeConvertibleDRF:
       type: object
       properties:
-        id:
+        name:
           type: string
-    GetTemplateWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflowTemplates:
+        parameters:
           type: array
           items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
+            type: string
+        output:
+          type: array
+          items:
+            type: string
+        isTrigger:
+          type: boolean
+        description:
+          type: string
       required:
-      - workflowTemplates
+      - name
+      - output
+      - parameters
     UpdateWorkflowRequestObjectDRF:
       type: object
       properties:
@@ -419,108 +521,6 @@ components:
       required:
       - name
       - tasks
-    CreateWorkflowRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskDTODRF'
-        resourceId:
-          type: array
-          items:
-            type: string
-        startNode:
-          type: string
-        schedule:
-          type: string
-        status:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        publishedWorkflowId:
-          type: string
-        isDraft:
-          type: boolean
-      required:
-      - name
-      - tasks
-    GetWorkflowResponseObjectDRF:
-      type: object
-      properties:
-        workflow:
-          $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflow
-    TaskDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        nodeName:
-          type: string
-        params:
-          type: object
-          additionalProperties: {}
-        output:
-          type: object
-          additionalProperties: {}
-        nextTaskIds:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-      required:
-      - id
-      - nodeName
-    GetWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflows
-    NodeConvertibleDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        parameters:
-          type: array
-          items:
-            type: string
-        output:
-          type: array
-          items:
-            type: string
-        isTrigger:
-          type: boolean
-        description:
-          type: string
-      required:
-      - name
-      - output
-      - parameters
-    GetNodesResponseObjectDRF:
-      type: object
-      properties:
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NodeConvertibleDRF'
-      required:
-      - nodes
   securitySchemes:
     Hawk_Auth:
       type: apiKey

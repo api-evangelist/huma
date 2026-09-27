@@ -102,20 +102,15 @@ paths:
           description: ''
 components:
   schemas:
-    ArchiveFirmwareResponseObjectDRF:
+    ArchiveFirmwareResponseItemDRF:
       type: object
       properties:
-        archived:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-        failed:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        filename:
+          type: string
+        error:
+          type: string
       required:
-      - archived
-      - failed
+      - filename
     UploadFirmwareResponseObjectDRF:
       type: object
       properties:
@@ -132,26 +127,6 @@ components:
       - make
       - metadata
       - model
-    FirmwareMetadataDRF:
-      type: object
-      properties:
-        version:
-          type: string
-        releaseDate:
-          type: string
-        releaseNotes:
-          type: string
-        crc32Checksum:
-          type: string
-    ArchiveFirmwareResponseItemDRF:
-      type: object
-      properties:
-        filename:
-          type: string
-        error:
-          type: string
-      required:
-      - filename
     UploadFirmwareRequestObjectDRF:
       type: object
       properties:
@@ -172,6 +147,20 @@ components:
       - make
       - model
       - version
+    ArchiveFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        archived:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+      required:
+      - archived
+      - failed
     ArchiveFirmwareRequestObjectDRF:
       type: object
       properties:
@@ -185,6 +174,17 @@ components:
       - make
       - model
       - version
+    FirmwareMetadataDRF:
+      type: object
+      properties:
+        version:
+          type: string
+        releaseDate:
+          type: string
+        releaseNotes:
+          type: string
+        crc32Checksum:
+          type: string
     FirmwareUpdateResponseObjectDRF:
       type: object
       properties:

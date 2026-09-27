@@ -79,20 +79,6 @@ paths:
           description: No response body
 components:
   schemas:
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    DevicesResponseDataDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDTODRF'
-        total:
-          type: integer
     RegisterDeviceRequestObjectDRF:
       type: object
       properties:
@@ -127,6 +113,20 @@ components:
       required:
       - devicePushId
       - devicePushIdType
+    DevicesResponseDataDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDTODRF'
+        total:
+          type: integer
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

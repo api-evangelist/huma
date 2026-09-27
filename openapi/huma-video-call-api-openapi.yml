@@ -234,16 +234,44 @@ paths:
           description: No response body
 components:
   schemas:
-    CompleteVideoCallRequestObjectDRF:
+    InitiateVideoCallResponseObjectDRF:
       type: object
       properties:
-        token:
+        videoCallId:
           type: string
-        callId:
+        roomSid:
           type: string
+        authToken:
+          type: string
+        ttl:
+          type: integer
+        webLink:
+          type: string
+        sipAddress:
+          type: string
+    RetrieveCallsPaginatedResponseObjectDRF:
+      type: object
+      properties:
+        calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfflineVideoCallDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
       required:
-      - callId
-      - token
+      - calls
+      - limit
+      - skip
+      - total
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     InitiateVideoCallRequestObjectDRF:
       type: object
       properties:
@@ -256,18 +284,6 @@ components:
       required:
       - managerId
       - userId
-    CompleteVideoCallByUserRequestObjectDRF:
-      type: object
-      properties:
-        reason:
-          type: string
-        userId:
-          type: string
-        videoCallId:
-          type: string
-      required:
-      - userId
-      - videoCallId
     OfflineVideoCallDTODRF:
       type: object
       properties:
@@ -309,11 +325,6 @@ components:
           type: string
         managerName:
           type: string
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     CreateOfflineCallRequestObjectDRF:
       type: object
       properties:
@@ -343,39 +354,28 @@ components:
           format: date-time
       required:
       - event
-    RetrieveCallsPaginatedResponseObjectDRF:
+    CompleteVideoCallRequestObjectDRF:
       type: object
       properties:
-        calls:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfflineVideoCallDTODRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
+        token:
+          type: string
+        callId:
+          type: string
       required:
-      - calls
-      - limit
-      - skip
-      - total
-    InitiateVideoCallResponseObjectDRF:
+      - callId
+      - token
+    CompleteVideoCallByUserRequestObjectDRF:
       type: object
       properties:
+        reason:
+          type: string
+        userId:
+          type: string
         videoCallId:
           type: string
-        roomSid:
-          type: string
-        authToken:
-          type: string
-        ttl:
-          type: integer
-        webLink:
-          type: string
-        sipAddress:
-          type: string
+      required:
+      - userId
+      - videoCallId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -157,6 +157,13 @@ paths:
       responses: {}
 components:
   schemas:
+    GetSignedUrlsResponseObjectV1DRF:
+      type: object
+      properties:
+        signedUrls:
+          type: array
+          items:
+            type: string
     GetSignedUrlResponseObjectV1DRF:
       type: object
       properties:
@@ -177,13 +184,6 @@ components:
             type: string
       required:
       - fileIds
-    GetSignedUrlsResponseObjectV1DRF:
-      type: object
-      properties:
-        signedUrls:
-          type: array
-          items:
-            type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

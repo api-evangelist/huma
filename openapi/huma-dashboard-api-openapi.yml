@@ -179,28 +179,6 @@ paths:
           description: ''
 components:
   schemas:
-    GadgetLinkDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        order:
-          type: integer
-        size:
-          type: string
-      required:
-      - id
-      - order
-      - size
-    DeploymentStatsResponseObjectDRF:
-      type: object
-      properties:
-        numberOfActiveUsers:
-          type: integer
-        numberOfOffboardedUsers:
-          type: integer
-        numberOfOnboardedUsers:
-          type: integer
     DashboardDRF:
       type: object
       properties:
@@ -216,6 +194,33 @@ components:
       - gadgets
       - id
       - title
+    DeploymentStatsResponseObjectDRF:
+      type: object
+      properties:
+        numberOfActiveUsers:
+          type: integer
+        numberOfOffboardedUsers:
+          type: integer
+        numberOfOnboardedUsers:
+          type: integer
+    MultiResourceDashboardDataRequestObjectDRF:
+      type: object
+      properties:
+        dataType:
+          type: string
+        organizationIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      required:
+      - dataType
+      - organizationIds
     RetrieveGadgetDataRequestObjectDRF:
       type: object
       properties:
@@ -237,24 +242,19 @@ components:
       - gadgetId
       - resourceId
       - resourceType
-    MultiResourceDashboardDataRequestObjectDRF:
+    GadgetLinkDRF:
       type: object
       properties:
-        dataType:
+        id:
           type: string
-        organizationIds:
-          type: array
-          items:
-            type: string
-        startDate:
+        order:
+          type: integer
+        size:
           type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
       required:
-      - dataType
-      - organizationIds
+      - id
+      - order
+      - size
   securitySchemes:
     Hawk_Auth:
       type: apiKey

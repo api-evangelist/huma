@@ -86,19 +86,6 @@ components:
       - limit
       - skip
       - total
-    CreateVirtualCareResponseObjectDRF:
-      type: object
-      properties:
-        moduleResultId:
-          type: string
-        primitiveIds:
-          type: array
-          items:
-            type: string
-        errors:
-          type: array
-          items:
-            type: string
     VirtualVisitResponseDRF:
       type: object
       properties:
@@ -122,6 +109,19 @@ components:
           type: string
         startDateTime:
           type: string
+    CreateVirtualCareResponseObjectDRF:
+      type: object
+      properties:
+        moduleResultId:
+          type: string
+        primitiveIds:
+          type: array
+          items:
+            type: string
+        errors:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

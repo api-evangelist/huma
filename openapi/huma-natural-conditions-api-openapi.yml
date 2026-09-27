@@ -74,6 +74,25 @@ paths:
           description: ''
 components:
   schemas:
+    AirQualityDRF:
+      type: object
+      properties:
+        current:
+          $ref: '#/components/schemas/AqiByHourDRF'
+      required:
+      - current
+    AqiDataDRF:
+      type: object
+      properties:
+        aqi:
+          type: integer
+        color:
+          type: string
+        category:
+          type: string
+      required:
+      - aqi
+      - category
     RetrieveNaturalConditionsResponseDRF:
       type: object
       properties:
@@ -94,25 +113,13 @@ components:
       required:
       - datetime
       - indexes
-    AqiDataDRF:
+    IndexDataDRF:
       type: object
       properties:
         aqi:
-          type: integer
-        color:
-          type: string
-        category:
-          type: string
+          $ref: '#/components/schemas/AqiDataDRF'
       required:
       - aqi
-      - category
-    AirQualityDRF:
-      type: object
-      properties:
-        current:
-          $ref: '#/components/schemas/AqiByHourDRF'
-      required:
-      - current
     PollenDataDRF:
       type: object
       properties:
@@ -123,13 +130,6 @@ components:
           additionalProperties: {}
       required:
       - date
-    IndexDataDRF:
-      type: object
-      properties:
-        aqi:
-          $ref: '#/components/schemas/AqiDataDRF'
-      required:
-      - aqi
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -359,97 +359,6 @@ paths:
           description: ''
 components:
   schemas:
-    RetrieveRemindersResponseDRF:
-      type: object
-      properties:
-        reminders:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReminderResponseDataDRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
-      required:
-      - limit
-      - reminders
-      - skip
-      - total
-    ReminderResponseDataDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        durationIso:
-          type: string
-        specificWeekDays:
-          type: array
-          items:
-            type: string
-        specificMonthDays:
-          type: array
-          items:
-            type: integer
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-      required:
-      - model
-      - moduleConfigId
-      - moduleId
-    RetrieveRemindersRequestObjectDRF:
-      type: object
-      properties:
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     UpdateUserModuleReminderRequestDataDRF:
       type: object
       properties:
@@ -545,7 +454,7 @@ components:
           type: string
       required:
       - model
-    CreatePersonalReminderRequestDataDRF:
+    UpdatePersonalReminderRequestDataDRF:
       type: object
       properties:
         title:
@@ -587,6 +496,8 @@ components:
           type: array
           items:
             type: integer
+        oldReminder:
+          $ref: '#/components/schemas/CalendarEventDTODRF'
     CreateUserModuleReminderRequestDataDRF:
       type: object
       properties:
@@ -636,7 +547,41 @@ components:
       required:
       - moduleConfigId
       - moduleId
-    UpdatePersonalReminderRequestDataDRF:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RetrieveRemindersRequestObjectDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+    RetrieveRemindersResponseDRF:
+      type: object
+      properties:
+        reminders:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReminderResponseDataDRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - limit
+      - reminders
+      - skip
+      - total
+    CreatePersonalReminderRequestDataDRF:
       type: object
       properties:
         title:
@@ -678,8 +623,6 @@ components:
           type: array
           items:
             type: integer
-        oldReminder:
-          $ref: '#/components/schemas/CalendarEventDTODRF'
     MarkCompleteUserReminderRequestDataDRF:
       type: object
       properties:
@@ -692,6 +635,63 @@ components:
       required:
       - endDateTime
       - startDateTime
+    ReminderResponseDataDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - model
+      - moduleConfigId
+      - moduleId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

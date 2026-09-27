@@ -198,93 +198,6 @@ components:
       - startDate
       - type
       - userId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    MockADPCyclerDataRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        cycle:
-          type: integer
-    PrescriptionsResponseObjectDRF:
-      type: object
-      properties:
-        prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionDTODRF'
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    CreatePrescriptionRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        carePlanId:
-          type: string
-        name:
-          type: string
-        dosage:
-          type: string
-        unit:
-          type: string
-        frequency:
-          type: string
-        startTime:
-          type: string
-        endTime:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - carePlanId
-      - dosage
-      - frequency
-      - name
-      - startTime
-      - unit
-    AssignCarePlanRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - name
-      - startDate
-      - type
     PrescriptionDTODRF:
       type: object
       properties:
@@ -320,6 +233,93 @@ components:
       - startTime
       - unit
       - userId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    AssignCarePlanRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - name
+      - startDate
+      - type
+    CreatePrescriptionRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        carePlanId:
+          type: string
+        name:
+          type: string
+        dosage:
+          type: string
+        unit:
+          type: string
+        frequency:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - carePlanId
+      - dosage
+      - frequency
+      - name
+      - startTime
+      - unit
+    PrescriptionsResponseObjectDRF:
+      type: object
+      properties:
+        prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionDTODRF'
+    MockADPCyclerDataRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        cycle:
+          type: integer
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
   securitySchemes:
     Hawk_Auth:
       type: apiKey

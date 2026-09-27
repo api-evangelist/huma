@@ -112,6 +112,12 @@ paths:
           description: ''
 components:
   schemas:
+    RetrieveCustomModuleConfigsResponseObjectDRF:
+      type: object
+      properties:
+        configs:
+          type: object
+          additionalProperties: {}
     RetrieveCustomModuleConfigsRequestObjectDRF:
       type: object
       properties:
@@ -124,12 +130,6 @@ components:
       required:
       - deploymentId
       - userIds
-    RetrieveCustomModuleConfigsResponseObjectDRF:
-      type: object
-      properties:
-        configs:
-          type: object
-          additionalProperties: {}
   securitySchemes:
     Hawk_Auth:
       type: apiKey

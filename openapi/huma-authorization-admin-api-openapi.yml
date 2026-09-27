@@ -261,286 +261,6 @@ paths:
           description: ''
 components:
   schemas:
-    SendAdminInvitationsRequestDataDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        emails:
-          type: array
-          items:
-            type: string
-        roleId:
-          type: string
-        organizationId:
-          type: string
-        expiresIn:
-          type: string
-      required:
-      - clientId
-      - emails
-      - projectId
-      - roleId
-    SendInvitationsResponseObjectDRF:
-      type: object
-      properties:
-        alreadySignedUpEmails:
-          type: array
-          items:
-            type: string
-        ids:
-          type: array
-          items:
-            type: string
-        ok:
-          type: boolean
-    GenerateAuthKeysResponseObjectDRF:
-      type: object
-      properties:
-        authId:
-          type: string
-        authKey:
-          type: string
-      required:
-      - authId
-      - authKey
-    InviteResponseObjectDRF:
-      type: object
-      properties:
-        alreadySignedUpEmails:
-          type: array
-          items:
-            type: string
-        ids:
-          type: array
-          items:
-            type: string
-        ok:
-          type: boolean
-    RoleAssignmentDTODRF:
-      type: object
-      properties:
-        roleId:
-          type: string
-        resource:
-          type: string
-        userType:
-          type: string
-        isActive:
-          type: boolean
-      required:
-      - resource
-      - roleId
-    ResearchTeamActionsDRF:
-      type: object
-      properties:
-        forms:
-          type: array
-          items:
-            type: string
-    RetrieveAdminInvitesResponseObjectDRF:
-      type: object
-      properties:
-        skip:
-          type: integer
-        limit:
-          type: integer
-        total:
-          type: integer
-        invites:
-          type: array
-          items:
-            $ref: '#/components/schemas/DetailedInvitationDRF'
-      required:
-      - limit
-      - skip
-      - total
-    OnboardingModuleConfigDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        onboardingId:
-          type: string
-        preloadNeeded:
-          type: boolean
-        status:
-          type: string
-        configBody:
-          type: object
-          additionalProperties: {}
-        order:
-          type: integer
-        version:
-          type: integer
-        versionString:
-          type: string
-        userTypes:
-          type: array
-          items:
-            type: string
-        organizationId:
-          type: string
-        reason:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        versionInt:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - onboardingId
-      - order
-    ManagerNotificationsDRF:
-      type: object
-      properties:
-        demographicsChange:
-          type: boolean
-    UnseenFlagsDRF:
-      type: object
-      properties:
-        red:
-          type: integer
-        amber:
-          type: integer
-        green:
-          type: integer
-        gray:
-          type: integer
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    FileFieldDRF:
-      type: object
-      properties:
-        fileId:
-          type: string
-      required:
-      - fileId
-    DeploymentInfoDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        draftId:
-          type: string
-        status:
-          type: string
-      required:
-      - id
-      - name
-    AddressObjectDRF:
-      type: object
-      properties:
-        fiatNumber:
-          type: string
-        buildingNumber:
-          type: string
-        buildingName:
-          type: string
-        street:
-          type: string
-        subStreet:
-          type: string
-        town:
-          type: string
-        state:
-          type: string
-        postcode:
-          type: string
-        country:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        line3:
-          type: string
-    UserLabelDRF:
-      type: object
-      properties:
-        labelId:
-          type: string
-        assignedBy:
-          type: string
-        assignDateTime:
-          type: string
-          format: date-time
-    RecentFlagsDRF:
-      type: object
-      properties:
-        red:
-          type: integer
-        amber:
-          type: integer
-        green:
-          type: integer
-        gray:
-          type: integer
-    PersonalDocumentDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        fileType:
-          type: string
-        fileObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-      required:
-      - fileObject
-      - fileType
-      - name
-    SearchAdminStaffResponseObjectDRF:
-      type: object
-      properties:
-        skip:
-          type: integer
-        limit:
-          type: integer
-        total:
-          type: integer
-        staff:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserDTODRF'
-      required:
-      - limit
-      - skip
-      - staff
-      - total
-    UrlResponseDRF:
-      type: object
-      properties:
-        noDataUrl:
-          type: string
-        withDataUrl:
-          type: string
     DetailedInvitationDRF:
       type: object
       properties:
@@ -607,6 +327,343 @@ components:
       - code
       - expiresAt
       - invitedBy
+    UrlResponseDRF:
+      type: object
+      properties:
+        noDataUrl:
+          type: string
+        withDataUrl:
+          type: string
+    FileFieldDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    ManagerNotificationsDRF:
+      type: object
+      properties:
+        demographicsChange:
+          type: boolean
+    PeriodProgressDRF:
+      type: object
+      properties:
+        taskCompliance:
+          type: number
+          format: double
+        startDateTime:
+          type: string
+          format: date-time
+        openQueriesAmount:
+          type: integer
+        passedDueDateFormsAmount:
+          type: integer
+        passedDatesCounter:
+          type: array
+          items:
+            $ref: '#/components/schemas/PassedDueDateEventsAmountDRF'
+    GenerateAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authId:
+          type: string
+        authKey:
+          type: string
+      required:
+      - authId
+      - authKey
+    UserLabelDRF:
+      type: object
+      properties:
+        labelId:
+          type: string
+        assignedBy:
+          type: string
+        assignDateTime:
+          type: string
+          format: date-time
+    UserSurgeryDetailsDRF:
+      type: object
+      properties:
+        operationType:
+          type: string
+        implantType:
+          type: string
+        roboticAssistance:
+          type: string
+    SendAdminInvitationsRequestDataDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        roleId:
+          type: string
+        organizationId:
+          type: string
+        expiresIn:
+          type: string
+      required:
+      - clientId
+      - emails
+      - projectId
+      - roleId
+    SearchAdminStaffResponseObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        staff:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDTODRF'
+      required:
+      - limit
+      - skip
+      - staff
+      - total
+    ResearchTeamActionsDRF:
+      type: object
+      properties:
+        forms:
+          type: array
+          items:
+            type: string
+    TaskComplianceDRF:
+      type: object
+      properties:
+        current:
+          type: integer
+        total:
+          type: integer
+        due:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        percentage:
+          type: integer
+    UnreadMessagesCountDRF:
+      type: object
+      properties:
+        manager:
+          type: integer
+        user:
+          type: integer
+    UnseenFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    DeploymentInfoDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        draftId:
+          type: string
+        status:
+          type: string
+      required:
+      - id
+      - name
+    RetrieveAdminInvitesResponseObjectDRF:
+      type: object
+      properties:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        invites:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetailedInvitationDRF'
+      required:
+      - limit
+      - skip
+      - total
+    PersonalDocumentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fileType:
+          type: string
+        fileObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - fileObject
+      - fileType
+      - name
+    RecentFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    StudyProgressDRF:
+      type: object
+      properties:
+        currentPeriod:
+          type: integer
+        totalPeriods:
+          type: integer
+        totalCompliance:
+          type: number
+          format: double
+        periodProgress:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeriodProgressDRF'
+        totalOpenQueriesAmount:
+          type: integer
+    CreateUserServiceAccountRequestObjectDRF:
+      type: object
+      properties:
+        serviceAccountName:
+          type: string
+        authType:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        roleId:
+          type: string
+        resourceId:
+          type: string
+        timezone:
+          type: string
+        singleResourceAccess:
+          type: boolean
+      required:
+      - resourceId
+      - roleId
+      - serviceAccountName
+      - validationData
+    SendInvitationsResponseObjectDRF:
+      type: object
+      properties:
+        alreadySignedUpEmails:
+          type: array
+          items:
+            type: string
+        ids:
+          type: array
+          items:
+            type: string
+        ok:
+          type: boolean
+    OnboardingModuleConfigDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        preloadNeeded:
+          type: boolean
+        status:
+          type: string
+        configBody:
+          type: object
+          additionalProperties: {}
+        order:
+          type: integer
+        version:
+          type: integer
+        versionString:
+          type: string
+        userTypes:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        reason:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        versionInt:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - onboardingId
+      - order
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    InviteResponseObjectDRF:
+      type: object
+      properties:
+        alreadySignedUpEmails:
+          type: array
+          items:
+            type: string
+        ids:
+          type: array
+          items:
+            type: string
+        ok:
+          type: boolean
     UserStatsDRF:
       type: object
       properties:
@@ -614,6 +671,44 @@ components:
           $ref: '#/components/schemas/TaskComplianceDRF'
         studyProgress:
           $ref: '#/components/schemas/StudyProgressDRF'
+    BoardingStatusDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        reasonOffBoarded:
+          type: string
+        detailsOffBoarded:
+          type: string
+      required:
+      - status
+    PassedDueDateEventsAmountDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+        amount:
+          type: integer
+    RoleAssignmentDTODRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - resource
+      - roleId
     InviteAdminRequestObjectDRF:
       type: object
       properties:
@@ -638,62 +733,6 @@ components:
       - emails
       - projectId
       - roles
-    PeriodProgressDRF:
-      type: object
-      properties:
-        taskCompliance:
-          type: number
-          format: double
-        startDateTime:
-          type: string
-          format: date-time
-        openQueriesAmount:
-          type: integer
-        passedDueDateFormsAmount:
-          type: integer
-        passedDatesCounter:
-          type: array
-          items:
-            $ref: '#/components/schemas/PassedDueDateEventsAmountDRF'
-    UserSurgeryDetailsDRF:
-      type: object
-      properties:
-        operationType:
-          type: string
-        implantType:
-          type: string
-        roboticAssistance:
-          type: string
-    TaskComplianceDRF:
-      type: object
-      properties:
-        current:
-          type: integer
-        total:
-          type: integer
-        due:
-          type: integer
-        updateDateTime:
-          type: string
-          format: date-time
-        percentage:
-          type: integer
-    StudyProgressDRF:
-      type: object
-      properties:
-        currentPeriod:
-          type: integer
-        totalPeriods:
-          type: integer
-        totalCompliance:
-          type: number
-          format: double
-        periodProgress:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeriodProgressDRF'
-        totalOpenQueriesAmount:
-          type: integer
     AdditionalContactDetailsDRF:
       type: object
       properties:
@@ -906,72 +945,33 @@ components:
           $ref: '#/components/schemas/UnreadMessagesCountDRF'
         userId:
           type: string
-    BoardingStatusDRF:
+    AddressObjectDRF:
       type: object
       properties:
-        status:
+        fiatNumber:
           type: string
-        updateDateTime:
+        buildingNumber:
           type: string
-          format: date-time
-        submitterId:
+        buildingName:
           type: string
-        reasonOffBoarded:
+        street:
           type: string
-        detailsOffBoarded:
+        subStreet:
           type: string
-      required:
-      - status
-    UnreadMessagesCountDRF:
-      type: object
-      properties:
-        manager:
-          type: integer
-        user:
-          type: integer
-    CreateUserServiceAccountRequestObjectDRF:
-      type: object
-      properties:
-        serviceAccountName:
+        town:
           type: string
-        authType:
+        state:
           type: string
-        validationData:
-          type: object
-          additionalProperties: {}
-        roleId:
+        postcode:
           type: string
-        resourceId:
+        country:
           type: string
-        timezone:
+        line1:
           type: string
-        singleResourceAccess:
-          type: boolean
-      required:
-      - resourceId
-      - roleId
-      - serviceAccountName
-      - validationData
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
+        line2:
           type: string
-        key:
+        line3:
           type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    PassedDueDateEventsAmountDRF:
-      type: object
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-        amount:
-          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey

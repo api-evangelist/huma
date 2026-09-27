@@ -233,6 +233,41 @@ paths:
           description: ''
 components:
   schemas:
+    ConfigUIDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        isRequired:
+          type: boolean
+      required:
+      - name
+      - title
+      - type
+    RetrievePluginContainerResponseObjectDRF:
+      type: object
+      properties:
+        componentsUI:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentUIDRF'
+      required:
+      - componentsUI
+    RetrievePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
     UpdateOrganizationPluginConfigRequestObjectDRF:
       type: object
       properties:
@@ -261,24 +296,13 @@ components:
       - configContents
       - configName
       - deploymentId
-    RetrievePluginConfigResponseObjectDRF:
+    UpdatePluginConfigResponseObjectDRF:
       type: object
       properties:
-        title:
+        configName:
           type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigUIDRF'
-    RetrievePluginContainerResponseObjectDRF:
-      type: object
-      properties:
-        componentsUI:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentUIDRF'
       required:
-      - componentsUI
+      - configName
     ComponentUIDRF:
       type: object
       properties:
@@ -298,30 +322,6 @@ components:
       - descriptionLink
       - icon
       - title
-    UpdatePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        configName:
-          type: string
-      required:
-      - configName
-    ConfigUIDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        isRequired:
-          type: boolean
-      required:
-      - name
-      - title
-      - type
   securitySchemes:
     Hawk_Auth:
       type: apiKey

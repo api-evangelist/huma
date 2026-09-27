@@ -194,105 +194,6 @@ paths:
           description: ''
 components:
   schemas:
-    UpdateContentRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        data:
-          type: object
-          additionalProperties: {}
-        draftData:
-          type: object
-          additionalProperties: {}
-        schema:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        resources:
-          type: array
-          items:
-            type: string
-        owner:
-          type: string
-        editors:
-          type: array
-          items:
-            type: string
-        viewers:
-          type: array
-          items:
-            type: string
-        version:
-          type: integer
-        updateDateTime:
-          type: string
-          format: date-time
-        publishDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - schema
-      - status
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    SearchContentRequestObjectDRF:
-      type: object
-      properties:
-        collection:
-          type: string
-        search:
-          type: string
-        filters:
-          type: object
-          additionalProperties: {}
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-        skip:
-          type: integer
-        limit:
-          type: integer
-        unpublished:
-          type: boolean
-      required:
-      - collection
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
     CMSContentDTODRF:
       type: object
       properties:
@@ -341,6 +242,29 @@ components:
       - resources
       - schema
       - status
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
     RetrieveSchemaResponseDRF:
       type: object
       properties:
@@ -349,6 +273,82 @@ components:
           additionalProperties: {}
       required:
       - schema
+    CreateContentResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    UpdateContentRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}
+        draftData:
+          type: object
+          additionalProperties: {}
+        schema:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        resources:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        editors:
+          type: array
+          items:
+            type: string
+        viewers:
+          type: array
+          items:
+            type: string
+        version:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        publishDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - schema
+      - status
+    SearchContentRequestObjectDRF:
+      type: object
+      properties:
+        collection:
+          type: string
+        search:
+          type: string
+        filters:
+          type: object
+          additionalProperties: {}
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+        skip:
+          type: integer
+        limit:
+          type: integer
+        unpublished:
+          type: boolean
+      required:
+      - collection
     CreateContentRequestObjectDRF:
       type: object
       properties:

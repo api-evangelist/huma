@@ -59,31 +59,6 @@ paths:
           description: ''
 components:
   schemas:
-    QuestionnaireAppResultDRF:
-      type: object
-      properties:
-        appType:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
-      required:
-      - appType
-      - values
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
     QuestionnaireAppResultValueDRF:
       type: object
       properties:
@@ -103,6 +78,131 @@ components:
       properties:
         id:
           type: string
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
+    UpdateModuleResultFailureResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - errors
+    ModuleFeedbackDRF:
+      type: object
+      properties:
+        criteria:
+          type: object
+          additionalProperties: {}
+        text:
+          $ref: '#/components/schemas/FeedbackTextDRF'
+        moduleData:
+          type: object
+          additionalProperties: {}
+        language:
+          type: string
+        notificationData:
+          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
     DeviceDetailsDRF:
       type: object
       properties:
@@ -219,104 +319,31 @@ components:
       - questionnaireName
       - type
       - userId
-    QuestionnaireAnswerMediaFileDRF:
-      type: object
-      properties:
-        file:
-          type: string
-        thumbnail:
-          type: string
-        mediaType:
-          type: string
-      required:
-      - file
-      - mediaType
-    QuestionnaireAnswerDRF:
+    FeedbackTextDRF:
       type: object
       properties:
         id:
           type: string
-        answerText:
+        text:
           type: string
-        answersList:
-          type: array
-          items:
-            type: string
-        filesList:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
-        otherText:
-          type: string
-        value:
-          type: string
-        compositeAnswer:
-          type: object
-          additionalProperties: {}
-        answerScore:
+        order:
           type: integer
-        questionId:
-          type: string
-        question:
-          type: string
-        format:
-          type: string
-        choices:
-          type: array
-          items:
-            type: string
-        selectedChoices:
-          type: array
-          items:
-            type: string
-        otherSelectedChoices:
-          type: array
-          items:
-            type: string
-        selectionCriteria:
-          type: string
-        lowerBound:
-          type: number
-          format: double
-        upperBound:
-          type: number
-          format: double
-        lists:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        selectedUnit:
-          type: string
-        recalledText:
-          type: array
-          items:
-            type: string
-        options:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
       required:
-      - question
-    ModuleFeedbackDRF:
+      - id
+      - text
+    ServerDRF:
       type: object
       properties:
-        criteria:
-          type: object
-          additionalProperties: {}
-        text:
-          $ref: '#/components/schemas/FeedbackTextDRF'
-        moduleData:
-          type: object
-          additionalProperties: {}
-        language:
+        hostUrl:
           type: string
-        notificationData:
-          $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
     FeedbackNotificationDataDRF:
       type: object
       properties:
@@ -333,57 +360,30 @@ components:
           title: ' localizablefields'
         order:
           type: integer
-    FeedbackTextDRF:
+    QuestionnaireAnswerMediaFileDRF:
       type: object
       properties:
-        id:
+        file:
           type: string
-        text:
+        thumbnail:
           type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    UserAgentDRF:
-      type: object
-      properties:
-        product:
-          type: string
-        version:
-          type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
+        mediaType:
           type: string
       required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
-    UpdateModuleResultFailureResponseDRF:
+      - file
+      - mediaType
+    QuestionnaireAppResultDRF:
       type: object
       properties:
-        id:
+        appType:
           type: string
-        errors:
+        values:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
       required:
-      - errors
+      - appType
+      - values
   securitySchemes:
     Hawk_Auth:
       type: apiKey

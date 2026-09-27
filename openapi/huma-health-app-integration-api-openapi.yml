@@ -265,33 +265,6 @@ paths:
           description: ''
 components:
   schemas:
-    RetrieveThirdPartyAppsRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
-    ConnectFitbitRequestDataDRF:
-      type: object
-      properties:
-        code:
-          type: string
-      required:
-      - code
-    AuthorizeFitbitRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
-        code:
-          type: string
-      required:
-      - code
-      - type
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     BaseThirdPartyAppRequestObjectDRF:
       type: object
       properties:
@@ -318,6 +291,63 @@ components:
       - refreshToken
       - status
       - type
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    AuthorizeFitbitRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - type
+    RetrieveThirdPartyAppsRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+    ThirdPartyAppStatusResponseDRF:
+      type: object
+      properties:
+        status:
+          type: string
+    ThirdPartyAppLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        appUserId:
+          type: string
+        moduleLogs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - type
+      - userId
+    ConnectFitbitRequestDataDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
     ThirdPartyAppDTODRF:
       type: object
       properties:
@@ -353,36 +383,6 @@ components:
       - appUserId
       - refreshToken
       - status
-      - type
-      - userId
-    ThirdPartyAppStatusResponseDRF:
-      type: object
-      properties:
-        status:
-          type: string
-    ThirdPartyAppLogDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        userId:
-          type: string
-        appUserId:
-          type: string
-        moduleLogs:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-      required:
       - type
       - userId
   securitySchemes:
