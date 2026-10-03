@@ -59,53 +59,29 @@ paths:
           description: ''
 components:
   schemas:
-    QuestionnaireAppResultValueDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        valueType:
-          type: string
-        valueFloat:
-          type: number
-          format: double
-      required:
-      - label
-      - valueFloat
-      - valueType
-    ResultIdResponseObjectDRF:
+    FeedbackTextDRF:
       type: object
       properties:
         id:
           type: string
-    UserAgentDRF:
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    UpdateModuleResultFailureResponseDRF:
       type: object
       properties:
-        product:
+        id:
           type: string
-        version:
-          type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
-          type: string
+        errors:
+          type: array
+          items:
+            type: string
       required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
+      - errors
     QuestionnaireAnswerDRF:
       type: object
       properties:
@@ -177,17 +153,6 @@ components:
             additionalProperties: {}
       required:
       - question
-    UpdateModuleResultFailureResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        errors:
-          type: array
-          items:
-            type: string
-      required:
-      - errors
     ModuleFeedbackDRF:
       type: object
       properties:
@@ -203,21 +168,6 @@ components:
           type: string
         notificationData:
           $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
     UpdateQuestionnaireObjectDRF:
       type: object
       properties:
@@ -319,31 +269,20 @@ components:
       - questionnaireName
       - type
       - userId
-    FeedbackTextDRF:
+    QuestionnaireAppResultValueDRF:
       type: object
       properties:
-        id:
+        label:
           type: string
-        text:
+        valueType:
           type: string
-        order:
-          type: integer
+        valueFloat:
+          type: number
+          format: double
       required:
-      - id
-      - text
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
+      - label
+      - valueFloat
+      - valueType
     FeedbackNotificationDataDRF:
       type: object
       properties:
@@ -360,18 +299,19 @@ components:
           title: ' localizablefields'
         order:
           type: integer
-    QuestionnaireAnswerMediaFileDRF:
+    ServerDRF:
       type: object
       properties:
-        file:
+        hostUrl:
           type: string
-        thumbnail:
+        server:
           type: string
-        mediaType:
+        api:
           type: string
       required:
-      - file
-      - mediaType
+      - api
+      - hostUrl
+      - server
     QuestionnaireAppResultDRF:
       type: object
       properties:
@@ -384,6 +324,66 @@ components:
       required:
       - appType
       - values
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
   securitySchemes:
     Hawk_Auth:
       type: apiKey

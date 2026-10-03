@@ -147,11 +147,35 @@ components:
             additionalProperties: {}
       required:
       - question
-    ResultIdResponseObjectDRF:
+    HemophiliaPrerequisitesRequestObjectDRF:
       type: object
       properties:
         id:
           type: string
+        userId:
+          type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
+        targetJoints:
+          type: array
+          items:
+            type: string
+        prophylacticMedication:
+          type: object
+          additionalProperties: {}
+        asNeededMedication:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - answers
     HemophiliaPrerequisitesResponseObjectDRF:
       type: object
       properties:
@@ -182,6 +206,11 @@ components:
       required:
       - answers
       - userId
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     QuestionnaireAnswerMediaFileDRF:
       type: object
       properties:
@@ -194,35 +223,6 @@ components:
       required:
       - file
       - mediaType
-    HemophiliaPrerequisitesRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerDRF'
-        targetJoints:
-          type: array
-          items:
-            type: string
-        prophylacticMedication:
-          type: object
-          additionalProperties: {}
-        asNeededMedication:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - answers
   securitySchemes:
     Hawk_Auth:
       type: apiKey

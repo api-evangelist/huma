@@ -99,22 +99,6 @@ components:
       - numPrompts
       - qcOutputMessage
       - stopExercise
-    HeadOrientationQCRequestObjectDRF:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
-          type: string
-        numPrompts:
-          type: integer
-        lastCheck:
-          type: boolean
-      required:
-      - image
-      - numPrompts
     ArmAngleQualityCheckResponseObjectDRF:
       type: object
       properties:
@@ -131,6 +115,18 @@ components:
       - numPrompts
       - qcOutputMessage
       - stopExercise
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
     ArmAngleQualityCheckRequestObjectDRF:
       type: object
       properties:
@@ -151,18 +147,22 @@ components:
       - firstCheck
       - image
       - numPrompt
-    S3ObjectDRF:
+    HeadOrientationQCRequestObjectDRF:
       type: object
       properties:
-        bucket:
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
           type: string
-        key:
+        userId:
           type: string
-        region:
-          type: string
+        numPrompts:
+          type: integer
+        lastCheck:
+          type: boolean
       required:
-      - bucket
-      - key
+      - image
+      - numPrompts
   securitySchemes:
     Hawk_Auth:
       type: apiKey

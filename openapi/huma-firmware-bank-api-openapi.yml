@@ -102,6 +102,46 @@ paths:
           description: ''
 components:
   schemas:
+    ArchiveFirmwareRequestObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        version:
+          type: string
+      required:
+      - make
+      - model
+      - version
+    UploadFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        fileURL:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/FirmwareMetadataDRF'
+      required:
+      - fileURL
+      - make
+      - metadata
+      - model
+    FirmwareMetadataDRF:
+      type: object
+      properties:
+        version:
+          type: string
+        releaseDate:
+          type: string
+        releaseNotes:
+          type: string
+        crc32Checksum:
+          type: string
     ArchiveFirmwareResponseItemDRF:
       type: object
       properties:
@@ -111,7 +151,7 @@ components:
           type: string
       required:
       - filename
-    UploadFirmwareResponseObjectDRF:
+    FirmwareUpdateResponseObjectDRF:
       type: object
       properties:
         make:
@@ -161,46 +201,6 @@ components:
       required:
       - archived
       - failed
-    ArchiveFirmwareRequestObjectDRF:
-      type: object
-      properties:
-        make:
-          type: string
-        model:
-          type: string
-        version:
-          type: string
-      required:
-      - make
-      - model
-      - version
-    FirmwareMetadataDRF:
-      type: object
-      properties:
-        version:
-          type: string
-        releaseDate:
-          type: string
-        releaseNotes:
-          type: string
-        crc32Checksum:
-          type: string
-    FirmwareUpdateResponseObjectDRF:
-      type: object
-      properties:
-        make:
-          type: string
-        model:
-          type: string
-        fileURL:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/FirmwareMetadataDRF'
-      required:
-      - fileURL
-      - make
-      - metadata
-      - model
   securitySchemes:
     Hawk_Auth:
       type: apiKey

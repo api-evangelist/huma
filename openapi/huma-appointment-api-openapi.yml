@@ -230,29 +230,6 @@ paths:
           description: ''
 components:
   schemas:
-    RetrieveAppointmentsResponseObjectDRF:
-      type: object
-      properties:
-        appointments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppointmentDTODRF'
-      required:
-      - appointments
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    RetrieveAppointmentsRequestBodyDRF:
-      type: object
-      properties:
-        fromDateTime:
-          type: string
-          format: date-time
-        toDateTime:
-          type: string
-          format: date-time
     AppointmentDTODRF:
       type: object
       properties:
@@ -296,6 +273,29 @@ components:
           type: integer
       required:
       - deletedAppointments
+    RetrieveAppointmentsRequestBodyDRF:
+      type: object
+      properties:
+        fromDateTime:
+          type: string
+          format: date-time
+        toDateTime:
+          type: string
+          format: date-time
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RetrieveAppointmentsResponseObjectDRF:
+      type: object
+      properties:
+        appointments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppointmentDTODRF'
+      required:
+      - appointments
   securitySchemes:
     Hawk_Auth:
       type: apiKey

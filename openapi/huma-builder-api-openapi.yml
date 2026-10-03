@@ -415,34 +415,15 @@ paths:
           description: ''
 components:
   schemas:
-    TabOrderItemDRF:
+    ReorderTabsRequestObjectDRF:
       type: object
       properties:
-        id:
-          type: string
-        order:
-          type: integer
+        tabOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/TabOrderItemDRF'
       required:
-      - id
-      - order
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    MoveWidgetRequestObjectDRF:
-      type: object
-      properties:
-        widgetId:
-          type: string
-        sourceTabId:
-          type: string
-        targetTabId:
-          type: string
-      required:
-      - sourceTabId
-      - targetTabId
-      - widgetId
+      - tabOrders
     ValidateWidgetRequestDataDRF:
       type: object
       properties:
@@ -460,15 +441,28 @@ components:
       required:
       - config
       - type
-    ReorderTabsRequestObjectDRF:
+    ReorderWidgetsRequestObjectDRF:
       type: object
       properties:
-        tabOrders:
+        tabId:
+          type: string
+        widgetOrders:
           type: array
           items:
             $ref: '#/components/schemas/TabOrderItemDRF'
       required:
-      - tabOrders
+      - tabId
+      - widgetOrders
+    BackgroundDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - value
     BaseWidgetRequestObjectDRF:
       type: object
       properties:
@@ -488,67 +482,6 @@ components:
       - config
       - order
       - type
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    CreateTabRequestObjectDRF:
-      type: object
-      properties:
-        order:
-          type: integer
-        screenId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        icon:
-          type: string
-        status:
-          type: string
-        background:
-          $ref: '#/components/schemas/BackgroundDRF'
-        extras:
-          type: object
-          additionalProperties: {}
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - background
-      - icon
-      - name
-      - order
-      - status
-    BackgroundDRF:
-      type: object
-      properties:
-        value:
-          type: string
-        type:
-          type: string
-      required:
-      - type
-      - value
-    ReorderWidgetsRequestObjectDRF:
-      type: object
-      properties:
-        tabId:
-          type: string
-        widgetOrders:
-          type: array
-          items:
-            $ref: '#/components/schemas/TabOrderItemDRF'
-      required:
-      - tabId
-      - widgetOrders
     UpdateTabRequestDataDRF:
       type: object
       properties:
@@ -583,6 +516,73 @@ components:
       - name
       - order
       - status
+    TabOrderItemDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - order
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    CreateTabRequestObjectDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        screenId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        status:
+          type: string
+        background:
+          $ref: '#/components/schemas/BackgroundDRF'
+        extras:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - background
+      - icon
+      - name
+      - order
+      - status
+    MoveWidgetRequestObjectDRF:
+      type: object
+      properties:
+        widgetId:
+          type: string
+        sourceTabId:
+          type: string
+        targetTabId:
+          type: string
+      required:
+      - sourceTabId
+      - targetTabId
+      - widgetId
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
   securitySchemes:
     Hawk_Auth:
       type: apiKey

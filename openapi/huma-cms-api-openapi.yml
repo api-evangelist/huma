@@ -423,7 +423,28 @@ paths:
           description: ''
 components:
   schemas:
-    CMSContentDTODRF:
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
+    RetrieveSchemaResponseDRF:
+      type: object
+      properties:
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - schema
+    CreateContentRequestObjectDRF:
       type: object
       properties:
         id:
@@ -481,86 +502,6 @@ components:
       required:
       - direction
       - field
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    RetrieveSchemaResponseDRF:
-      type: object
-      properties:
-        schema:
-          type: object
-          additionalProperties: {}
-      required:
-      - schema
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    UpdateContentRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        data:
-          type: object
-          additionalProperties: {}
-        draftData:
-          type: object
-          additionalProperties: {}
-        schema:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        resources:
-          type: array
-          items:
-            type: string
-        owner:
-          type: string
-        editors:
-          type: array
-          items:
-            type: string
-        viewers:
-          type: array
-          items:
-            type: string
-        version:
-          type: integer
-        updateDateTime:
-          type: string
-          format: date-time
-        publishDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - schema
-      - status
     SearchContentRequestObjectDRF:
       type: object
       properties:
@@ -583,7 +524,29 @@ components:
           type: boolean
       required:
       - collection
-    CreateContentRequestObjectDRF:
+    PublicContentSearchResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            type: string
+    TagsListResponseDRF:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - tags
+    CMSContentDTODRF:
       type: object
       properties:
         id:
@@ -631,15 +594,13 @@ components:
       - resources
       - schema
       - status
-    TagsListResponseDRF:
+    CreateContentResponseObjectDRF:
       type: object
       properties:
-        tags:
-          type: array
-          items:
-            type: string
+        id:
+          type: string
       required:
-      - tags
+      - id
     ListCollectionsResponseDRF:
       type: object
       properties:
@@ -649,19 +610,58 @@ components:
             type: string
       required:
       - collections
-    PublicContentSearchResponseObjectDRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
+        id:
+          type: string
+    UpdateContentRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        data:
+          type: object
+          additionalProperties: {}
+        draftData:
+          type: object
+          additionalProperties: {}
+        schema:
+          type: string
+        tags:
           type: array
           items:
             type: string
+        resources:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        editors:
+          type: array
+          items:
+            type: string
+        viewers:
+          type: array
+          items:
+            type: string
+        version:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        publishDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - schema
+      - status
   securitySchemes:
     Hawk_Auth:
       type: apiKey

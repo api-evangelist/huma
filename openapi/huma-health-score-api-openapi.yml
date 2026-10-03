@@ -47,6 +47,34 @@ paths:
           description: ''
 components:
   schemas:
+    ScoreDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        level:
+          type: string
+      required:
+      - level
+      - value
+    RetrieveHealthScoreRequestObjectDRF:
+      type: object
+      properties:
+        scoreDate:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        source:
+          type: string
+        healthTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - healthTypes
+      - source
+      - userId
     RetrieveHealthScoreResponseObjectDRF:
       type: object
       properties:
@@ -58,6 +86,11 @@ components:
           type: array
           items:
             type: string
+    HealthMetricDRF:
+      type: object
+      properties:
+        sleep:
+          $ref: '#/components/schemas/SleepScoreDRF'
     SleepScoreDRF:
       type: object
       properties:
@@ -77,39 +110,6 @@ components:
           $ref: '#/components/schemas/ScoreDRF'
         submittedTotal:
           $ref: '#/components/schemas/ScoreDRF'
-    HealthMetricDRF:
-      type: object
-      properties:
-        sleep:
-          $ref: '#/components/schemas/SleepScoreDRF'
-    RetrieveHealthScoreRequestObjectDRF:
-      type: object
-      properties:
-        scoreDate:
-          type: string
-          format: date-time
-        userId:
-          type: string
-        source:
-          type: string
-        healthTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - healthTypes
-      - source
-      - userId
-    ScoreDRF:
-      type: object
-      properties:
-        value:
-          type: integer
-        level:
-          type: string
-      required:
-      - level
-      - value
   securitySchemes:
     Hawk_Auth:
       type: apiKey

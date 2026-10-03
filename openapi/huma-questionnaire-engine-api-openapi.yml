@@ -47,36 +47,15 @@ paths:
           description: ''
 components:
   schemas:
-    CreateModuleResultResponseObjectDRF:
+    MultipleAnswerConfigDRF:
       type: object
       properties:
-        ids:
-          type: array
-          items:
-            type: string
-        moduleResultId:
-          type: string
-        errors:
-          type: array
-          items:
-            type: string
-    ConditionFlowRequestObjectDRF:
-      type: object
-      properties:
-        action:
-          type: string
-        conditionCodeName:
-          type: string
-        responseId:
-          type: string
-        questionId:
-          type: string
-        answers:
-          type: array
-          items:
-            type: string
-      required:
-      - action
+        enabled:
+          type: boolean
+        maxAnswers:
+          type: integer
+        minAnswers:
+          type: integer
     LimitationDRF:
       type: object
       properties:
@@ -96,6 +75,89 @@ components:
           type: string
       required:
       - method
+    ConditionFlowRequestObjectDRF:
+      type: object
+      properties:
+        action:
+          type: string
+        conditionCodeName:
+          type: string
+        responseId:
+          type: string
+        questionId:
+          type: string
+        answers:
+          type: array
+          items:
+            type: string
+      required:
+      - action
+    OptionDRF:
+      type: object
+      properties:
+        codeName:
+          type: string
+        label:
+          type: string
+        value:
+          type: string
+        weight:
+          type: integer
+        visibility:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        restrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LimitationDRF'
+        triageLevel:
+          type: integer
+        selected:
+          type: boolean
+      required:
+      - codeName
+      - label
+      - value
+    CreateModuleResultResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+        moduleResultId:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+    ConditionFlowResponseObjectDRF:
+      type: object
+      properties:
+        responseId:
+          type: string
+        question:
+          $ref: '#/components/schemas/QuestionResponseObjectDRF'
+        submitResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateModuleResultResponseObjectDRF'
+        allQuestionsCompleted:
+          type: boolean
+        flowCompleted:
+          type: boolean
+        currentProgress:
+          type: integer
+        totalQuestionnaires:
+          type: integer
+      required:
+      - responseId
+    QuestionLogicDRF:
+      type: object
+      properties:
+        isEnabled:
+          type: boolean
     QuestionResponseObjectDRF:
       type: object
       properties:
@@ -145,68 +207,6 @@ components:
       - codeName
       - questionnaireId
       - responseId
-    ConditionFlowResponseObjectDRF:
-      type: object
-      properties:
-        responseId:
-          type: string
-        question:
-          $ref: '#/components/schemas/QuestionResponseObjectDRF'
-        submitResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateModuleResultResponseObjectDRF'
-        allQuestionsCompleted:
-          type: boolean
-        flowCompleted:
-          type: boolean
-        currentProgress:
-          type: integer
-        totalQuestionnaires:
-          type: integer
-      required:
-      - responseId
-    QuestionLogicDRF:
-      type: object
-      properties:
-        isEnabled:
-          type: boolean
-    MultipleAnswerConfigDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        maxAnswers:
-          type: integer
-        minAnswers:
-          type: integer
-    OptionDRF:
-      type: object
-      properties:
-        codeName:
-          type: string
-        label:
-          type: string
-        value:
-          type: string
-        weight:
-          type: integer
-        visibility:
-          type: array
-          items:
-            $ref: '#/components/schemas/LimitationDRF'
-        restrictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/LimitationDRF'
-        triageLevel:
-          type: integer
-        selected:
-          type: boolean
-      required:
-      - codeName
-      - label
-      - value
   securitySchemes:
     Hawk_Auth:
       type: apiKey

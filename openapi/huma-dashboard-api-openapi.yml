@@ -194,6 +194,19 @@ components:
       - gadgets
       - id
       - title
+    GadgetLinkDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        size:
+          type: string
+      required:
+      - id
+      - order
+      - size
     DeploymentStatsResponseObjectDRF:
       type: object
       properties:
@@ -242,19 +255,6 @@ components:
       - gadgetId
       - resourceId
       - resourceType
-    GadgetLinkDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        order:
-          type: integer
-        size:
-          type: string
-      required:
-      - id
-      - order
-      - size
   securitySchemes:
     Hawk_Auth:
       type: apiKey

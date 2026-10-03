@@ -198,73 +198,6 @@ paths:
           description: ''
 components:
   schemas:
-    RuleConditionDRF:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-      required:
-      - key
-      - value
-    ExportResultObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-      required:
-      - bucket
-      - key
-    FieldBucketingDRF:
-      type: object
-      properties:
-        fieldPath:
-          type: string
-        buckets:
-          type: array
-          items:
-            $ref: '#/components/schemas/BucketDRF'
-        undefineUnmatched:
-          type: boolean
-      required:
-      - buckets
-      - fieldPath
-    ExportProcessDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        resultObject:
-          $ref: '#/components/schemas/ExportResultObjectDRF'
-        status:
-          type: string
-        seen:
-          type: boolean
-        exportParams:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        organizationId:
-          type: string
-        requesterId:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        exportType:
-          type: string
-        taskId:
-          type: string
     CheckExportDeploymentTaskStatusResponseObjectDRF:
       type: object
       properties:
@@ -272,13 +205,6 @@ components:
           type: string
         exportData:
           $ref: '#/components/schemas/ExportResultObjectDRF'
-    ConfirmExportBadgesResponseObjectDRF:
-      type: object
-      properties:
-        updated:
-          type: integer
-      required:
-      - updated
     ExportParametersDRF:
       type: object
       properties:
@@ -377,20 +303,58 @@ components:
           type: boolean
         excludeMinors:
           type: boolean
-    ConfirmExportBadgesRequestDataDRF:
+    ExportProcessDTODRF:
       type: object
       properties:
-        exportProcessIds:
+        id:
+          type: string
+        resultObject:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
+        status:
+          type: string
+        seen:
+          type: boolean
+        exportParams:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        deploymentIds:
           type: array
           items:
             type: string
-      required:
-      - exportProcessIds
-    RunExportDeploymentTaskResponseObjectDRF:
+        organizationId:
+          type: string
+        requesterId:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        exportType:
+          type: string
+        taskId:
+          type: string
+    ConfirmExportBadgesResponseObjectDRF:
       type: object
       properties:
-        exportProcessId:
+        updated:
+          type: integer
+      required:
+      - updated
+    BucketDRF:
+      type: object
+      properties:
+        name:
           type: string
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
     S3ObjectDRF:
       type: object
       properties:
@@ -403,6 +367,30 @@ components:
       required:
       - bucket
       - key
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    FieldBucketingDRF:
+      type: object
+      properties:
+        fieldPath:
+          type: string
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/BucketDRF'
+        undefineUnmatched:
+          type: boolean
+      required:
+      - buckets
+      - fieldPath
     RetrieveExportProcessesResponseObjectDRF:
       type: object
       properties:
@@ -410,6 +398,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportProcessDTODRF'
+    RunExportDeploymentTaskResponseObjectDRF:
+      type: object
+      properties:
+        exportProcessId:
+          type: string
     ExportUserRequestDataDRF:
       type: object
       properties:
@@ -508,18 +501,25 @@ components:
           type: boolean
         managerId:
           type: string
-    BucketDRF:
+    ConfirmExportBadgesRequestDataDRF:
       type: object
       properties:
-        name:
-          type: string
-        rule:
+        exportProcessIds:
           type: array
           items:
-            $ref: '#/components/schemas/RuleConditionDRF'
+            type: string
       required:
-      - name
-      - rule
+      - exportProcessIds
+    ExportResultObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

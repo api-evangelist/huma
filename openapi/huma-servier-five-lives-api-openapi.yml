@@ -144,61 +144,12 @@ paths:
           description: ''
 components:
   schemas:
-    ScoreHistoryItemDRF:
-      type: object
-      properties:
-        value:
-          type: integer
-        timestamp:
-          type: integer
-        rank:
-          type: string
-      required:
-      - rank
-      - timestamp
-      - value
     FiveLivesTokenRequestObjectDRF:
       type: object
       properties:
         userId:
           type: string
       required:
-      - userId
-    UpdateInstructionsShownHistoryRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        keys:
-          type: array
-          items:
-            type: string
-      required:
-      - keys
-      - userId
-    UpdateHistoryRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        gameId:
-          type: string
-        score:
-          type: integer
-        updatedHistory:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScoreHistoryItemDRF'
-        previousRank:
-          type: string
-        updatedRank:
-          type: string
-      required:
-      - gameId
-      - previousRank
-      - score
-      - updatedHistory
-      - updatedRank
       - userId
     FiveLivesTokenResponseObjectDRF:
       type: object
@@ -225,6 +176,55 @@ components:
       - instructionsShownHistory
       - rank
       - scoreHistory
+      - userId
+    ScoreHistoryItemDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        timestamp:
+          type: integer
+        rank:
+          type: string
+      required:
+      - rank
+      - timestamp
+      - value
+    UpdateHistoryRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        gameId:
+          type: string
+        score:
+          type: integer
+        updatedHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoreHistoryItemDRF'
+        previousRank:
+          type: string
+        updatedRank:
+          type: string
+      required:
+      - gameId
+      - previousRank
+      - score
+      - updatedHistory
+      - updatedRank
+      - userId
+    UpdateInstructionsShownHistoryRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        keys:
+          type: array
+          items:
+            type: string
+      required:
+      - keys
       - userId
   securitySchemes:
     Hawk_Auth:

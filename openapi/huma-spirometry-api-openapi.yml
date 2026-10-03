@@ -41,75 +41,6 @@ paths:
           description: ''
 components:
   schemas:
-    AxisStepsDRF:
-      type: object
-      properties:
-        default:
-          type: number
-          format: double
-        min:
-          type: number
-          format: double
-        max:
-          type: number
-          format: double
-      required:
-      - default
-    ReportSeriesDRF:
-      type: object
-      properties:
-        seriesId:
-          type: string
-        seriesData:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataPointDRF'
-      required:
-      - seriesId
-    DataPointDRF:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataValueDRF'
-        legend:
-          type: string
-        ref:
-          type: string
-      required:
-      - values
-    ReportGroupElementDRF:
-      type: object
-      properties:
-        elementName:
-          type: string
-        elementDescription:
-          type: string
-        elementSymbolChar:
-          type: string
-        elementSymbolSvgPath:
-          type: string
-        axes:
-          type: array
-          items:
-            type: string
-      required:
-      - axes
-      - elementName
-    ReportInfoDRF:
-      type: object
-      properties:
-        fev1Percentage:
-          type: string
-        fev1Raw:
-          type: string
-        fev1RawPef:
-          type: string
-      required:
-      - fev1Percentage
-      - fev1Raw
-      - fev1RawPef
     ReportGroupDRF:
       type: object
       properties:
@@ -124,6 +55,58 @@ components:
       required:
       - groupElements
       - groupId
+    AxisStepsDRF:
+      type: object
+      properties:
+        default:
+          type: number
+          format: double
+        min:
+          type: number
+          format: double
+        max:
+          type: number
+          format: double
+      required:
+      - default
+    SpirometryReportDTODRF:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        reportVersion:
+          type: integer
+        reportCode:
+          type: string
+        name:
+          type: string
+        axes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAxeDRF'
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSeriesDRF'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportGroupDRF'
+        info:
+          $ref: '#/components/schemas/ReportInfoDRF'
+        startDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - userId
     AxisDataDRF:
       type: object
       properties:
@@ -139,6 +122,36 @@ components:
         valueDouble:
           type: number
           format: double
+    ReportSeriesDRF:
+      type: object
+      properties:
+        seriesId:
+          type: string
+        seriesData:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPointDRF'
+      required:
+      - seriesId
+    DataValueDRF:
+      type: object
+      properties:
+        axisId:
+          type: string
+        element:
+          type: integer
+        valueDate:
+          type: string
+          format: date-time
+        valueInt:
+          type: integer
+        valueDouble:
+          type: number
+          format: double
+        valueString:
+          type: string
+      required:
+      - axisId
     ReportAxeDRF:
       type: object
       properties:
@@ -179,63 +192,50 @@ components:
       - axisName
       - axisType
       - dataType
-    SpirometryReportDTODRF:
+    ReportGroupElementDRF:
       type: object
       properties:
-        id:
-          type: integer
-        userId:
+        elementName:
           type: string
-        reportVersion:
-          type: integer
-        reportCode:
+        elementDescription:
           type: string
-        name:
+        elementSymbolChar:
+          type: string
+        elementSymbolSvgPath:
           type: string
         axes:
           type: array
           items:
-            $ref: '#/components/schemas/ReportAxeDRF'
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSeriesDRF'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportGroupDRF'
-        info:
-          $ref: '#/components/schemas/ReportInfoDRF'
-        startDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
+            type: string
       required:
-      - userId
-    DataValueDRF:
+      - axes
+      - elementName
+    ReportInfoDRF:
       type: object
       properties:
-        axisId:
+        fev1Percentage:
           type: string
-        element:
-          type: integer
-        valueDate:
+        fev1Raw:
           type: string
-          format: date-time
-        valueInt:
-          type: integer
-        valueDouble:
-          type: number
-          format: double
-        valueString:
+        fev1RawPef:
           type: string
       required:
-      - axisId
+      - fev1Percentage
+      - fev1Raw
+      - fev1RawPef
+    DataPointDRF:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataValueDRF'
+        legend:
+          type: string
+        ref:
+          type: string
+      required:
+      - values
   securitySchemes:
     Hawk_Auth:
       type: apiKey

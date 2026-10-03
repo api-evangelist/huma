@@ -168,6 +168,42 @@ paths:
           description: ''
 components:
   schemas:
+    MockADPCyclerDataRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        cycle:
+          type: integer
+    AssignCarePlanRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - name
+      - startDate
+      - type
     CarePlanResponseObjectDRF:
       type: object
       properties:
@@ -198,6 +234,47 @@ components:
       - startDate
       - type
       - userId
+    PrescriptionsResponseObjectDRF:
+      type: object
+      properties:
+        prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionDTODRF'
+    CreatePrescriptionRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        carePlanId:
+          type: string
+        name:
+          type: string
+        dosage:
+          type: string
+        unit:
+          type: string
+        frequency:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - carePlanId
+      - dosage
+      - frequency
+      - name
+      - startTime
+      - unit
     PrescriptionDTODRF:
       type: object
       properties:
@@ -238,83 +315,6 @@ components:
       properties:
         id:
           type: string
-    AssignCarePlanRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - name
-      - startDate
-      - type
-    CreatePrescriptionRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        carePlanId:
-          type: string
-        name:
-          type: string
-        dosage:
-          type: string
-        unit:
-          type: string
-        frequency:
-          type: string
-        startTime:
-          type: string
-        endTime:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - carePlanId
-      - dosage
-      - frequency
-      - name
-      - startTime
-      - unit
-    PrescriptionsResponseObjectDRF:
-      type: object
-      properties:
-        prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionDTODRF'
-    MockADPCyclerDataRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        cycle:
-          type: integer
     OkResponseDRF:
       type: object
       properties:

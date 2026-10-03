@@ -86,17 +86,16 @@ components:
       - limit
       - skip
       - total
-    VirtualVisitResponseDRF:
+    CreateVirtualCareResponseObjectDRF:
       type: object
       properties:
         moduleResultId:
           type: string
-        startDateTime:
-          type: string
-          format: date-time
-        primaryStepSummary:
-          $ref: '#/components/schemas/PrimaryStepViewDRF'
-        stepsSummary:
+        primitiveIds:
+          type: array
+          items:
+            type: string
+        errors:
           type: array
           items:
             type: string
@@ -109,16 +108,17 @@ components:
           type: string
         startDateTime:
           type: string
-    CreateVirtualCareResponseObjectDRF:
+    VirtualVisitResponseDRF:
       type: object
       properties:
         moduleResultId:
           type: string
-        primitiveIds:
-          type: array
-          items:
-            type: string
-        errors:
+        startDateTime:
+          type: string
+          format: date-time
+        primaryStepSummary:
+          $ref: '#/components/schemas/PrimaryStepViewDRF'
+        stepsSummary:
           type: array
           items:
             type: string

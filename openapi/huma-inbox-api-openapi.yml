@@ -185,26 +185,6 @@ paths:
           description: ''
 components:
   schemas:
-    MessageSearchRequestObjectDRF:
-      type: object
-      properties:
-        submitterId:
-          type: string
-        custom:
-          type: boolean
-        skip:
-          type: integer
-        limit:
-          type: integer
-        userId:
-          type: string
-      required:
-      - submitterId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     MessagesResponseObjectDRF:
       type: object
       properties:
@@ -214,6 +194,35 @@ components:
             $ref: '#/components/schemas/MessageDTODRF'
       required:
       - messages
+    ConfirmMessageResponseObjectDRF:
+      type: object
+      properties:
+        updated:
+          type: integer
+      required:
+      - updated
+    MessageAttachmentDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        attachmentType:
+          type: string
+        title:
+          type: string
+        resource:
+          type: string
+        resourceUrl:
+          type: string
+        isResourceDeleted:
+          type: boolean
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - attachmentType
+      - resource
+      - title
     MessageSummaryResponseObjectDRF:
       type: object
       properties:
@@ -257,6 +266,30 @@ components:
             $ref: '#/components/schemas/MessageAttachmentDTODRF'
       required:
       - submitterId
+    MessageSearchRequestObjectDRF:
+      type: object
+      properties:
+        submitterId:
+          type: string
+        custom:
+          type: boolean
+        skip:
+          type: integer
+        limit:
+          type: integer
+        userId:
+          type: string
+      required:
+      - submitterId
+    ConfirmMessageRequestObjectDRF:
+      type: object
+      properties:
+        messageIds:
+          type: array
+          items:
+            type: string
+      required:
+      - messageIds
     MessageSendRequestObjectDRF:
       type: object
       properties:
@@ -272,44 +305,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MessageAttachmentDTODRF'
-    MessageAttachmentDTODRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-        attachmentType:
-          type: string
-        title:
-          type: string
-        resource:
-          type: string
-        resourceUrl:
-          type: string
-        isResourceDeleted:
-          type: boolean
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - attachmentType
-      - resource
-      - title
-    ConfirmMessageRequestObjectDRF:
-      type: object
-      properties:
-        messageIds:
-          type: array
-          items:
-            type: string
-      required:
-      - messageIds
-    ConfirmMessageResponseObjectDRF:
-      type: object
-      properties:
-        updated:
-          type: integer
-      required:
-      - updated
   securitySchemes:
     Hawk_Auth:
       type: apiKey

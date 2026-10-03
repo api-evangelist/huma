@@ -233,6 +233,20 @@ paths:
           description: ''
 components:
   schemas:
+    UpdateOrganizationPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        organizationId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - organizationId
     ConfigUIDRF:
       type: object
       properties:
@@ -250,52 +264,6 @@ components:
       - name
       - title
       - type
-    RetrievePluginContainerResponseObjectDRF:
-      type: object
-      properties:
-        componentsUI:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentUIDRF'
-      required:
-      - componentsUI
-    RetrievePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigUIDRF'
-    UpdateOrganizationPluginConfigRequestObjectDRF:
-      type: object
-      properties:
-        organizationId:
-          type: string
-        configContents:
-          type: object
-          additionalProperties: {}
-        configName:
-          type: string
-      required:
-      - configContents
-      - configName
-      - organizationId
-    UpdateDeploymentPluginConfigRequestObjectDRF:
-      type: object
-      properties:
-        deploymentId:
-          type: string
-        configContents:
-          type: object
-          additionalProperties: {}
-        configName:
-          type: string
-      required:
-      - configContents
-      - configName
-      - deploymentId
     UpdatePluginConfigResponseObjectDRF:
       type: object
       properties:
@@ -322,6 +290,38 @@ components:
       - descriptionLink
       - icon
       - title
+    RetrievePluginContainerResponseObjectDRF:
+      type: object
+      properties:
+        componentsUI:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentUIDRF'
+      required:
+      - componentsUI
+    UpdateDeploymentPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - deploymentId
+    RetrievePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

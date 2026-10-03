@@ -171,23 +171,6 @@ components:
       - status
       - updateDateTime
       - userId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    CreateOrderRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDRF'
-      required:
-      - cart
-      - userId
     OrderItemDRF:
       type: object
       properties:
@@ -212,26 +195,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderDTODRF'
-    UpdateOrderRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        orderId:
-          type: string
-        status:
-          type: string
-        cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemDRF'
-    ProductsResponseDRF:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDTODRF'
     ProductDTODRF:
       type: object
       properties:
@@ -247,6 +210,43 @@ components:
       - image
       - sku
       - title
+    UpdateOrderRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        orderId:
+          type: string
+        status:
+          type: string
+        cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDRF'
+    CreateOrderRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDRF'
+      required:
+      - cart
+      - userId
+    ProductsResponseDRF:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTODRF'
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

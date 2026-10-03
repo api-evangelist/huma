@@ -784,6 +784,47 @@ paths:
           description: ''
 components:
   schemas:
+    SsoRequestObjectDRF:
+      type: object
+      properties:
+        ssoConfig:
+          $ref: '#/components/schemas/SsoDTODRF'
+        tokens:
+          type: object
+          additionalProperties: {}
+        email:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+      required:
+      - clientId
+      - email
+      - projectId
+    ListAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authKeys:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        userId:
+          type: string
+    SignInResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
     SignInRequestObjectDRF:
       type: object
       properties:
@@ -813,69 +854,7 @@ components:
       - clientId
       - method
       - projectId
-    SetAuthAttributesResponseObjectDRF:
-      type: object
-      properties:
-        uid:
-          type: string
-        refreshToken:
-          type: string
-    RefreshTokenRequestObjectV1DRF:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-        password:
-          type: string
-        email:
-          type: string
-        deviceAgent:
-          type: string
-        deviceToken:
-          type: string
-      required:
-      - refreshToken
-    ConfirmationRequestObjectDRF:
-      type: object
-      properties:
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        confirmationCode:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        deviceAgent:
-          type: string
-      required:
-      - clientId
-      - confirmationCode
-      - email
-      - projectId
-    OkResponseDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-    AuthProfileResponseObjectDRF:
-      type: object
-      properties:
-        uid:
-          type: string
-    GenerateAuthKeysResponseObjectDRF:
-      type: object
-      properties:
-        authId:
-          type: string
-        authKey:
-          type: string
-      required:
-      - authId
-      - authKey
-    SignUpRequestObjectDRF:
+    SendVerificationTokenRequestObjectDRF:
       type: object
       properties:
         language:
@@ -888,58 +867,14 @@ components:
           type: string
         email:
           type: string
-        contactEmail:
-          type: string
         phoneNumber:
           type: string
-        password:
-          type: string
-        displayName:
-          type: string
-        validationData:
-          type: object
-          additionalProperties: {}
-        userAttributes:
-          type: object
-          additionalProperties: {}
-        timezone:
-          type: string
-        ssoEnabled:
-          type: boolean
-        userId:
-          type: string
-        deviceAgent:
-          type: string
-        ipAddress:
+        refreshToken:
           type: string
       required:
       - clientId
-      - ipAddress
       - method
       - projectId
-    CheckAuthAttributesResponseObjectDRF:
-      type: object
-      properties:
-        phoneNumber:
-          type: string
-        email:
-          type: string
-        passwordSet:
-          type: boolean
-        emailVerified:
-          type: boolean
-        phoneNumberVerified:
-          type: boolean
-        eligibleForMFA:
-          type: boolean
-        mfaEnabled:
-          type: boolean
-        shortenedCode:
-          type: string
-        contactEmail:
-          type: string
-        ssoEnabled:
-          type: boolean
     SetAuthAttributesRequestObjectDRF:
       type: object
       properties:
@@ -974,197 +909,6 @@ components:
       required:
       - clientId
       - projectId
-    ListAuthKeysResponseObjectDRF:
-      type: object
-      properties:
-        authKeys:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        userId:
-          type: string
-    CheckAuthAttributesRequestObjectDRF:
-      type: object
-      properties:
-        authToken:
-          type: string
-        tokenType:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-      required:
-      - clientId
-      - projectId
-    SignOutRequestObjectV1DRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        refreshToken:
-          type: string
-        deviceAgent:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        isActive:
-          type: boolean
-        devicePushId:
-          type: string
-        deviceToken:
-          type: string
-        voipDevicePushId:
-          type: string
-      required:
-      - deviceAgent
-    SendVerificationTokenRequestObjectDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        method:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        refreshToken:
-          type: string
-      required:
-      - clientId
-      - method
-      - projectId
-    SendVerificationTokenResponseObjectDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        to:
-          type: string
-    ConfirmationOutDRF:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        authToken:
-          type: string
-        refreshToken:
-          type: string
-        expiresIn:
-          type: integer
-        uid:
-          type: string
-        authTokenExpiresIn:
-          type: integer
-    VerifyCredentialsRequestObjectDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        authToken:
-          type: string
-        password:
-          type: string
-        confirmationCode:
-          type: string
-        phoneNumber:
-          type: string
-        type:
-          type: string
-      required:
-      - authToken
-      - clientId
-      - projectId
-      - type
-    SsoRequestObjectDRF:
-      type: object
-      properties:
-        ssoConfig:
-          $ref: '#/components/schemas/SsoDTODRF'
-        tokens:
-          type: object
-          additionalProperties: {}
-        email:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-      required:
-      - clientId
-      - email
-      - projectId
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    SignInResponseObjectDRF:
-      type: object
-      properties:
-        authToken:
-          type: string
-        refreshToken:
-          type: string
-        expiresIn:
-          type: integer
-        uid:
-          type: string
-        authTokenExpiresIn:
-          type: integer
-    RequestSignupCodeRequestObjectDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        email:
-          type: string
-        appName:
-          type: string
-        deploymentId:
-          type: string
-        expiresIn:
-          type: string
-      required:
-      - clientId
-      - projectId
-    ResetPasswordRequestObjectDRF:
-      type: object
-      properties:
-        email:
-          type: string
-        code:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - code
-      - email
-      - newPassword
     SAMLCallbackObjectDRF:
       type: object
       properties:
@@ -1215,6 +959,11 @@ components:
       - clientId
       - ipAddress
       - projectId
+    AuthProfileRequestObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
     DeviceSessionDTODRF:
       type: object
       properties:
@@ -1236,6 +985,66 @@ components:
           type: boolean
       required:
       - deviceAgent
+    RefreshTokenRequestObjectV1DRF:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        deviceAgent:
+          type: string
+        deviceToken:
+          type: string
+      required:
+      - refreshToken
+    RequestPasswordResetRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        email:
+          type: string
+      required:
+      - clientId
+      - email
+      - projectId
+    SendVerificationTokenResponseObjectDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        to:
+          type: string
+    CheckAuthAttributesResponseObjectDRF:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        passwordSet:
+          type: boolean
+        emailVerified:
+          type: boolean
+        phoneNumberVerified:
+          type: boolean
+        eligibleForMFA:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        shortenedCode:
+          type: string
+        contactEmail:
+          type: string
+        ssoEnabled:
+          type: boolean
     SsoDTODRF:
       type: object
       properties:
@@ -1247,26 +1056,74 @@ components:
           type: string
         info:
           $ref: '#/components/schemas/SsoInfoDRF'
-    AuthProfileRequestObjectDRF:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    GenerateAuthKeysResponseObjectDRF:
+      type: object
+      properties:
+        authId:
+          type: string
+        authKey:
+          type: string
+      required:
+      - authId
+      - authKey
+    RefreshTokenResponseObjectDRF:
       type: object
       properties:
         authToken:
           type: string
-    GenerateAuthKeysRequestObjectDRF:
+        expiresIn:
+          type: integer
+        refreshToken:
+          type: string
+        refreshTokenExpiresIn:
+          type: integer
+    OkResponseDRF:
       type: object
       properties:
-        userId:
+        ok:
+          type: boolean
+    ResetPasswordRequestObjectDRF:
+      type: object
+      properties:
+        email:
           type: string
-        authType:
+        code:
           type: string
-        name:
+        newPassword:
           type: string
-        whitelistIPs:
-          type: array
-          items:
-            type: string
       required:
-      - userId
+      - code
+      - email
+      - newPassword
+    VerifyCredentialsRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        authToken:
+          type: string
+        password:
+          type: string
+        confirmationCode:
+          type: string
+        phoneNumber:
+          type: string
+        type:
+          type: string
+      required:
+      - authToken
+      - clientId
+      - projectId
+      - type
     SsoInfoDRF:
       type: object
       properties:
@@ -1314,7 +1171,138 @@ components:
       - clientSecret
       - discoveryUrl
       - redirectUri
-    RequestPasswordResetRequestObjectDRF:
+    AuthProfileResponseObjectDRF:
+      type: object
+      properties:
+        uid:
+          type: string
+    ConfirmationRequestObjectDRF:
+      type: object
+      properties:
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        confirmationCode:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        deviceAgent:
+          type: string
+      required:
+      - clientId
+      - confirmationCode
+      - email
+      - projectId
+    SignOutRequestObjectV1DRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        refreshToken:
+          type: string
+        deviceAgent:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        isActive:
+          type: boolean
+        devicePushId:
+          type: string
+        deviceToken:
+          type: string
+        voipDevicePushId:
+          type: string
+      required:
+      - deviceAgent
+    GenerateAuthKeysRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        authType:
+          type: string
+        name:
+          type: string
+        whitelistIPs:
+          type: array
+          items:
+            type: string
+      required:
+      - userId
+    SignUpRequestObjectDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        method:
+          type: string
+        email:
+          type: string
+        contactEmail:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        displayName:
+          type: string
+        validationData:
+          type: object
+          additionalProperties: {}
+        userAttributes:
+          type: object
+          additionalProperties: {}
+        timezone:
+          type: string
+        ssoEnabled:
+          type: boolean
+        userId:
+          type: string
+        deviceAgent:
+          type: string
+        ipAddress:
+          type: string
+      required:
+      - clientId
+      - ipAddress
+      - method
+      - projectId
+    SetAuthAttributesResponseObjectDRF:
+      type: object
+      properties:
+        uid:
+          type: string
+        refreshToken:
+          type: string
+    ConfirmationOutDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    RequestSignupCodeRequestObjectDRF:
       type: object
       properties:
         language:
@@ -1325,9 +1313,14 @@ components:
           type: string
         email:
           type: string
+        appName:
+          type: string
+        deploymentId:
+          type: string
+        expiresIn:
+          type: string
       required:
       - clientId
-      - email
       - projectId
     CreateServiceAccountRequestObjectDRF:
       type: object
@@ -1350,17 +1343,24 @@ components:
       - roleId
       - serviceAccountName
       - validationData
-    RefreshTokenResponseObjectDRF:
+    CheckAuthAttributesRequestObjectDRF:
       type: object
       properties:
         authToken:
           type: string
-        expiresIn:
-          type: integer
-        refreshToken:
+        tokenType:
           type: string
-        refreshTokenExpiresIn:
-          type: integer
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+      required:
+      - clientId
+      - projectId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

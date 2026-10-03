@@ -125,17 +125,28 @@ paths:
           description: ''
 components:
   schemas:
-    DiaryCategoryResponseDRF:
+    RetrieveDiariesResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiaryItemResponseDRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+      required:
+      - total
+    ItemDRF:
       type: object
       properties:
         id:
           type: string
         name:
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemDRF'
       required:
       - id
       - name
@@ -168,16 +179,19 @@ components:
             type: string
       required:
       - skip
-    ItemDRF:
+    DiaryDetailItemResponseDRF:
       type: object
       properties:
-        id:
+        key:
           type: string
-        name:
+        value:
           type: string
-      required:
-      - id
-      - name
+        valueColor:
+          type: string
+        icon:
+          type: string
+        iconColor:
+          type: string
     DiaryChipResponseDRF:
       type: object
       properties:
@@ -193,6 +207,16 @@ components:
           type: string
       required:
       - text
+    DiaryButtonDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+      required:
+      - action
+      - label
     RetrieveDiaryByIdResponseDRF:
       type: object
       properties:
@@ -278,6 +302,20 @@ components:
       - updateDateTime
       - userId
       - visibility
+    DiaryCategoryResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDRF'
+      required:
+      - id
+      - name
     RetrieveDiariesCountResponseObjectDRF:
       type: object
       properties:
@@ -382,44 +420,6 @@ components:
       - updateDateTime
       - userId
       - visibility
-    RetrieveDiariesResponseObjectDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiaryItemResponseDRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
-      required:
-      - total
-    DiaryButtonDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        action:
-          type: string
-      required:
-      - action
-      - label
-    DiaryDetailItemResponseDRF:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        valueColor:
-          type: string
-        icon:
-          type: string
-        iconColor:
-          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

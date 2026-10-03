@@ -87,27 +87,6 @@ paths:
           description: ''
 components:
   schemas:
-    QualityCheckRequestObjectDRF:
-      type: object
-      properties:
-        arm:
-          type: string
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
-          type: string
-      required:
-      - arm
-      - image
-    QualityCheckErrorResponseObjectDRF:
-      type: object
-      properties:
-        error:
-          type: string
-      required:
-      - error
     S3ObjectDRF:
       type: object
       properties:
@@ -130,6 +109,27 @@ components:
         userId:
           type: string
       required:
+      - image
+    QualityCheckErrorResponseObjectDRF:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    QualityCheckRequestObjectDRF:
+      type: object
+      properties:
+        arm:
+          type: string
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+      required:
+      - arm
       - image
   securitySchemes:
     Hawk_Auth:

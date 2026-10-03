@@ -265,37 +265,13 @@ paths:
           description: ''
 components:
   schemas:
-    BaseThirdPartyAppRequestObjectDRF:
+    ConnectFitbitRequestDataDRF:
       type: object
       properties:
-        type:
+        code:
           type: string
-        appUserId:
-          type: string
-        accessToken:
-          type: string
-        refreshToken:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
-        status:
-          type: string
-        lastSyncDateTime:
-          type: string
-          format: date-time
       required:
-      - accessToken
-      - appUserId
-      - refreshToken
-      - status
-      - type
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
+      - code
     AuthorizeFitbitRequestDataDRF:
       type: object
       properties:
@@ -306,16 +282,6 @@ components:
       required:
       - code
       - type
-    RetrieveThirdPartyAppsRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
-    ThirdPartyAppStatusResponseDRF:
-      type: object
-      properties:
-        status:
-          type: string
     ThirdPartyAppLogDTODRF:
       type: object
       properties:
@@ -341,13 +307,6 @@ components:
       required:
       - type
       - userId
-    ConnectFitbitRequestDataDRF:
-      type: object
-      properties:
-        code:
-          type: string
-      required:
-      - code
     ThirdPartyAppDTODRF:
       type: object
       properties:
@@ -385,6 +344,47 @@ components:
       - status
       - type
       - userId
+    ThirdPartyAppStatusResponseDRF:
+      type: object
+      properties:
+        status:
+          type: string
+    BaseThirdPartyAppRequestObjectDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        appUserId:
+          type: string
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        lastSyncDateTime:
+          type: string
+          format: date-time
+      required:
+      - accessToken
+      - appUserId
+      - refreshToken
+      - status
+      - type
+    RetrieveThirdPartyAppsRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey
