@@ -265,48 +265,11 @@ paths:
           description: ''
 components:
   schemas:
-    ConnectFitbitRequestDataDRF:
-      type: object
-      properties:
-        code:
-          type: string
-      required:
-      - code
-    AuthorizeFitbitRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
-        code:
-          type: string
-      required:
-      - code
-      - type
-    ThirdPartyAppLogDTODRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-        type:
-          type: string
-        userId:
-          type: string
-        appUserId:
-          type: string
-        moduleLogs:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-      required:
-      - type
-      - userId
     ThirdPartyAppDTODRF:
       type: object
       properties:
@@ -344,10 +307,57 @@ components:
       - status
       - type
       - userId
+    AuthorizeFitbitRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - type
+    ThirdPartyAppLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        appUserId:
+          type: string
+        moduleLogs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - type
+      - userId
     ThirdPartyAppStatusResponseDRF:
       type: object
       properties:
         status:
+          type: string
+    ConnectFitbitRequestDataDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
+    RetrieveThirdPartyAppsRequestDataDRF:
+      type: object
+      properties:
+        type:
           type: string
     BaseThirdPartyAppRequestObjectDRF:
       type: object
@@ -375,16 +385,6 @@ components:
       - refreshToken
       - status
       - type
-    RetrieveThirdPartyAppsRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

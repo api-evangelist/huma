@@ -102,35 +102,20 @@ paths:
           description: ''
 components:
   schemas:
-    ArchiveFirmwareRequestObjectDRF:
+    ArchiveFirmwareResponseObjectDRF:
       type: object
       properties:
-        make:
-          type: string
-        model:
-          type: string
-        version:
-          type: string
+        archived:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
       required:
-      - make
-      - model
-      - version
-    UploadFirmwareResponseObjectDRF:
-      type: object
-      properties:
-        make:
-          type: string
-        model:
-          type: string
-        fileURL:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/FirmwareMetadataDRF'
-      required:
-      - fileURL
-      - make
-      - metadata
-      - model
+      - archived
+      - failed
     FirmwareMetadataDRF:
       type: object
       properties:
@@ -151,6 +136,35 @@ components:
           type: string
       required:
       - filename
+    UploadFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        fileURL:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/FirmwareMetadataDRF'
+      required:
+      - fileURL
+      - make
+      - metadata
+      - model
+    ArchiveFirmwareRequestObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        version:
+          type: string
+      required:
+      - make
+      - model
+      - version
     FirmwareUpdateResponseObjectDRF:
       type: object
       properties:
@@ -187,20 +201,6 @@ components:
       - make
       - model
       - version
-    ArchiveFirmwareResponseObjectDRF:
-      type: object
-      properties:
-        archived:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-        failed:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-      required:
-      - archived
-      - failed
   securitySchemes:
     Hawk_Auth:
       type: apiKey

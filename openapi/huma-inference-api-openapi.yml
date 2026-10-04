@@ -83,13 +83,13 @@ paths:
           description: ''
 components:
   schemas:
-    HeadOrientationQCResponseObjectDRF:
+    ArmAngleQualityCheckResponseObjectDRF:
       type: object
       properties:
-        qcOutputMessage:
-          type: string
         numPrompts:
           type: integer
+        qcOutputMessage:
+          type: string
         stopExercise:
           type: boolean
         canSubmitRecording:
@@ -99,13 +99,49 @@ components:
       - numPrompts
       - qcOutputMessage
       - stopExercise
-    ArmAngleQualityCheckResponseObjectDRF:
+    HeadOrientationQCRequestObjectDRF:
       type: object
       properties:
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
         numPrompts:
           type: integer
+        lastCheck:
+          type: boolean
+      required:
+      - image
+      - numPrompts
+    ArmAngleQualityCheckRequestObjectDRF:
+      type: object
+      properties:
+        arm:
+          type: string
+        image:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        language:
+          type: string
+        userId:
+          type: string
+        firstCheck:
+          type: boolean
+        numPrompt:
+          type: integer
+      required:
+      - arm
+      - firstCheck
+      - image
+      - numPrompt
+    HeadOrientationQCResponseObjectDRF:
+      type: object
+      properties:
         qcOutputMessage:
           type: string
+        numPrompts:
+          type: integer
         stopExercise:
           type: boolean
         canSubmitRecording:
@@ -127,42 +163,6 @@ components:
       required:
       - bucket
       - key
-    ArmAngleQualityCheckRequestObjectDRF:
-      type: object
-      properties:
-        arm:
-          type: string
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
-          type: string
-        firstCheck:
-          type: boolean
-        numPrompt:
-          type: integer
-      required:
-      - arm
-      - firstCheck
-      - image
-      - numPrompt
-    HeadOrientationQCRequestObjectDRF:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        language:
-          type: string
-        userId:
-          type: string
-        numPrompts:
-          type: integer
-        lastCheck:
-          type: boolean
-      required:
-      - image
-      - numPrompts
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -168,13 +168,23 @@ paths:
           description: ''
 components:
   schemas:
-    MockADPCyclerDataRequestObjectDRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
-        userId:
+        id:
           type: string
-        cycle:
-          type: integer
+    PrescriptionsResponseObjectDRF:
+      type: object
+      properties:
+        prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionDTODRF'
+    OkResponseDRF:
+      type: object
+      properties:
+        ok:
+          type: boolean
     AssignCarePlanRequestObjectDRF:
       type: object
       properties:
@@ -204,43 +214,6 @@ components:
       - name
       - startDate
       - type
-    CarePlanResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - name
-      - startDate
-      - type
-      - userId
-    PrescriptionsResponseObjectDRF:
-      type: object
-      properties:
-        prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionDTODRF'
     CreatePrescriptionRequestObjectDRF:
       type: object
       properties:
@@ -310,16 +283,43 @@ components:
       - startTime
       - unit
       - userId
-    ResultIdResponseObjectDRF:
+    CarePlanResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-    OkResponseDRF:
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - name
+      - startDate
+      - type
+      - userId
+    MockADPCyclerDataRequestObjectDRF:
       type: object
       properties:
-        ok:
-          type: boolean
+        userId:
+          type: string
+        cycle:
+          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey

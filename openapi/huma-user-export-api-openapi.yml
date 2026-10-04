@@ -198,111 +198,44 @@ paths:
           description: ''
 components:
   schemas:
-    CheckExportDeploymentTaskStatusResponseObjectDRF:
+    ConfirmExportBadgesResponseObjectDRF:
       type: object
       properties:
-        status:
-          type: string
-        exportData:
-          $ref: '#/components/schemas/ExportResultObjectDRF'
-    ExportParametersDRF:
+        updated:
+          type: integer
+      required:
+      - updated
+    ExportResultObjectDRF:
       type: object
       properties:
-        fromDate:
+        bucket:
           type: string
-          format: date-time
-        toDate:
+        key:
           type: string
-          format: date-time
-        moduleNames:
+      required:
+      - bucket
+      - key
+    BucketDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
+    ConfirmExportBadgesRequestDataDRF:
+      type: object
+      properties:
+        exportProcessIds:
           type: array
           items:
             type: string
-        excludedModuleNames:
-          type: array
-          items:
-            type: string
-        userIds:
-          type: array
-          items:
-            type: string
-        deIdentified:
-          type: boolean
-        maskFreeText:
-          type: boolean
-        includeNullFields:
-          type: boolean
-        includeUserMetaData:
-          type: boolean
-        useFlatStructure:
-          type: boolean
-        extraQuestionIds:
-          type: object
-          additionalProperties: {}
-        view:
-          type: string
-        format:
-          type: string
-        binaryOption:
-          type: string
-        layer:
-          type: string
-        quantity:
-          type: string
-        questionnairePerName:
-          type: boolean
-        splitMultipleChoice:
-          type: boolean
-        splitSymptoms:
-          type: boolean
-        translatePrimitives:
-          type: boolean
-        organizationId:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        singleFileResponse:
-          type: boolean
-        translationShortCodesObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        translationShortCodesObjectFormat:
-          type: string
-        includeFields:
-          type: array
-          items:
-            type: string
-        excludeFields:
-          type: array
-          items:
-            type: string
-        deIdentifyHashFields:
-          type: array
-          items:
-            type: string
-        deIdentifyRemoveFields:
-          type: array
-          items:
-            type: string
-        exportBucket:
-          type: string
-        onboardingModuleNames:
-          type: array
-          items:
-            type: string
-        preferShortCode:
-          type: boolean
-        useCreationTime:
-          type: boolean
-        bucketing:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldBucketingDRF'
-        forThirdParty:
-          type: boolean
-        excludeMinors:
-          type: boolean
+      required:
+      - exportProcessIds
     ExportProcessDTODRF:
       type: object
       properties:
@@ -336,73 +269,13 @@ components:
           type: string
         taskId:
           type: string
-    ConfirmExportBadgesResponseObjectDRF:
+    CheckExportDeploymentTaskStatusResponseObjectDRF:
       type: object
       properties:
-        updated:
-          type: integer
-      required:
-      - updated
-    BucketDRF:
-      type: object
-      properties:
-        name:
+        status:
           type: string
-        rule:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleConditionDRF'
-      required:
-      - name
-      - rule
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    RuleConditionDRF:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-      required:
-      - key
-      - value
-    FieldBucketingDRF:
-      type: object
-      properties:
-        fieldPath:
-          type: string
-        buckets:
-          type: array
-          items:
-            $ref: '#/components/schemas/BucketDRF'
-        undefineUnmatched:
-          type: boolean
-      required:
-      - buckets
-      - fieldPath
-    RetrieveExportProcessesResponseObjectDRF:
-      type: object
-      properties:
-        exportProcesses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportProcessDTODRF'
-    RunExportDeploymentTaskResponseObjectDRF:
-      type: object
-      properties:
-        exportProcessId:
-          type: string
+        exportData:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
     ExportUserRequestDataDRF:
       type: object
       properties:
@@ -501,25 +374,152 @@ components:
           type: boolean
         managerId:
           type: string
-    ConfirmExportBadgesRequestDataDRF:
+    FieldBucketingDRF:
       type: object
       properties:
-        exportProcessIds:
+        fieldPath:
+          type: string
+        buckets:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/BucketDRF'
+        undefineUnmatched:
+          type: boolean
       required:
-      - exportProcessIds
-    ExportResultObjectDRF:
+      - buckets
+      - fieldPath
+    RetrieveExportProcessesResponseObjectDRF:
+      type: object
+      properties:
+        exportProcesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProcessDTODRF'
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    S3ObjectDRF:
       type: object
       properties:
         bucket:
           type: string
         key:
           type: string
+        region:
+          type: string
       required:
       - bucket
       - key
+    RunExportDeploymentTaskResponseObjectDRF:
+      type: object
+      properties:
+        exportProcessId:
+          type: string
+    ExportParametersDRF:
+      type: object
+      properties:
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        userIds:
+          type: array
+          items:
+            type: string
+        deIdentified:
+          type: boolean
+        maskFreeText:
+          type: boolean
+        includeNullFields:
+          type: boolean
+        includeUserMetaData:
+          type: boolean
+        useFlatStructure:
+          type: boolean
+        extraQuestionIds:
+          type: object
+          additionalProperties: {}
+        view:
+          type: string
+        format:
+          type: string
+        binaryOption:
+          type: string
+        layer:
+          type: string
+        quantity:
+          type: string
+        questionnairePerName:
+          type: boolean
+        splitMultipleChoice:
+          type: boolean
+        splitSymptoms:
+          type: boolean
+        translatePrimitives:
+          type: boolean
+        organizationId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        singleFileResponse:
+          type: boolean
+        translationShortCodesObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        translationShortCodesObjectFormat:
+          type: string
+        includeFields:
+          type: array
+          items:
+            type: string
+        excludeFields:
+          type: array
+          items:
+            type: string
+        deIdentifyHashFields:
+          type: array
+          items:
+            type: string
+        deIdentifyRemoveFields:
+          type: array
+          items:
+            type: string
+        exportBucket:
+          type: string
+        onboardingModuleNames:
+          type: array
+          items:
+            type: string
+        preferShortCode:
+          type: boolean
+        useCreationTime:
+          type: boolean
+        bucketing:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldBucketingDRF'
+        forThirdParty:
+          type: boolean
+        excludeMinors:
+          type: boolean
   securitySchemes:
     Hawk_Auth:
       type: apiKey

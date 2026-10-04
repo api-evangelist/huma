@@ -234,47 +234,11 @@ paths:
           description: No response body
 components:
   schemas:
-    CreateOfflineCallRequestObjectDRF:
-      type: object
-      properties:
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        note:
-          type: string
-      required:
-      - endDateTime
-      - note
-      - startDateTime
-    VideoCallLogDTODRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-        event:
-          type: string
-        identity:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - event
-    InitiateVideoCallRequestObjectDRF:
-      type: object
-      properties:
-        appointmentId:
-          type: string
-        managerId:
-          type: string
-        userId:
-          type: string
-      required:
-      - managerId
-      - userId
     OfflineVideoCallDTODRF:
       type: object
       properties:
@@ -316,28 +280,6 @@ components:
           type: string
         managerName:
           type: string
-    CompleteVideoCallRequestObjectDRF:
-      type: object
-      properties:
-        token:
-          type: string
-        callId:
-          type: string
-      required:
-      - callId
-      - token
-    CompleteVideoCallByUserRequestObjectDRF:
-      type: object
-      properties:
-        reason:
-          type: string
-        userId:
-          type: string
-        videoCallId:
-          type: string
-      required:
-      - userId
-      - videoCallId
     InitiateVideoCallResponseObjectDRF:
       type: object
       properties:
@@ -353,11 +295,30 @@ components:
           type: string
         sipAddress:
           type: string
-    ResultIdResponseObjectDRF:
+    CompleteVideoCallByUserRequestObjectDRF:
       type: object
       properties:
-        id:
+        reason:
           type: string
+        userId:
+          type: string
+        videoCallId:
+          type: string
+      required:
+      - userId
+      - videoCallId
+    InitiateVideoCallRequestObjectDRF:
+      type: object
+      properties:
+        appointmentId:
+          type: string
+        managerId:
+          type: string
+        userId:
+          type: string
+      required:
+      - managerId
+      - userId
     RetrieveCallsPaginatedResponseObjectDRF:
       type: object
       properties:
@@ -376,6 +337,45 @@ components:
       - limit
       - skip
       - total
+    CompleteVideoCallRequestObjectDRF:
+      type: object
+      properties:
+        token:
+          type: string
+        callId:
+          type: string
+      required:
+      - callId
+      - token
+    VideoCallLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+        identity:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - event
+    CreateOfflineCallRequestObjectDRF:
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        note:
+          type: string
+      required:
+      - endDateTime
+      - note
+      - startDateTime
   securitySchemes:
     Hawk_Auth:
       type: apiKey

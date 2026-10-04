@@ -459,87 +459,197 @@ paths:
           description: ''
 components:
   schemas:
-    UITabDRF:
+    FeaturesDRF:
       type: object
       properties:
-        order:
-          type: integer
-        id:
-          type: string
-        screenId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        icon:
-          type: string
-        status:
-          type: string
-        background:
-          $ref: '#/components/schemas/BackgroundDRF'
-        widgets:
+        appMenu:
           type: array
           items:
-            $ref: '#/components/schemas/UIWidgetDRF'
-        extras:
+            type: string
+        appointment:
+          type: boolean
+        carePlanDailyAdherence:
+          type: boolean
+        offBoarding:
+          type: boolean
+        personalDocuments:
+          type: boolean
+        patientPersonalization:
+          $ref: '#/components/schemas/PatientPersonalizationDRF'
+        proxy:
+          type: boolean
+        surgeryDateRule:
+          $ref: '#/components/schemas/SurgeryDateRuleDRF'
+        labels:
+          type: boolean
+        portal:
           type: object
           additionalProperties: {}
+        offBoardingReasons:
+          $ref: '#/components/schemas/OffBoardingReasonsDRF'
+        moveUserReasons:
+          $ref: '#/components/schemas/MoveUserReasonsDRF'
+        messaging:
+          $ref: '#/components/schemas/MessagingDRF'
+        hideAppSupport:
+          type: boolean
+        summaryReport:
+          $ref: '#/components/schemas/SummaryReportDRF'
+        linkInvites:
+          type: boolean
+        classB:
+          type: boolean
+        deviceIntegration:
+          $ref: '#/components/schemas/DeviceIntegrationDRF'
+        customAppConfig:
+          type: object
+          additionalProperties: {}
+        improvedOnboarding:
+          type: boolean
+        timeline:
+          type: boolean
+        profilePicture:
+          type: boolean
+        unitsIsHidden:
+          type: boolean
+        dataDownloadIsHidden:
+          type: boolean
+        labelIsHidden:
+          type: boolean
+        ifuIsHidden:
+          type: boolean
+        videoAdapter:
+          type: string
+        mealBasedModules:
+          type: array
+          items:
+            type: string
+        email:
+          $ref: '#/components/schemas/EmailConfigDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    MedicationHistoryV2DTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        medicationId:
+          type: string
+        medicationName:
+          type: string
+        changeType:
+          type: string
+        userType:
+          type: string
+        seen:
+          type: boolean
+        reason:
+          $ref: '#/components/schemas/MedicationReasonUpdatedDRF'
         updateDateTime:
           type: string
           format: date-time
         createDateTime:
           type: string
           format: date-time
+        regimen:
+          $ref: '#/components/schemas/RegimenChangeDRF'
       required:
-      - background
-      - icon
-      - name
-      - order
-      - status
-    UnseenFlagsDRF:
+      - changeType
+      - deploymentId
+      - medicationId
+      - medicationName
+      - userId
+      - userType
+    PAMIntegrationConfigDRF:
       type: object
       properties:
-        red:
-          type: integer
-        amber:
-          type: integer
-        green:
-          type: integer
-        gray:
-          type: integer
-    DeploymentInfoDRF:
+        submitSurveyURI:
+          type: string
+        enrollUserURI:
+          type: string
+        clientExtID:
+          type: string
+        clientPassKeyEncrypted:
+          type: string
+        subgroupExtID:
+          type: string
+      required:
+      - clientExtID
+      - clientPassKeyEncrypted
+      - enrollUserURI
+      - subgroupExtID
+      - submitSurveyURI
+    KeyActionConfigDRF:
       type: object
       properties:
         id:
           type: string
-        name:
+        title:
           type: string
-        code:
+        description:
           type: string
-        draftId:
+        deltaFromTriggerTime:
           type: string
-        status:
+        durationFromTrigger:
           type: string
+        durationIso:
+          type: string
+        instanceExpiresIn:
+          type: string
+        type:
+          type: string
+        trigger:
+          type: string
+        notifyEvery:
+          type: string
+        numberOfNotifications:
+          type: integer
+        learnArticleId:
+          type: string
+        learnArticle:
+          type: object
+          additionalProperties: {}
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
       required:
-      - id
-      - name
-    RoleAssignmentDTODRF:
+      - deltaFromTriggerTime
+      - durationIso
+      - trigger
+      - type
+    NotificationDataDRF:
       type: object
       properties:
-        roleId:
+        title:
           type: string
-        resource:
+        body:
           type: string
-        userType:
-          type: string
-        isActive:
+        offline:
           type: boolean
-      required:
-      - resource
-      - roleId
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
     AdditionalConsentQuestionDRF:
       type: object
       properties:
@@ -565,143 +675,6 @@ components:
       - format
       - text
       - type
-    TimeDurationDRF:
-      type: object
-      properties:
-        startTime:
-          type: string
-        endTime:
-          type: string
-      required:
-      - endTime
-      - startTime
-    UserStatsDRF:
-      type: object
-      properties:
-        taskCompliance:
-          $ref: '#/components/schemas/TaskComplianceDRF'
-        studyProgress:
-          $ref: '#/components/schemas/StudyProgressDRF'
-    MedicationV2ScheduleDRF:
-      type: object
-      properties:
-        isoDuration:
-          type: string
-        timesOfReadings:
-          type: array
-          items:
-            type: string
-        timeRanges:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeDurationDRF'
-        specificWeekDays:
-          type: array
-          items:
-            type: string
-        asNeeded:
-          type: boolean
-    SecurityDRF:
-      type: object
-      properties:
-        mfaRequired:
-          type: boolean
-        appLockRequired:
-          type: boolean
-      required:
-      - appLockRequired
-      - mfaRequired
-    LearnDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearnSectionDRF'
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    ManagerNotificationsDRF:
-      type: object
-      properties:
-        demographicsChange:
-          type: boolean
-    MedicationReasonUpdatedDRF:
-      type: object
-      properties:
-        reason:
-          type: string
-        clinicianId:
-          type: string
-        clinicianName:
-          type: string
-      required:
-      - reason
-    ConsentDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        enabled:
-          type: string
-        review:
-          $ref: '#/components/schemas/ConsentReviewDRF'
-        revision:
-          type: integer
-        additionalConsentQuestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
-        signature:
-          $ref: '#/components/schemas/ConsentSignatureDRF'
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsentSectionDRF'
-        instituteName:
-          type: string
-        instituteFullName:
-          type: string
-        instituteTextDetails:
-          type: string
-        admissionText:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - enabled
-    BoardingStatusDRF:
-      type: object
-      properties:
-        status:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        submitterId:
-          type: string
-        reasonOffBoarded:
-          type: string
-        detailsOffBoarded:
-          type: string
-      required:
-      - status
     MedicationDetailsDRF:
       type: object
       properties:
@@ -717,46 +690,6 @@ components:
             $ref: '#/components/schemas/AdherenceDRF'
       required:
       - medicationId
-    UnreadMessagesCountDRF:
-      type: object
-      properties:
-        manager:
-          type: integer
-        user:
-          type: integer
-    BackgroundDRF:
-      type: object
-      properties:
-        value:
-          type: string
-        type:
-          type: string
-      required:
-      - type
-      - value
-    IntegrationDeviceDRF:
-      type: object
-      properties:
-        model:
-          type: string
-        modelName:
-          type: string
-        displayName:
-          type: string
-        manufacturer:
-          $ref: '#/components/schemas/DeviceManufacturerDRF'
-        moduleIds:
-          type: array
-          items:
-            type: string
-        backgroundSync:
-          type: boolean
-        supportedMedications:
-          type: object
-          additionalProperties: {}
-      required:
-      - manufacturer
-      - model
     RagThresholdDRF:
       type: object
       properties:
@@ -788,6 +721,40 @@ components:
       - severity
       - thresholdRange
       - type
+    MedicationCalendarResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationScheduleEventDRF'
+        medications:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationDetailsDRF'
+    FileFieldDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    IndicationDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodingDRF'
+    BuilderDRF:
+      type: object
+      properties:
+        tabs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UITabDRF'
     EConsentDRF:
       type: object
       properties:
@@ -837,21 +804,196 @@ components:
       - overviewText
       - sections
       - title
-    ReasonDRF:
+    PersonalDocumentDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        fileType:
+          type: string
+        fileObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - fileObject
+      - fileType
+      - name
+    MedicationV2DTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        enabled:
+          type: boolean
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        name:
+          type: string
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodingDRF'
+        dosage:
+          type: number
+          format: double
+        unit:
+          type: string
+        customUnit:
+          type: string
+        indication:
+          $ref: '#/components/schemas/IndicationDRF'
+        isNotificationEnabled:
+          type: boolean
+        maxDosage:
+          type: number
+          format: double
+        schedule:
+          $ref: '#/components/schemas/MedicationV2ScheduleDRF'
+        adherence:
+          $ref: '#/components/schemas/AdherenceDRF'
+        adherences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdherenceDRF'
+        submitterId:
+          type: string
+        reason:
+          $ref: '#/components/schemas/MedicationReasonUpdatedDRF'
+        submitterUserType:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        additionalFields:
+          $ref: '#/components/schemas/AdditionalFieldsDRF'
+        mealSchedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationMealScheduleDRF'
+        connectedModules:
+          type: array
+          items:
+            type: string
+        groupId:
+          type: string
+    UITabDRF:
       type: object
       properties:
         order:
           type: integer
-        displayName:
+        id:
           type: string
+        screenId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        status:
+          type: string
+        background:
+          $ref: '#/components/schemas/BackgroundDRF'
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIWidgetDRF'
+        extras:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - background
+      - icon
+      - name
+      - order
+      - status
+    LocationDRF:
+      type: object
+      properties:
+        address:
+          type: string
+        country:
+          type: string
+        countryCode:
+          type: string
+        city:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        postalCode:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+    UnseenFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    DeviceIntegrationDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    MessagingDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        twoWayMessaging:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: string
+        allowCustomMessage:
+          type: boolean
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-      required:
-      - displayName
-      - order
     ProfileExtraIdsDRF:
       type: object
       properties:
@@ -875,392 +1017,6 @@ components:
           type: array
           items:
             type: string
-    AuthorisedRepDRF:
-      type: object
-      properties:
-        iconObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        addressTitle:
-          type: string
-        address:
-          type: string
-        showBuildNumber:
-          type: boolean
-      required:
-      - address
-      - addressTitle
-      - iconObject
-      - showBuildNumber
-    SdkConfigDRF:
-      type: object
-      properties:
-        sdkApiUrl:
-          type: string
-        accessKey:
-          type: string
-        secretKey:
-          type: string
-        teamId:
-          type: string
-        partnerId:
-          type: string
-    InhalerInfoDRF:
-      type: object
-      properties:
-        frequency:
-          type: string
-      required:
-      - frequency
-    MedicationLogDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        eventId:
-          type: string
-        medicationId:
-          type: string
-        logsCount:
-          type: integer
-        status:
-          type: string
-        medicatedDateTimeSlots:
-          type: array
-          items:
-            type: string
-            format: date-time
-        startDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        device:
-          $ref: '#/components/schemas/DeviceDetailsDRF'
-        source:
-          type: string
-        medicationName:
-          type: string
-        dosage:
-          type: number
-          format: double
-        unit:
-          type: string
-        customUnit:
-          type: string
-        meal:
-          type: string
-        userNote:
-          type: string
-        relatedPrimitiveData:
-          $ref: '#/components/schemas/ShortPrimitiveDataDRF'
-      required:
-      - deploymentId
-      - eventId
-      - medicationId
-      - status
-      - userId
-    MedicationHistoryResponseV2DRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicationHistoryV2DTODRF'
-        total:
-          type: integer
-      required:
-      - items
-      - total
-    DeploymentLevelConfigurationDRF:
-      type: object
-      properties:
-        targetConsentedMonthly:
-          type: integer
-        targetConsented:
-          type: integer
-        day0Anchor:
-          type: string
-        targetCompleted:
-          type: integer
-    LabelDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        authorId:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        updatedBy:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        isStatic:
-          type: boolean
-        operations:
-          type: array
-          items:
-            type: string
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    FileFieldDRF:
-      type: object
-      properties:
-        fileId:
-          type: string
-      required:
-      - fileId
-    UIWidgetDRF:
-      type: object
-      properties:
-        order:
-          type: integer
-        enabled:
-          type: boolean
-        config:
-          type: object
-          additionalProperties: {}
-        type:
-          type: string
-        id:
-          type: string
-      required:
-      - config
-      - order
-      - type
-    GenderOptionTypeDRF:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - displayName
-      - value
-    CodingDRF:
-      type: object
-      properties:
-        code:
-          type: string
-        display:
-          type: string
-        system:
-          type: string
-      required:
-      - code
-      - display
-      - system
-    MedicationMealScheduleDRF:
-      type: object
-      properties:
-        meal:
-          type: string
-        dosage:
-          type: number
-          format: double
-        unit:
-          type: string
-        customUnit:
-          type: string
-        timeOfReading:
-          type: string
-      required:
-      - dosage
-      - meal
-      - timeOfReading
-    SeverityFilterDRF:
-      type: object
-      properties:
-        severity:
-          type: integer
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - severity
-      - tags
-    DeploymentDTODRF:
-      type: object
-      properties:
-        termAndConditionUrl:
-          type: string
-        privacyPolicyUrl:
-          type: string
-        eulaUrl:
-          type: string
-        privacyPolicyObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        termAndConditionObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        eulaObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        authorisedRep:
-          $ref: '#/components/schemas/AuthorisedRepDRF'
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoleDTODRF'
-        sso:
-          $ref: '#/components/schemas/SsoDRF'
-        id:
-          type: string
-        draftId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-        color:
-          type: string
-        icon:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        iconFileId:
-          type: string
-        templateThumbnailFileId:
-          type: string
-        descriptionUrl:
-          type: string
-        isSaMD:
-          type: boolean
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        moduleConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModuleConfigDRF'
-        onboardingConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
-        learn:
-          $ref: '#/components/schemas/LearnDRF'
-        consent:
-          $ref: '#/components/schemas/ConsentDRF'
-        econsent:
-          $ref: '#/components/schemas/EConsentDRF'
-        keyActions:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyActionConfigDRF'
-        keyActionsEnabled:
-          type: boolean
-        profile:
-          $ref: '#/components/schemas/ProfileDRF'
-        features:
-          $ref: '#/components/schemas/FeaturesDRF'
-        extraCustomFields:
-          type: object
-          additionalProperties: {}
-        surgeryDetails:
-          $ref: '#/components/schemas/SurgeryDetailsDRF'
-        contactUsURL:
-          type: string
-        version:
-          type: integer
-        integration:
-          $ref: '#/components/schemas/IntegrationConfigDRF'
-        language:
-          type: string
-        duration:
-          type: string
-        security:
-          $ref: '#/components/schemas/SecurityDRF'
-        mfaRequired:
-          type: boolean
-        code:
-          type: string
-        enrollmentCounter:
-          type: integer
-        staticEventConfig:
-          $ref: '#/components/schemas/StaticEventConfigDRF'
-        stats:
-          $ref: '#/components/schemas/DeploymentStatsDRF'
-        localizations:
-          type: object
-          additionalProperties: {}
-        country:
-          type: string
-        dashboardConfiguration:
-          $ref: '#/components/schemas/DeploymentLevelConfigurationDRF'
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/LabelDRF'
-        tags:
-          type: array
-          items:
-            type: string
-        location:
-          $ref: '#/components/schemas/LocationDRF'
-        integrationDevices:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationDeviceDRF'
-        componentConfigs:
-          type: object
-          additionalProperties: {}
-        defaultUnits:
-          type: object
-          additionalProperties: {}
-        builder:
-          $ref: '#/components/schemas/BuilderDRF'
-        programId:
-          type: integer
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
     UserDTODRF:
       type: object
       properties:
@@ -1460,73 +1216,208 @@ components:
           $ref: '#/components/schemas/UnreadMessagesCountDRF'
         userId:
           type: string
-    AdditionalContactDetailsItemDRF:
+    ResearchTeamActionsDRF:
       type: object
       properties:
-        altContactNumber:
-          type: boolean
-        regularContactName:
-          type: boolean
-        regularContactNumber:
-          type: boolean
-        emergencyContactName:
-          type: boolean
-        emergencyContactNumber:
-          type: boolean
-        mandatoryFields:
+        forms:
           type: array
           items:
             type: string
-    ShortPrimitiveDataDRF:
+    IntegrationConfigDRF:
       type: object
       properties:
-        primitiveId:
+        pamConfig:
+          $ref: '#/components/schemas/PAMIntegrationConfigDRF'
+    StaticEventConfigDRF:
+      type: object
+      properties:
+        title:
           type: string
-        primitiveName:
+        description:
+          type: string
+        preview:
+          type: string
+      required:
+      - description
+      - title
+    SsoInfoDRF:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        discoveryUrl:
+          type: string
+        redirectUri:
+          type: string
+        xmlsecBinary:
+          type: string
+        entityid:
+          type: string
+        service:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+        keyFile:
+          type: string
+        certFile:
+          type: string
+        encryptionKeypairs:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        organization:
+          type: object
+          additionalProperties: {}
+        contactPerson:
+          type: object
+          additionalProperties: {}
+        certificateCrt:
+          type: string
+        samlMetadataXml:
+          type: string
+        privateKey:
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      - discoveryUrl
+      - redirectUri
+    SummaryReportDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    ThresholdRangeDRF:
+      type: object
+      properties:
+        minValue:
+          type: number
+          format: double
+        maxValue:
+          type: number
+          format: double
+        exactValueStr:
+          type: string
+    PassedDueDateEventsAmountDRF:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          format: date-time
+        amount:
+          type: integer
+    TaskComplianceDRF:
+      type: object
+      properties:
+        current:
+          type: integer
+        total:
+          type: integer
+        due:
+          type: integer
+        updateDateTime:
+          type: string
+          format: date-time
+        percentage:
+          type: integer
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    UnseenResultDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        deploymentId:
           type: string
         moduleId:
           type: string
         moduleConfigId:
           type: string
+        primitiveName:
+          type: string
+        extra:
+          type: object
+          additionalProperties: {}
+        flags:
+          $ref: '#/components/schemas/UnseenFlagsDRF'
+        source:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
       required:
-      - moduleConfigId
+      - deploymentId
+      - flags
       - moduleId
-      - primitiveId
       - primitiveName
-    ModuleGoalCreatedByDRF:
+      - userId
+    FeedbackNotificationDataDRF:
       type: object
       properties:
-        creatorId:
+        title:
           type: string
-        creatorName:
+        body:
           type: string
-    AddressObjectDRF:
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    FeedbackTextsDRF:
       type: object
       properties:
-        fiatNumber:
+        groupedBy:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    BackgroundDRF:
+      type: object
+      properties:
+        value:
           type: string
-        buildingNumber:
+        type:
           type: string
-        buildingName:
-          type: string
-        street:
-          type: string
-        subStreet:
-          type: string
-        town:
-          type: string
-        state:
-          type: string
-        postcode:
-          type: string
-        country:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        line3:
-          type: string
+      required:
+      - type
+      - value
+    RegimenChangeDRF:
+      type: object
+      properties:
+        frequency:
+          $ref: '#/components/schemas/CaptureChangeDRF'
+      required:
+      - frequency
     ModuleGoalDTODRF:
       type: object
       properties:
@@ -1553,55 +1444,34 @@ components:
           type: boolean
         achieveNotificationSent:
           type: boolean
-    DeviceIntegrationDRF:
+    SurgeryDateRuleDRF:
       type: object
       properties:
-        enabled:
-          type: boolean
-    RegimenChangeDRF:
+        maxPastRange:
+          type: string
+        maxFutureRange:
+          type: string
+    SurgeryDetailItemDRF:
       type: object
       properties:
-        frequency:
-          $ref: '#/components/schemas/CaptureChangeDRF'
+        key:
+          type: string
+        value:
+          type: string
+        order:
+          type: integer
       required:
-      - frequency
-    AdditionalFieldsDRF:
+      - key
+      - value
+    UserSurgeryDetailsDRF:
       type: object
       properties:
-        inhaler:
-          $ref: '#/components/schemas/InhalerInfoDRF'
-    LearnArticleContentDRF:
-      type: object
-      properties:
-        id:
+        operationType:
           type: string
-        cmsArticleId:
+        implantType:
           type: string
-        cmsThumbnail:
+        roboticAssistance:
           type: string
-        type:
-          type: string
-        timeToRead:
-          type: string
-        textDetails:
-          type: string
-        videoUrl:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        url:
-          type: string
-        contentObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        read:
-          type: boolean
-        isValid:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - type
     SurgeryDetailDRF:
       type: object
       properties:
@@ -1618,36 +1488,78 @@ components:
       required:
       - displayString
       - placeHolder
-    CaptureChangeDRF:
+    SsoDRF:
       type: object
       properties:
-        old:
+        name:
           type: string
-        new:
+        org:
+          type: string
+        info:
+          $ref: '#/components/schemas/SsoInfoDRF'
+    EConsentSectionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+        reviewDetails:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        contentType:
+          type: string
+        thumbnailUrl:
+          type: string
+        thumbnailLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        videoUrl:
+          type: string
+        videoLocation:
+          $ref: '#/components/schemas/S3ObjectDRF'
+      required:
+      - contentType
+      - type
+    AdditionalFieldsDRF:
+      type: object
+      properties:
+        inhaler:
+          $ref: '#/components/schemas/InhalerInfoDRF'
+    RecentFlagsDRF:
+      type: object
+      properties:
+        red:
+          type: integer
+        amber:
+          type: integer
+        green:
+          type: integer
+        gray:
+          type: integer
+    CodingDRF:
+      type: object
+      properties:
+        code:
+          type: string
+        display:
+          type: string
+        system:
           type: string
       required:
-      - new
-      - old
-    VariabilityFilterDRF:
-      type: object
-      properties:
-        increased:
-          type: array
-          items:
-            type: string
-        decreased:
-          type: array
-          items:
-            type: string
-        noChange:
-          type: array
-          items:
-            type: string
-        unavailable:
-          type: array
-          items:
-            type: string
-    OffBoardingReasonsDRF:
+      - code
+      - display
+      - system
+    MoveUserReasonsDRF:
       type: object
       properties:
         reasons:
@@ -1656,61 +1568,6 @@ components:
             $ref: '#/components/schemas/ReasonDRF'
         otherReason:
           type: boolean
-    ClinicianOnlyFieldsDRF:
-      type: object
-      properties:
-        surgeryDateTime:
-          type: boolean
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    NotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    AdherenceDRF:
-      type: object
-      properties:
-        unit:
-          type: string
-        value:
-          type: integer
-        type:
-          type: string
-    FeedbackTextsDRF:
-      type: object
-      properties:
-        groupedBy:
-          type: array
-          items:
-            type: string
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeedbackNotificationDataDRF'
     PeriodProgressDRF:
       type: object
       properties:
@@ -1728,628 +1585,92 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PassedDueDateEventsAmountDRF'
-    EmailTemplateDRF:
+    DeploymentLevelConfigurationDRF:
       type: object
       properties:
-        name:
-          type: string
-        subject:
-          type: string
-        template:
-          type: string
-      required:
-      - name
-      - template
-    PAMIntegrationConfigDRF:
-      type: object
-      properties:
-        submitSurveyURI:
-          type: string
-        enrollUserURI:
-          type: string
-        clientExtID:
-          type: string
-        clientPassKeyEncrypted:
-          type: string
-        subgroupExtID:
-          type: string
-      required:
-      - clientExtID
-      - clientPassKeyEncrypted
-      - enrollUserURI
-      - subgroupExtID
-      - submitSurveyURI
-    FeedBacksGroupedByRagDRF:
-      type: object
-      properties:
-        rag:
-          type: array
-          items:
-            type: string
-        texts:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeedbackTextDRF'
-      required:
-      - rag
-      - texts
-    PassedDueDateEventsAmountDRF:
-      type: object
-      properties:
-        endDateTime:
-          type: string
-          format: date-time
-        amount:
+        targetConsentedMonthly:
           type: integer
-    ConsentSignatureDRF:
-      type: object
-      properties:
-        signatureTitle:
-          type: string
-        signatureDetails:
-          type: string
-        nameTitle:
-          type: string
-        nameDetails:
-          type: string
-        hasMiddleName:
-          type: boolean
-        showFirstLastName:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - nameDetails
-      - nameTitle
-      - signatureDetails
-      - signatureTitle
-    BuilderDRF:
-      type: object
-      properties:
-        tabs:
-          type: array
-          items:
-            $ref: '#/components/schemas/UITabDRF'
-    StatDRF:
-      type: object
-      properties:
-        value:
+        targetConsented:
           type: integer
-        unit:
+        day0Anchor:
           type: string
-      required:
-      - value
-    StaticEventConfigDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        preview:
-          type: string
-      required:
-      - description
-      - title
-    LearnArticleDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        thumbnailUrl:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        order:
+        targetCompleted:
           type: integer
-        content:
-          $ref: '#/components/schemas/LearnArticleContentDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - content
-      - type
-    FeedbackTextDRF:
+    ShortPrimitiveDataDRF:
       type: object
       properties:
-        id:
+        primitiveId:
           type: string
-        text:
+        primitiveName:
           type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    ConsentSectionOptionsDRF:
-      type: object
-      properties:
-        type:
-          type: integer
-        text:
-          type: string
-        order:
-          type: integer
-        abortOnChoose:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - text
-      - type
-    ModuleConfigDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
         moduleId:
           type: string
-        moduleName:
+        moduleConfigId:
           type: string
-        shortModuleName:
-          type: string
-        status:
-          type: string
-        order:
-          type: integer
-        configBody:
-          type: object
-          additionalProperties: {}
-        about:
-          type: string
-        footnote:
-          $ref: '#/components/schemas/FootnoteDRF'
-        schedule:
-          $ref: '#/components/schemas/ModuleScheduleDRF'
-        ragThresholds:
-          type: array
-          items:
-            $ref: '#/components/schemas/RagThresholdDRF'
-        learnArticleIds:
-          type: array
-          items:
-            type: string
-        learnArticles:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        version:
-          type: integer
-        staticEvent:
-          $ref: '#/components/schemas/StaticEventDRF'
-        notificationData:
-          $ref: '#/components/schemas/NotificationDataDRF'
-        localizationPrefix:
-          type: string
-        goal:
-          $ref: '#/components/schemas/ModuleGoalDTODRF'
-        goalEnabled:
-          type: boolean
-        feedback:
-          $ref: '#/components/schemas/FeedbackConfigDRF'
-        feedbackTexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeedbackTextsDRF'
-        readOnly:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
       required:
+      - moduleConfigId
       - moduleId
-    CreateMedicationLogRequestObjectDRF:
+      - primitiveId
+      - primitiveName
+    AuthorisedRepDRF:
       type: object
       properties:
-        id:
+        iconObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        addressTitle:
           type: string
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        eventId:
-          type: string
-        medicationId:
-          type: string
-        logsCount:
-          type: integer
-        status:
-          type: string
-        medicatedDateTimeSlots:
-          type: array
-          items:
-            type: string
-            format: date-time
-        startDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        device:
-          $ref: '#/components/schemas/DeviceDetailsDRF'
-        source:
-          type: string
-        medicationName:
-          type: string
-        dosage:
-          type: number
-          format: double
-        unit:
-          type: string
-        customUnit:
-          type: string
-        meal:
-          type: string
-        userNote:
-          type: string
-        relatedPrimitiveData:
-          $ref: '#/components/schemas/ShortPrimitiveDataDRF'
-        deployment:
-          $ref: '#/components/schemas/DeploymentDTODRF'
-        user:
-          $ref: '#/components/schemas/UserDTODRF'
-    MedicationReasonUpdatedResponseDRF:
-      type: object
-      properties:
-        reason:
-          type: string
-        clinicianId:
-          type: string
-        clinicianName:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - reason
-    LearnSectionDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        order:
-          type: integer
-        articles:
-          type: array
-          items:
-            $ref: '#/components/schemas/LearnArticleDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    MoveUserReasonsDRF:
-      type: object
-      properties:
-        reasons:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReasonDRF'
-        otherReason:
-          type: boolean
-    ThresholdRangeDRF:
-      type: object
-      properties:
-        minValue:
-          type: number
-          format: double
-        maxValue:
-          type: number
-          format: double
-        exactValueStr:
-          type: string
-    SurgeryDetailsDRF:
-      type: object
-      properties:
-        operationType:
-          $ref: '#/components/schemas/SurgeryDetailDRF'
-        implantType:
-          $ref: '#/components/schemas/SurgeryDetailDRF'
-        roboticAssistance:
-          $ref: '#/components/schemas/SurgeryDetailDRF'
-    MedicationScheduleEventDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        extraFields:
-          type: object
-          additionalProperties: {}
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        medication:
-          $ref: '#/components/schemas/MedicationV2DTODRF'
-        localTime:
-          type: string
-        meal:
-          type: string
-        source:
-          type: string
-        device:
-          $ref: '#/components/schemas/DeviceDetailsDRF'
-        medicatedDateTimeSlots:
-          type: array
-          items:
-            type: string
-            format: date-time
-        status:
-          type: string
-        logsCount:
-          type: integer
-        medicationIds:
-          type: array
-          items:
-            type: string
-      required:
-      - medication
-      - model
-    MedicationNotesResponseDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicationReasonUpdatedResponseDRF'
-    UserSurgeryDetailsDRF:
-      type: object
-      properties:
-        operationType:
-          type: string
-        implantType:
-          type: string
-        roboticAssistance:
-          type: string
-    ProfileDRF:
-      type: object
-      properties:
-        fields:
-          $ref: '#/components/schemas/ProfileFieldsDRF'
-        clinicianOnlyFields:
-          $ref: '#/components/schemas/ClinicianOnlyFieldsDRF'
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    RetrieveUnseenMedicationResultsResponseDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnseenResultDTODRF'
-      required:
-      - items
-    IndicationDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/CodingDRF'
-    FeedbackConfigDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        upperBound:
-          type: integer
-        lowerBound:
-          type: integer
-        query:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        cmsContentIds:
-          type: array
-          items:
-            type: string
-        severityFilter:
-          type: array
-          items:
-            $ref: '#/components/schemas/SeverityFilterDRF'
-        variabilityFilter:
-          $ref: '#/components/schemas/VariabilityFilterDRF'
-        feedbacks:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeedBacksGroupedByRagDRF'
-      required:
-      - enabled
-    MessagingDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        twoWayMessaging:
-          type: boolean
-        messages:
-          type: array
-          items:
-            type: string
-        allowCustomMessage:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    IntegrationConfigDRF:
-      type: object
-      properties:
-        pamConfig:
-          $ref: '#/components/schemas/PAMIntegrationConfigDRF'
-    MedicationHistoryV2DTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        medicationId:
-          type: string
-        medicationName:
-          type: string
-        changeType:
-          type: string
-        userType:
-          type: string
-        seen:
-          type: boolean
-        reason:
-          $ref: '#/components/schemas/MedicationReasonUpdatedDRF'
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        regimen:
-          $ref: '#/components/schemas/RegimenChangeDRF'
-      required:
-      - changeType
-      - deploymentId
-      - medicationId
-      - medicationName
-      - userId
-      - userType
-    LocationDRF:
-      type: object
-      properties:
         address:
           type: string
-        country:
-          type: string
-        countryCode:
-          type: string
-        city:
-          type: string
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        postalCode:
-          type: string
-        state:
-          type: string
-        street:
-          type: string
-    ResearchTeamActionsDRF:
+        showBuildNumber:
+          type: boolean
+      required:
+      - address
+      - addressTitle
+      - iconObject
+      - showBuildNumber
+    StudyProgressDRF:
       type: object
       properties:
-        forms:
+        currentPeriod:
+          type: integer
+        totalPeriods:
+          type: integer
+        totalCompliance:
+          type: number
+          format: double
+        periodProgress:
           type: array
           items:
-            type: string
-    MedicationHistoryItemDRF:
+            $ref: '#/components/schemas/PeriodProgressDRF'
+        totalOpenQueriesAmount:
+          type: integer
+    LearnDRF:
       type: object
       properties:
-        regimen:
-          $ref: '#/components/schemas/RegimenChangeDRF'
+        id:
+          type: string
         updateDateTime:
           type: string
           format: date-time
-      required:
-      - regimen
-      - updateDateTime
-    SsoDRF:
+        createDateTime:
+          type: string
+          format: date-time
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearnSectionDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    ListIdResponseObjectDRF:
       type: object
       properties:
-        name:
-          type: string
-        org:
-          type: string
-        info:
-          $ref: '#/components/schemas/SsoInfoDRF'
-    RecentFlagsDRF:
-      type: object
-      properties:
-        red:
-          type: integer
-        amber:
-          type: integer
-        green:
-          type: integer
-        gray:
-          type: integer
+        ids:
+          type: array
+          items:
+            type: string
     CreateMedicationRequestObjectV2DRF:
       type: object
       properties:
@@ -2423,177 +1744,45 @@ components:
       required:
       - moduleConfigId
       - name
-    SurgeryDateRuleDRF:
+    ManagerNotificationsDRF:
       type: object
       properties:
-        maxPastRange:
-          type: string
-        maxFutureRange:
-          type: string
-    StaticEventDRF:
-      type: object
-      properties:
-        enabled:
+        demographicsChange:
           type: boolean
-        isoDuration:
+    MedicationReasonUpdatedDRF:
+      type: object
+      properties:
+        reason:
           type: string
-        title:
+        clinicianId:
           type: string
-        description:
+        clinicianName:
           type: string
       required:
-      - description
-      - enabled
-      - title
-    KeyActionConfigDRF:
+      - reason
+    IntegrationDeviceDRF:
       type: object
       properties:
-        id:
+        model:
           type: string
-        title:
+        modelName:
           type: string
-        description:
+        displayName:
           type: string
-        deltaFromTriggerTime:
-          type: string
-        durationFromTrigger:
-          type: string
-        durationIso:
-          type: string
-        instanceExpiresIn:
-          type: string
-        type:
-          type: string
-        trigger:
-          type: string
-        notifyEvery:
-          type: string
-        numberOfNotifications:
-          type: integer
-        learnArticleId:
-          type: string
-        learnArticle:
+        manufacturer:
+          $ref: '#/components/schemas/DeviceManufacturerDRF'
+        moduleIds:
+          type: array
+          items:
+            type: string
+        backgroundSync:
+          type: boolean
+        supportedMedications:
           type: object
           additionalProperties: {}
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
       required:
-      - deltaFromTriggerTime
-      - durationIso
-      - trigger
-      - type
-    RoleDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
-        userType:
-          type: string
-        isThirdParty:
-          type: boolean
-    MedicationLogsResponseDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicationLogDTODRF'
-      required:
-      - items
-    PersonalDocumentDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        fileType:
-          type: string
-        fileObject:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-      required:
-      - fileObject
-      - fileType
-      - name
-    SummaryReportDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-    UnseenResultDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        primitiveName:
-          type: string
-        extra:
-          type: object
-          additionalProperties: {}
-        flags:
-          $ref: '#/components/schemas/UnseenFlagsDRF'
-        source:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - deploymentId
-      - flags
-      - moduleId
-      - primitiveName
-      - userId
-    ConsentReviewDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        details:
-          type: string
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - details
-      - title
+      - manufacturer
+      - model
     AdditionalContactDetailsDRF:
       type: object
       properties:
@@ -2607,34 +1796,344 @@ components:
           type: string
         emergencyContactNumber:
           type: string
-    StudyProgressDRF:
+    ConsentDRF:
       type: object
       properties:
-        currentPeriod:
+        id:
+          type: string
+        enabled:
+          type: string
+        review:
+          $ref: '#/components/schemas/ConsentReviewDRF'
+        revision:
           type: integer
-        totalPeriods:
-          type: integer
-        totalCompliance:
-          type: number
-          format: double
-        periodProgress:
+        additionalConsentQuestions:
           type: array
           items:
-            $ref: '#/components/schemas/PeriodProgressDRF'
-        totalOpenQueriesAmount:
-          type: integer
-    FootnoteDRF:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        text:
+            $ref: '#/components/schemas/AdditionalConsentQuestionDRF'
+        signature:
+          $ref: '#/components/schemas/ConsentSignatureDRF'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionDRF'
+        instituteName:
           type: string
+        instituteFullName:
+          type: string
+        instituteTextDetails:
+          type: string
+        admissionText:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
+      required:
+      - enabled
+    AdditionalContactDetailsItemDRF:
+      type: object
+      properties:
+        altContactNumber:
+          type: boolean
+        regularContactName:
+          type: boolean
+        regularContactNumber:
+          type: boolean
+        emergencyContactName:
+          type: boolean
+        emergencyContactNumber:
+          type: boolean
+        mandatoryFields:
+          type: array
+          items:
+            type: string
+    ConsentSectionOptionsDRF:
+      type: object
+      properties:
+        type:
+          type: integer
+        text:
+          type: string
+        order:
+          type: integer
+        abortOnChoose:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - text
+      - type
+    InhalerInfoDRF:
+      type: object
+      properties:
+        frequency:
+          type: string
+      required:
+      - frequency
+    MedicationLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        eventId:
+          type: string
+        medicationId:
+          type: string
+        logsCount:
+          type: integer
+        status:
+          type: string
+        medicatedDateTimeSlots:
+          type: array
+          items:
+            type: string
+            format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        medicationName:
+          type: string
+        dosage:
+          type: number
+          format: double
+        unit:
+          type: string
+        customUnit:
+          type: string
+        meal:
+          type: string
+        userNote:
+          type: string
+        relatedPrimitiveData:
+          $ref: '#/components/schemas/ShortPrimitiveDataDRF'
+      required:
+      - deploymentId
+      - eventId
+      - medicationId
+      - status
+      - userId
+    LabelDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        authorId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        isStatic:
+          type: boolean
+        operations:
+          type: array
+          items:
+            type: string
+    RoleAssignmentDTODRF:
+      type: object
+      properties:
+        roleId:
+          type: string
+        resource:
+          type: string
+        userType:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - resource
+      - roleId
+    UnreadMessagesCountDRF:
+      type: object
+      properties:
+        manager:
+          type: integer
+        user:
+          type: integer
+    VariabilityFilterDRF:
+      type: object
+      properties:
+        increased:
+          type: array
+          items:
+            type: string
+        decreased:
+          type: array
+          items:
+            type: string
+        noChange:
+          type: array
+          items:
+            type: string
+        unavailable:
+          type: array
+          items:
+            type: string
+    LearnArticleDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        thumbnailUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        order:
+          type: integer
+        content:
+          $ref: '#/components/schemas/LearnArticleContentDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - content
+      - type
+    SurgeryDetailsDRF:
+      type: object
+      properties:
+        operationType:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+        implantType:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+        roboticAssistance:
+          $ref: '#/components/schemas/SurgeryDetailDRF'
+    OffBoardingReasonsDRF:
+      type: object
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReasonDRF'
+        otherReason:
+          type: boolean
+    MedicationReasonUpdatedResponseDRF:
+      type: object
+      properties:
+        reason:
+          type: string
+        clinicianId:
+          type: string
+        clinicianName:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - reason
+    MedicationMealScheduleDRF:
+      type: object
+      properties:
+        meal:
+          type: string
+        dosage:
+          type: number
+          format: double
+        unit:
+          type: string
+        customUnit:
+          type: string
+        timeOfReading:
+          type: string
+      required:
+      - dosage
+      - meal
+      - timeOfReading
+    EmailTemplateDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        subject:
+          type: string
+        template:
+          type: string
+      required:
+      - name
+      - template
+    AdherenceDRF:
+      type: object
+      properties:
+        unit:
+          type: string
+        value:
+          type: integer
+        type:
+          type: string
+    MedicationLogsResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationLogDTODRF'
+      required:
+      - items
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    BoardingStatusDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        submitterId:
+          type: string
+        reasonOffBoarded:
+          type: string
+        detailsOffBoarded:
+          type: string
+      required:
+      - status
     ModuleScheduleDRF:
       type: object
       properties:
@@ -2656,6 +2155,426 @@ components:
           type: array
           items:
             type: string
+    FeedBacksGroupedByRagDRF:
+      type: object
+      properties:
+        rag:
+          type: array
+          items:
+            type: string
+        texts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackTextDRF'
+      required:
+      - rag
+      - texts
+    UIWidgetDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        enabled:
+          type: boolean
+        config:
+          type: object
+          additionalProperties: {}
+        type:
+          type: string
+        id:
+          type: string
+      required:
+      - config
+      - order
+      - type
+    DeploymentInfoDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        draftId:
+          type: string
+        status:
+          type: string
+      required:
+      - id
+      - name
+    ProfileDRF:
+      type: object
+      properties:
+        fields:
+          $ref: '#/components/schemas/ProfileFieldsDRF'
+        clinicianOnlyFields:
+          $ref: '#/components/schemas/ClinicianOnlyFieldsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    ClinicianOnlyFieldsDRF:
+      type: object
+      properties:
+        surgeryDateTime:
+          type: boolean
+    GenderOptionTypeDRF:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - value
+    MedicationV2ScheduleDRF:
+      type: object
+      properties:
+        isoDuration:
+          type: string
+        timesOfReadings:
+          type: array
+          items:
+            type: string
+        timeRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeDurationDRF'
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        asNeeded:
+          type: boolean
+    DeviceManufacturerDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        sdkKey:
+          type: string
+        sdkConfig:
+          $ref: '#/components/schemas/SdkConfigDRF'
+      required:
+      - name
+    FeedbackConfigDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        upperBound:
+          type: integer
+        lowerBound:
+          type: integer
+        query:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        cmsContentIds:
+          type: array
+          items:
+            type: string
+        severityFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/SeverityFilterDRF'
+        variabilityFilter:
+          $ref: '#/components/schemas/VariabilityFilterDRF'
+        feedbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedBacksGroupedByRagDRF'
+      required:
+      - enabled
+    ConsentSignatureDRF:
+      type: object
+      properties:
+        signatureTitle:
+          type: string
+        signatureDetails:
+          type: string
+        nameTitle:
+          type: string
+        nameDetails:
+          type: string
+        hasMiddleName:
+          type: boolean
+        showFirstLastName:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - nameDetails
+      - nameTitle
+      - signatureDetails
+      - signatureTitle
+    ConsentSectionDRF:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+        reviewDetails:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - type
+    ConsentReviewDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        details:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - details
+      - title
+    ReasonDRF:
+      type: object
+      properties:
+        order:
+          type: integer
+        displayName:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - order
+    ModuleGoalCreatedByDRF:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        creatorName:
+          type: string
+    AddressObjectDRF:
+      type: object
+      properties:
+        fiatNumber:
+          type: string
+        buildingNumber:
+          type: string
+        buildingName:
+          type: string
+        street:
+          type: string
+        subStreet:
+          type: string
+        town:
+          type: string
+        state:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+    EthnicityOptionDRF:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - displayName
+      - value
+    StatDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        unit:
+          type: string
+      required:
+      - value
+    PatientPersonalizationDRF:
+      type: object
+      properties:
+        rag:
+          type: boolean
+        goal:
+          type: boolean
+    OnboardingModuleConfigDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        preloadNeeded:
+          type: boolean
+        status:
+          type: string
+        configBody:
+          type: object
+          additionalProperties: {}
+        order:
+          type: integer
+        version:
+          type: integer
+        versionString:
+          type: string
+        userTypes:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        reason:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        versionInt:
+          type: object
+          additionalProperties: {}
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - onboardingId
+      - order
+    SeverityFilterDRF:
+      type: object
+      properties:
+        severity:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - severity
+      - tags
+    SdkConfigDRF:
+      type: object
+      properties:
+        sdkApiUrl:
+          type: string
+        accessKey:
+          type: string
+        secretKey:
+          type: string
+        teamId:
+          type: string
+        partnerId:
+          type: string
+    MedicationNotesResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationReasonUpdatedResponseDRF'
+    CreateMedicationLogRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        eventId:
+          type: string
+        medicationId:
+          type: string
+        logsCount:
+          type: integer
+        status:
+          type: string
+        medicatedDateTimeSlots:
+          type: array
+          items:
+            type: string
+            format: date-time
+        startDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        source:
+          type: string
+        medicationName:
+          type: string
+        dosage:
+          type: number
+          format: double
+        unit:
+          type: string
+        customUnit:
+          type: string
+        meal:
+          type: string
+        userNote:
+          type: string
+        relatedPrimitiveData:
+          $ref: '#/components/schemas/ShortPrimitiveDataDRF'
+        deployment:
+          $ref: '#/components/schemas/DeploymentDTODRF'
+        user:
+          $ref: '#/components/schemas/UserDTODRF'
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     ProfileFieldsDRF:
       type: object
       properties:
@@ -2738,271 +2657,267 @@ components:
           items:
             type: string
           title: ' excluded from ordering fields'
-    ConsentSectionDRF:
-      type: object
-      properties:
-        type:
-          type: string
-        title:
-          type: string
-        details:
-          type: string
-        reviewDetails:
-          type: string
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-      required:
-      - type
-    MedicationCalendarResponseDRF:
+    RetrieveUnseenMedicationResultsResponseDRF:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/MedicationScheduleEventDRF'
-        medications:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicationDetailsDRF'
-    ResultIdResponseObjectDRF:
+            $ref: '#/components/schemas/UnseenResultDTODRF'
+      required:
+      - items
+    LearnSectionDRF:
       type: object
       properties:
         id:
           type: string
-    EthnicityOptionDRF:
-      type: object
-      properties:
-        displayName:
+        title:
           type: string
-        value:
+        order:
+          type: integer
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearnArticleDRF'
+        updateDateTime:
           type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-      required:
-      - displayName
-      - value
-    MedicationV2DTODRF:
+    DeploymentDTODRF:
       type: object
       properties:
+        termAndConditionUrl:
+          type: string
+        privacyPolicyUrl:
+          type: string
+        eulaUrl:
+          type: string
+        privacyPolicyObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        termAndConditionObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        eulaObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        authorisedRep:
+          $ref: '#/components/schemas/AuthorisedRepDRF'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDTODRF'
+        sso:
+          $ref: '#/components/schemas/SsoDRF'
         id:
           type: string
-        enabled:
-          type: boolean
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
+        draftId:
           type: string
         name:
           type: string
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/CodingDRF'
-        dosage:
-          type: number
-          format: double
-        unit:
+        description:
           type: string
-        customUnit:
-          type: string
-        indication:
-          $ref: '#/components/schemas/IndicationDRF'
-        isNotificationEnabled:
-          type: boolean
-        maxDosage:
-          type: number
-          format: double
-        schedule:
-          $ref: '#/components/schemas/MedicationV2ScheduleDRF'
-        adherence:
-          $ref: '#/components/schemas/AdherenceDRF'
-        adherences:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdherenceDRF'
-        submitterId:
-          type: string
-        reason:
-          $ref: '#/components/schemas/MedicationReasonUpdatedDRF'
-        submitterUserType:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-        additionalFields:
-          $ref: '#/components/schemas/AdditionalFieldsDRF'
-        mealSchedule:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicationMealScheduleDRF'
-        connectedModules:
-          type: array
-          items:
-            type: string
-        groupId:
-          type: string
-    OnboardingModuleConfigDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        onboardingId:
-          type: string
-        preloadNeeded:
-          type: boolean
         status:
           type: string
-        configBody:
-          type: object
-          additionalProperties: {}
-        order:
-          type: integer
-        version:
-          type: integer
-        versionString:
+        color:
           type: string
-        userTypes:
-          type: array
-          items:
-            type: string
-        organizationId:
+        icon:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        iconFileId:
           type: string
-        reason:
+        templateThumbnailFileId:
           type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        versionInt:
-          type: object
-          additionalProperties: {}
+        descriptionUrl:
+          type: string
+        isSaMD:
+          type: boolean
         updateDateTime:
           type: string
           format: date-time
         createDateTime:
           type: string
           format: date-time
-      required:
-      - onboardingId
-      - order
-    TaskComplianceDRF:
-      type: object
-      properties:
-        current:
-          type: integer
-        total:
-          type: integer
-        due:
-          type: integer
-        updateDateTime:
+        moduleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleConfigDRF'
+        onboardingConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnboardingModuleConfigDTODRF'
+        learn:
+          $ref: '#/components/schemas/LearnDRF'
+        consent:
+          $ref: '#/components/schemas/ConsentDRF'
+        econsent:
+          $ref: '#/components/schemas/EConsentDRF'
+        keyActions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyActionConfigDRF'
+        keyActionsEnabled:
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/ProfileDRF'
+        features:
+          $ref: '#/components/schemas/FeaturesDRF'
+        extraCustomFields:
+          type: object
+          additionalProperties: {}
+        surgeryDetails:
+          $ref: '#/components/schemas/SurgeryDetailsDRF'
+        contactUsURL:
           type: string
-          format: date-time
-        percentage:
+        version:
           type: integer
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
+        integration:
+          $ref: '#/components/schemas/IntegrationConfigDRF'
+        language:
+          type: string
+        duration:
+          type: string
+        security:
+          $ref: '#/components/schemas/SecurityDRF'
+        mfaRequired:
+          type: boolean
+        code:
+          type: string
+        enrollmentCounter:
+          type: integer
+        staticEventConfig:
+          $ref: '#/components/schemas/StaticEventConfigDRF'
+        stats:
+          $ref: '#/components/schemas/DeploymentStatsDRF'
+        localizations:
+          type: object
+          additionalProperties: {}
+        country:
+          type: string
+        dashboardConfiguration:
+          $ref: '#/components/schemas/DeploymentLevelConfigurationDRF'
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelDRF'
+        tags:
           type: array
           items:
             type: string
-    EmailConfigDRF:
+        location:
+          $ref: '#/components/schemas/LocationDRF'
+        integrationDevices:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDeviceDRF'
+        componentConfigs:
+          type: object
+          additionalProperties: {}
+        defaultUnits:
+          type: object
+          additionalProperties: {}
+        builder:
+          $ref: '#/components/schemas/BuilderDRF'
+        programId:
+          type: integer
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+    StaticEventDRF:
       type: object
       properties:
         enabled:
           type: boolean
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailTemplateDRF'
-    PatientPersonalizationDRF:
-      type: object
-      properties:
-        rag:
-          type: boolean
-        goal:
-          type: boolean
-    SsoInfoDRF:
-      type: object
-      properties:
-        clientId:
+        isoDuration:
           type: string
-        clientSecret:
+        title:
           type: string
-        discoveryUrl:
-          type: string
-        redirectUri:
-          type: string
-        xmlsecBinary:
-          type: string
-        entityid:
-          type: string
-        service:
-          type: object
-          additionalProperties: {}
-        metadata:
-          type: object
-          additionalProperties: {}
-        keyFile:
-          type: string
-        certFile:
-          type: string
-        encryptionKeypairs:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        organization:
-          type: object
-          additionalProperties: {}
-        contactPerson:
-          type: object
-          additionalProperties: {}
-        certificateCrt:
-          type: string
-        samlMetadataXml:
-          type: string
-        privateKey:
+        description:
           type: string
       required:
-      - clientId
-      - clientSecret
-      - discoveryUrl
-      - redirectUri
-    SurgeryDetailItemDRF:
+      - description
+      - enabled
+      - title
+    MedicationScheduleEventDRF:
       type: object
       properties:
-        key:
+        id:
           type: string
-        value:
+        userId:
           type: string
-        order:
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        medication:
+          $ref: '#/components/schemas/MedicationV2DTODRF'
+        localTime:
+          type: string
+        meal:
+          type: string
+        source:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceDetailsDRF'
+        medicatedDateTimeSlots:
+          type: array
+          items:
+            type: string
+            format: date-time
+        status:
+          type: string
+        logsCount:
           type: integer
+        medicationIds:
+          type: array
+          items:
+            type: string
       required:
-      - key
-      - value
+      - medication
+      - model
+    UserStatsDRF:
+      type: object
+      properties:
+        taskCompliance:
+          $ref: '#/components/schemas/TaskComplianceDRF'
+        studyProgress:
+          $ref: '#/components/schemas/StudyProgressDRF'
     UserLabelDRF:
       type: object
       properties:
@@ -3013,39 +2928,194 @@ components:
         assignDateTime:
           type: string
           format: date-time
-    EConsentSectionDRF:
+    LearnArticleContentDRF:
       type: object
       properties:
+        id:
+          type: string
+        cmsArticleId:
+          type: string
+        cmsThumbnail:
+          type: string
         type:
           type: string
-        title:
+        timeToRead:
           type: string
-        details:
+        textDetails:
           type: string
-        reviewDetails:
+        videoUrl:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        url:
           type: string
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsentSectionOptionsDRF'
+        contentObject:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        read:
+          type: boolean
+        isValid:
+          type: boolean
         LocalizableFields:
           type: array
           items:
             type: string
           title: ' localizablefields'
-        contentType:
-          type: string
-        thumbnailUrl:
-          type: string
-        thumbnailLocation:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        videoUrl:
-          type: string
-        videoLocation:
-          $ref: '#/components/schemas/S3ObjectDRF'
       required:
-      - contentType
       - type
+    TimeDurationDRF:
+      type: object
+      properties:
+        startTime:
+          type: string
+        endTime:
+          type: string
+      required:
+      - endTime
+      - startTime
+    SecurityDRF:
+      type: object
+      properties:
+        mfaRequired:
+          type: boolean
+        appLockRequired:
+          type: boolean
+      required:
+      - appLockRequired
+      - mfaRequired
+    EmailConfigDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailTemplateDRF'
+    ModuleConfigDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+        moduleId:
+          type: string
+        moduleName:
+          type: string
+        shortModuleName:
+          type: string
+        status:
+          type: string
+        order:
+          type: integer
+        configBody:
+          type: object
+          additionalProperties: {}
+        about:
+          type: string
+        footnote:
+          $ref: '#/components/schemas/FootnoteDRF'
+        schedule:
+          $ref: '#/components/schemas/ModuleScheduleDRF'
+        ragThresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/RagThresholdDRF'
+        learnArticleIds:
+          type: array
+          items:
+            type: string
+        learnArticles:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        version:
+          type: integer
+        staticEvent:
+          $ref: '#/components/schemas/StaticEventDRF'
+        notificationData:
+          $ref: '#/components/schemas/NotificationDataDRF'
+        localizationPrefix:
+          type: string
+        goal:
+          $ref: '#/components/schemas/ModuleGoalDTODRF'
+        goalEnabled:
+          type: boolean
+        feedback:
+          $ref: '#/components/schemas/FeedbackConfigDRF'
+        feedbackTexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedbackTextsDRF'
+        readOnly:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+      required:
+      - moduleId
+    MedicationHistoryResponseV2DRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicationHistoryV2DTODRF'
+        total:
+          type: integer
+      required:
+      - items
+      - total
+    CaptureChangeDRF:
+      type: object
+      properties:
+        old:
+          type: string
+        new:
+          type: string
+      required:
+      - new
+      - old
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    MedicationHistoryItemDRF:
+      type: object
+      properties:
+        regimen:
+          $ref: '#/components/schemas/RegimenChangeDRF'
+        updateDateTime:
+          type: string
+          format: date-time
+      required:
+      - regimen
+      - updateDateTime
+    FootnoteDRF:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        text:
+          type: string
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
     DeploymentStatsDRF:
       type: object
       properties:
@@ -3062,91 +3132,21 @@ components:
         updateDateTime:
           type: string
           format: date-time
-    FeaturesDRF:
+    RoleDTODRF:
       type: object
       properties:
-        appMenu:
-          type: array
-          items:
-            type: string
-        appointment:
-          type: boolean
-        carePlanDailyAdherence:
-          type: boolean
-        offBoarding:
-          type: boolean
-        personalDocuments:
-          type: boolean
-        patientPersonalization:
-          $ref: '#/components/schemas/PatientPersonalizationDRF'
-        proxy:
-          type: boolean
-        surgeryDateRule:
-          $ref: '#/components/schemas/SurgeryDateRuleDRF'
-        labels:
-          type: boolean
-        portal:
-          type: object
-          additionalProperties: {}
-        offBoardingReasons:
-          $ref: '#/components/schemas/OffBoardingReasonsDRF'
-        moveUserReasons:
-          $ref: '#/components/schemas/MoveUserReasonsDRF'
-        messaging:
-          $ref: '#/components/schemas/MessagingDRF'
-        hideAppSupport:
-          type: boolean
-        summaryReport:
-          $ref: '#/components/schemas/SummaryReportDRF'
-        linkInvites:
-          type: boolean
-        classB:
-          type: boolean
-        deviceIntegration:
-          $ref: '#/components/schemas/DeviceIntegrationDRF'
-        customAppConfig:
-          type: object
-          additionalProperties: {}
-        improvedOnboarding:
-          type: boolean
-        timeline:
-          type: boolean
-        profilePicture:
-          type: boolean
-        unitsIsHidden:
-          type: boolean
-        dataDownloadIsHidden:
-          type: boolean
-        labelIsHidden:
-          type: boolean
-        ifuIsHidden:
-          type: boolean
-        videoAdapter:
+        id:
           type: string
-        mealBasedModules:
-          type: array
-          items:
-            type: string
-        email:
-          $ref: '#/components/schemas/EmailConfigDRF'
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-    DeviceManufacturerDRF:
-      type: object
-      properties:
         name:
           type: string
-        displayName:
+        permissions:
+          type: array
+          items:
+            type: string
+        userType:
           type: string
-        sdkKey:
-          type: string
-        sdkConfig:
-          $ref: '#/components/schemas/SdkConfigDRF'
-      required:
-      - name
+        isThirdParty:
+          type: boolean
   securitySchemes:
     Hawk_Auth:
       type: apiKey

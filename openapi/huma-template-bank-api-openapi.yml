@@ -133,22 +133,17 @@ paths:
           description: ''
 components:
   schemas:
-    TemplateIdRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        templateId:
-          type: string
-      required:
-      - templateId
-      - userId
-    SharedTemplateFileDRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
-        deploymentName:
+    CreateTemplateRequestObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+        thumbnailFileId:
           type: string
         title:
           type: string
@@ -156,39 +151,13 @@ components:
           type: string
         descriptionUrl:
           type: string
-        templateFile:
-          type: string
         sortingIndex:
           type: integer
-        meta:
-          type: object
-          additionalProperties: {}
-        thumbnail:
-          $ref: '#/components/schemas/S3ObjectDRF'
         test:
           type: boolean
       required:
-      - deploymentName
-      - id
-      - meta
+      - fileId
       - sortingIndex
-      - templateFile
-      - thumbnail
-      - title
-    TemplateDeploymentOverrideObjectDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        isSaMD:
-          type: boolean
-    IndexFileContentResponseDRF:
-      type: object
-      properties:
-        deploymentTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SharedTemplateFileDRF'
     SharedTemplateFileResponseDRF:
       type: object
       properties:
@@ -221,6 +190,20 @@ components:
       - thumbnail
       - title
       - version
+    TemplateDeploymentOverrideObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+    IndexFileContentResponseDRF:
+      type: object
+      properties:
+        deploymentTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileDRF'
     RetrieveSharedTemplateBankResponseDRF:
       type: object
       properties:
@@ -228,6 +211,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
+    SharedTemplateFileDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentName:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        templateFile:
+          type: string
+        sortingIndex:
+          type: integer
+        meta:
+          type: object
+          additionalProperties: {}
+        thumbnail:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        test:
+          type: boolean
+      required:
+      - deploymentName
+      - id
+      - meta
+      - sortingIndex
+      - templateFile
+      - thumbnail
+      - title
     S3ObjectDRF:
       type: object
       properties:
@@ -240,31 +255,16 @@ components:
       required:
       - bucket
       - key
-    CreateTemplateRequestObjectDRF:
+    TemplateIdRequestObjectDRF:
       type: object
       properties:
-        fileId:
+        userId:
           type: string
-        thumbnailFileId:
+        templateId:
           type: string
-        title:
-          type: string
-        description:
-          type: string
-        descriptionUrl:
-          type: string
-        sortingIndex:
-          type: integer
-        test:
-          type: boolean
       required:
-      - fileId
-      - sortingIndex
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
+      - templateId
+      - userId
     TemplateImportDeploymentConfigRequestObjectDRF:
       type: object
       properties:

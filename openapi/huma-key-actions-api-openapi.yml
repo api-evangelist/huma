@@ -261,6 +261,23 @@ paths:
           description: ''
 components:
   schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    QuestionnaireAppResultDRF:
+      type: object
+      properties:
+        appType:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
+      required:
+      - appType
+      - values
     FeedbackTextDRF:
       type: object
       properties:
@@ -273,90 +290,108 @@ components:
       required:
       - id
       - text
-    PeriodProgressResponseDRF:
+    DeviceDetailsDRF:
       type: object
       properties:
-        taskCompliance:
-          type: number
-          format: double
-        startDateTime:
+        uuid:
           type: string
-          format: date-time
-        openQueriesAmount:
-          type: integer
-        passedDueDateFormsAmount:
-          type: integer
-    QuestionnaireAnswerDRF:
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    FormDataDRF:
       type: object
       properties:
         id:
           type: string
-        answerText:
+        userId:
           type: string
-        answersList:
-          type: array
-          items:
-            type: string
-        filesList:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
-        otherText:
+        title:
           type: string
-        value:
+        description:
           type: string
-        compositeAnswer:
-          type: object
-          additionalProperties: {}
-        answerScore:
-          type: integer
-        questionId:
+        model:
           type: string
-        question:
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
           type: string
-        format:
+        startDateTime:
           type: string
-        choices:
-          type: array
-          items:
-            type: string
-        selectedChoices:
-          type: array
-          items:
-            type: string
-        otherSelectedChoices:
-          type: array
-          items:
-            type: string
-        selectionCriteria:
+        endDateTime:
           type: string
-        lowerBound:
-          type: number
-          format: double
-        upperBound:
-          type: number
-          format: double
-        lists:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        selectedUnit:
+          format: date-time
+        enabled:
+          type: boolean
+        parentId:
           type: string
-        recalledText:
-          type: array
-          items:
-            type: string
-        options:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+        keyActionConfigId:
+          type: string
+        learnArticleId:
+          type: string
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+        deploymentId:
+          type: string
+        result:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
+        status:
+          type: string
       required:
-      - question
+      - keyActionConfigId
+      - model
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
+    CreateKeyActionLogDTORequestBodyDRF:
+      type: object
+      properties:
+        model:
+          type: string
+        userId:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        completeDateTime:
+          type: string
+          format: date-time
+      required:
+      - endDateTime
+      - model
+      - startDateTime
     ModuleFeedbackDRF:
       type: object
       properties:
@@ -372,61 +407,6 @@ components:
           type: string
         notificationData:
           $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    QuestionnaireAppResultValueDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        valueType:
-          type: string
-        valueFloat:
-          type: number
-          format: double
-      required:
-      - label
-      - valueFloat
-      - valueType
-    FeedbackNotificationDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        body:
-          type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
-    ServerDRF:
-      type: object
-      properties:
-        hostUrl:
-          type: string
-        server:
-          type: string
-        api:
-          type: string
-      required:
-      - api
-      - hostUrl
-      - server
-    QuestionnaireAppResultDRF:
-      type: object
-      properties:
-        appType:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
-      required:
-      - appType
-      - values
     QuestionnaireDTODRF:
       type: object
       properties:
@@ -525,79 +505,6 @@ components:
       - questionnaireId
       - questionnaireName
       - userId
-    FormDataDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-          format: date-time
-        enabled:
-          type: boolean
-        parentId:
-          type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-        keyActionConfigId:
-          type: string
-        learnArticleId:
-          type: string
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-        deploymentId:
-          type: string
-        result:
-          $ref: '#/components/schemas/QuestionnaireDTODRF'
-        status:
-          type: string
-      required:
-      - keyActionConfigId
-      - model
-    CreateKeyActionLogDTORequestBodyDRF:
-      type: object
-      properties:
-        model:
-          type: string
-        userId:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        completeDateTime:
-          type: string
-          format: date-time
-      required:
-      - endDateTime
-      - model
-      - startDateTime
     UserAgentDRF:
       type: object
       properties:
@@ -626,6 +533,48 @@ components:
       - softwareName
       - softwareVersion
       - version
+    ServerDRF:
+      type: object
+      properties:
+        hostUrl:
+          type: string
+        server:
+          type: string
+        api:
+          type: string
+      required:
+      - api
+      - hostUrl
+      - server
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    PeriodProgressResponseDRF:
+      type: object
+      properties:
+        taskCompliance:
+          type: number
+          format: double
+        startDateTime:
+          type: string
+          format: date-time
+        openQueriesAmount:
+          type: integer
+        passedDueDateFormsAmount:
+          type: integer
     KeyActionResponseDRF:
       type: object
       properties:
@@ -674,21 +623,77 @@ components:
       required:
       - keyActionConfigId
       - model
-    DeviceDetailsDRF:
+    QuestionnaireAnswerDRF:
       type: object
       properties:
-        uuid:
+        id:
           type: string
-        serialNumber:
+        answerText:
           type: string
-        modelName:
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
           type: string
-        manufacturer:
+        value:
           type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
       required:
-      - manufacturer
-      - modelName
-      - uuid
+      - question
     RetrieveToDoItemsResponseDRF:
       type: object
       properties:
@@ -744,11 +749,6 @@ components:
       required:
       - keyActionConfigId
       - model
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
     QuestionnaireAnswerMediaFileDRF:
       type: object
       properties:

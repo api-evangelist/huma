@@ -233,20 +233,6 @@ paths:
           description: ''
 components:
   schemas:
-    UpdateOrganizationPluginConfigRequestObjectDRF:
-      type: object
-      properties:
-        organizationId:
-          type: string
-        configContents:
-          type: object
-          additionalProperties: {}
-        configName:
-          type: string
-      required:
-      - configContents
-      - configName
-      - organizationId
     ConfigUIDRF:
       type: object
       properties:
@@ -264,6 +250,20 @@ components:
       - name
       - title
       - type
+    UpdateOrganizationPluginConfigRequestObjectDRF:
+      type: object
+      properties:
+        organizationId:
+          type: string
+        configContents:
+          type: object
+          additionalProperties: {}
+        configName:
+          type: string
+      required:
+      - configContents
+      - configName
+      - organizationId
     UpdatePluginConfigResponseObjectDRF:
       type: object
       properties:
@@ -271,25 +271,15 @@ components:
           type: string
       required:
       - configName
-    ComponentUIDRF:
+    RetrievePluginConfigResponseObjectDRF:
       type: object
       properties:
         title:
           type: string
-        icon:
-          type: string
-        banner:
-          type: string
-        author:
-          type: string
-        descriptionLink:
-          type: string
-      required:
-      - author
-      - banner
-      - descriptionLink
-      - icon
-      - title
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
     RetrievePluginContainerResponseObjectDRF:
       type: object
       properties:
@@ -313,15 +303,25 @@ components:
       - configContents
       - configName
       - deploymentId
-    RetrievePluginConfigResponseObjectDRF:
+    ComponentUIDRF:
       type: object
       properties:
         title:
           type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigUIDRF'
+        icon:
+          type: string
+        banner:
+          type: string
+        author:
+          type: string
+        descriptionLink:
+          type: string
+      required:
+      - author
+      - banner
+      - descriptionLink
+      - icon
+      - title
   securitySchemes:
     Hawk_Auth:
       type: apiKey

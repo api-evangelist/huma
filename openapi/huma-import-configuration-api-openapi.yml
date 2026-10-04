@@ -146,6 +146,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportOrganizationConfigsServiceInfoDRF'
+    ImportDeploymentConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+      required:
+      - fileIds
+      - organizationId
+      - userId
+    ImportConfigurationValidateFileRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
+      - userId
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
     ExportOrganizationConfigsServiceInfoDRF:
       type: object
       properties:
@@ -172,63 +210,6 @@ components:
           type: array
           items:
             type: string
-    ImportDeploymentConfigRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        fileIds:
-          type: array
-          items:
-            type: string
-        organizationId:
-          type: string
-        name:
-          type: string
-        isSaMD:
-          type: boolean
-      required:
-      - fileIds
-      - organizationId
-      - userId
-    ImportOrganizationConfigRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        fileIds:
-          type: array
-          items:
-            type: string
-      required:
-      - fileIds
-      - userId
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-    ImportDeploymentConfigurationValidateFileResponseDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
-    ImportConfigurationValidateFileRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        fileIds:
-          type: array
-          items:
-            type: string
-      required:
-      - fileIds
-      - userId
     ExportDeploymentConfigsServiceInfoDRF:
       type: object
       properties:
@@ -251,6 +232,25 @@ components:
           type: boolean
         deploymentName:
           type: string
+    ImportOrganizationConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
+      - userId
+    ImportDeploymentConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

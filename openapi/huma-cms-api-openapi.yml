@@ -423,28 +423,51 @@ paths:
           description: ''
 components:
   schemas:
-    SearchContentResponseObjectDRF:
+    SearchContentRequestObjectDRF:
       type: object
       properties:
-        total:
+        collection:
+          type: string
+        search:
+          type: string
+        filters:
+          type: object
+          additionalProperties: {}
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+        skip:
           type: integer
         limit:
           type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    RetrieveSchemaResponseDRF:
+        unpublished:
+          type: boolean
+      required:
+      - collection
+    ResultIdResponseObjectDRF:
       type: object
       properties:
-        schema:
-          type: object
-          additionalProperties: {}
+        id:
+          type: string
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
       required:
-      - schema
-    CreateContentRequestObjectDRF:
+      - direction
+      - field
+    CreateContentResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    UpdateContentRequestObjectDRF:
       type: object
       properties:
         id:
@@ -489,41 +512,8 @@ components:
           type: string
           format: date-time
       required:
-      - resources
       - schema
       - status
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    SearchContentRequestObjectDRF:
-      type: object
-      properties:
-        collection:
-          type: string
-        search:
-          type: string
-        filters:
-          type: object
-          additionalProperties: {}
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-        skip:
-          type: integer
-        limit:
-          type: integer
-        unpublished:
-          type: boolean
-      required:
-      - collection
     PublicContentSearchResponseObjectDRF:
       type: object
       properties:
@@ -537,6 +527,28 @@ components:
           type: array
           items:
             type: string
+    ListCollectionsResponseDRF:
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            type: string
+      required:
+      - collections
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
     TagsListResponseDRF:
       type: object
       properties:
@@ -546,6 +558,14 @@ components:
             type: string
       required:
       - tags
+    RetrieveSchemaResponseDRF:
+      type: object
+      properties:
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - schema
     CMSContentDTODRF:
       type: object
       properties:
@@ -594,28 +614,7 @@ components:
       - resources
       - schema
       - status
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    ListCollectionsResponseDRF:
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            type: string
-      required:
-      - collections
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    UpdateContentRequestObjectDRF:
+    CreateContentRequestObjectDRF:
       type: object
       properties:
         id:
@@ -660,6 +659,7 @@ components:
           type: string
           format: date-time
       required:
+      - resources
       - schema
       - status
   securitySchemes:

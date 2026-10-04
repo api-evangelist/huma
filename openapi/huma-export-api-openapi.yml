@@ -396,6 +396,11 @@ paths:
           description: ''
 components:
   schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     RunExportTaskRequestDataDRF:
       type: object
       properties:
@@ -500,6 +505,93 @@ components:
           type: boolean
         managerId:
           type: string
+    RetrieveExportProfilesResponseObjectDRF:
+      type: object
+      properties:
+        exportProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProfileDTODRF'
+    ExportProfileDTODRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+        id:
+          type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+    ExportProfileContentDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+    TabularExportDataDictionaryResponseObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    TabularExportUsersResponseObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
+    CreateExportProfileRequestObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+    RetrieveExportProcessesResponseObjectDRF:
+      type: object
+      properties:
+        exportProcesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProcessDTODRF'
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
     ExportParametersDRF:
       type: object
       properties:
@@ -598,27 +690,18 @@ components:
           type: boolean
         excludeMinors:
           type: boolean
-    ExportProfileDTODRF:
+    BucketDRF:
       type: object
       properties:
         name:
           type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        organizationId:
-          type: string
-        default:
-          type: boolean
-        id:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
     GenerateSummaryReportRequestDataDRF:
       type: object
       properties:
@@ -646,18 +729,31 @@ components:
       required:
       - buckets
       - fieldPath
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
     RunExportDeploymentTaskResponseObjectDRF:
       type: object
       properties:
         exportProcessId:
           type: string
-    CheckExportDeploymentTaskStatusResponseObjectDRF:
+    ExportResultObjectDRF:
       type: object
       properties:
-        status:
+        bucket:
           type: string
-        exportData:
-          $ref: '#/components/schemas/ExportResultObjectDRF'
+        key:
+          type: string
+      required:
+      - bucket
+      - key
     ExportProcessDTODRF:
       type: object
       properties:
@@ -691,80 +787,6 @@ components:
           type: string
         taskId:
           type: string
-    RetrieveExportProfilesResponseObjectDRF:
-      type: object
-      properties:
-        exportProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportProfileDTODRF'
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    TabularExportUsersResponseObjectDRF:
-      type: object
-      properties:
-        fileId:
-          type: string
-      required:
-      - fileId
-    ExportProfileContentDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        organizationId:
-          type: string
-        default:
-          type: boolean
-    CreateExportProfileRequestObjectDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        organizationId:
-          type: string
-        default:
-          type: boolean
-    RetrieveExportProcessesResponseObjectDRF:
-      type: object
-      properties:
-        exportProcesses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportProcessDTODRF'
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
-    ExportResultObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-      required:
-      - bucket
-      - key
     TabularExportUsersRequestObjectDRF:
       type: object
       properties:
@@ -785,18 +807,13 @@ components:
       required:
       - deploymentId
       - userList
-    BucketDRF:
+    CheckExportDeploymentTaskStatusResponseObjectDRF:
       type: object
       properties:
-        name:
+        status:
           type: string
-        rule:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleConditionDRF'
-      required:
-      - name
-      - rule
+        exportData:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
     RetrieveExportProfilesRequestObjectDRF:
       type: object
       properties:
@@ -806,23 +823,6 @@ components:
           type: string
         nameContains:
           type: string
-    RuleConditionDRF:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-      required:
-      - key
-      - value
-    TabularExportDataDictionaryResponseObjectDRF:
-      type: object
-      properties:
-        fileId:
-          type: string
-      required:
-      - fileId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

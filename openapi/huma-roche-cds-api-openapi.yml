@@ -47,6 +47,11 @@ paths:
           description: ''
 components:
   schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     UpdatePregnancyRequestObjectDRF:
       type: object
       properties:
@@ -56,11 +61,6 @@ components:
           type: string
       required:
       - dueDate
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

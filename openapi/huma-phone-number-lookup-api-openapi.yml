@@ -40,11 +40,6 @@ paths:
           description: ''
 components:
   schemas:
-    CheckPhoneNumberTypeResponseObjectDRF:
-      type: object
-      properties:
-        numberType:
-          type: string
     ValidatePhoneNumberTypeRequestObjectDRF:
       type: object
       properties:
@@ -52,6 +47,11 @@ components:
           type: string
       required:
       - phoneNumber
+    CheckPhoneNumberTypeResponseObjectDRF:
+      type: object
+      properties:
+        numberType:
+          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

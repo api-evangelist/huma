@@ -300,18 +300,7 @@ paths:
           description: ''
 components:
   schemas:
-    SnomedMedDataDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: string
-        system:
-          type: string
-      required:
-      - name
-    MedicationsV2AutocompleteResponseDRF:
+    IndicationsAutocompleteResponseDRF:
       type: object
       properties:
         limit:
@@ -321,19 +310,12 @@ components:
         values:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/SnomedMedDataDRF'
       required:
       - limit
       - skip
       - values
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-    SymptomsAutocompleteResponseDRF:
+    MedicationsAutocompleteResponseDRF:
       type: object
       properties:
         limit:
@@ -373,7 +355,55 @@ components:
             $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
       required:
       - metadata
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
     AZVaccineBatchNumberAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    MedicationsV2AutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    SnomedMedDataDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        system:
+          type: string
+      required:
+      - name
+    SymptomsAutocompleteResponseDRF:
       type: object
       properties:
         limit:
@@ -400,36 +430,6 @@ components:
       required:
       - bucket
       - key
-    MedicationsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            type: string
-      required:
-      - limit
-      - skip
-      - values
-    IndicationsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnomedMedDataDRF'
-      required:
-      - limit
-      - skip
-      - values
   securitySchemes:
     Hawk_Auth:
       type: apiKey

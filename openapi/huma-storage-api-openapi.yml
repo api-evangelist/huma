@@ -164,15 +164,6 @@ components:
           type: array
           items:
             type: string
-    GetSignedUrlsRequestObjectV1DRF:
-      type: object
-      properties:
-        fileIds:
-          type: array
-          items:
-            type: string
-      required:
-      - fileIds
     GetSignedUrlResponseObjectV1DRF:
       type: object
       properties:
@@ -184,6 +175,15 @@ components:
           type: integer
         contentType:
           type: string
+    GetSignedUrlsRequestObjectV1DRF:
+      type: object
+      properties:
+        fileIds:
+          type: array
+          items:
+            type: string
+      required:
+      - fileIds
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -179,43 +179,6 @@ paths:
           description: ''
 components:
   schemas:
-    DashboardDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        gadgets:
-          type: array
-          items:
-            $ref: '#/components/schemas/GadgetLinkDRF'
-      required:
-      - gadgets
-      - id
-      - title
-    GadgetLinkDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        order:
-          type: integer
-        size:
-          type: string
-      required:
-      - id
-      - order
-      - size
-    DeploymentStatsResponseObjectDRF:
-      type: object
-      properties:
-        numberOfActiveUsers:
-          type: integer
-        numberOfOffboardedUsers:
-          type: integer
-        numberOfOnboardedUsers:
-          type: integer
     MultiResourceDashboardDataRequestObjectDRF:
       type: object
       properties:
@@ -255,6 +218,43 @@ components:
       - gadgetId
       - resourceId
       - resourceType
+    GadgetLinkDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        order:
+          type: integer
+        size:
+          type: string
+      required:
+      - id
+      - order
+      - size
+    DashboardDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        gadgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/GadgetLinkDRF'
+      required:
+      - gadgets
+      - id
+      - title
+    DeploymentStatsResponseObjectDRF:
+      type: object
+      properties:
+        numberOfActiveUsers:
+          type: integer
+        numberOfOffboardedUsers:
+          type: integer
+        numberOfOnboardedUsers:
+          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey

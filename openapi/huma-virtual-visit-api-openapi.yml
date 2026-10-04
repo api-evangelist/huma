@@ -69,6 +69,15 @@ paths:
           description: ''
 components:
   schemas:
+    PrimaryStepViewDRF:
+      type: object
+      properties:
+        value:
+          type: string
+        unit:
+          type: string
+        startDateTime:
+          type: string
     SearchVirtualVisitResponseObjectDRF:
       type: object
       properties:
@@ -86,28 +95,6 @@ components:
       - limit
       - skip
       - total
-    CreateVirtualCareResponseObjectDRF:
-      type: object
-      properties:
-        moduleResultId:
-          type: string
-        primitiveIds:
-          type: array
-          items:
-            type: string
-        errors:
-          type: array
-          items:
-            type: string
-    PrimaryStepViewDRF:
-      type: object
-      properties:
-        value:
-          type: string
-        unit:
-          type: string
-        startDateTime:
-          type: string
     VirtualVisitResponseDRF:
       type: object
       properties:
@@ -119,6 +106,19 @@ components:
         primaryStepSummary:
           $ref: '#/components/schemas/PrimaryStepViewDRF'
         stepsSummary:
+          type: array
+          items:
+            type: string
+    CreateVirtualCareResponseObjectDRF:
+      type: object
+      properties:
+        moduleResultId:
+          type: string
+        primitiveIds:
+          type: array
+          items:
+            type: string
+        errors:
           type: array
           items:
             type: string

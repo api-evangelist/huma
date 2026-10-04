@@ -151,13 +151,30 @@ components:
           type: string
       required:
       - userId
-    FiveLivesTokenResponseObjectDRF:
+    UpdateHistoryRequestObjectDRF:
       type: object
       properties:
-        authToken:
+        userId:
+          type: string
+        gameId:
+          type: string
+        score:
+          type: integer
+        updatedHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoreHistoryItemDRF'
+        previousRank:
+          type: string
+        updatedRank:
           type: string
       required:
-      - authToken
+      - gameId
+      - previousRank
+      - score
+      - updatedHistory
+      - updatedRank
+      - userId
     UserDataResponseDRF:
       type: object
       properties:
@@ -190,30 +207,6 @@ components:
       - rank
       - timestamp
       - value
-    UpdateHistoryRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        gameId:
-          type: string
-        score:
-          type: integer
-        updatedHistory:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScoreHistoryItemDRF'
-        previousRank:
-          type: string
-        updatedRank:
-          type: string
-      required:
-      - gameId
-      - previousRank
-      - score
-      - updatedHistory
-      - updatedRank
-      - userId
     UpdateInstructionsShownHistoryRequestObjectDRF:
       type: object
       properties:
@@ -226,6 +219,13 @@ components:
       required:
       - keys
       - userId
+    FiveLivesTokenResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+      required:
+      - authToken
   securitySchemes:
     Hawk_Auth:
       type: apiKey

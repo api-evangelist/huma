@@ -226,11 +226,63 @@ components:
       required:
       - id
       - text
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    StartRevereTestResponseDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        wordLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevereTestWordObjectDRF'
+      required:
+      - id
     ExportRevereResultsRequestObjectDRF:
       type: object
       properties:
         status:
           type: string
+    RevereTestDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevereTestResultDTODRF'
+        status:
+          type: string
+        moduleId:
+          type: string
+        deploymentId:
+          type: string
+      required:
+      - deploymentId
+      - moduleId
     ModuleFeedbackDRF:
       type: object
       properties:
@@ -246,17 +298,34 @@ components:
           type: string
         notificationData:
           $ref: '#/components/schemas/FeedbackNotificationDataDRF'
-    RevereTestWordObjectDRF:
+    UserAgentDRF:
       type: object
       properties:
-        id:
+        product:
           type: string
-        initialWords:
-          type: array
-          items:
-            type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
       required:
-      - id
+      - product
+      - softwareName
+      - softwareVersion
+      - version
     FeedbackNotificationDataDRF:
       type: object
       properties:
@@ -286,34 +355,17 @@ components:
       - api
       - hostUrl
       - server
-    UserAgentDRF:
+    RevereTestWordObjectDRF:
       type: object
       properties:
-        product:
+        id:
           type: string
-        version:
-          type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
-          type: string
+        initialWords:
+          type: array
+          items:
+            type: string
       required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
+      - id
     RevereTestResultDTODRF:
       type: object
       properties:
@@ -395,47 +447,6 @@ components:
       - initialWords
       - moduleId
       - userId
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
-    RevereTestDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        startDateTime:
-          type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/RevereTestResultDTODRF'
-        status:
-          type: string
-        moduleId:
-          type: string
-        deploymentId:
-          type: string
-      required:
-      - deploymentId
-      - moduleId
     S3ObjectDRF:
       type: object
       properties:
@@ -512,17 +523,6 @@ components:
       - deploymentId
       - deviceName
       - initialWords
-    StartRevereTestResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        wordLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/RevereTestWordObjectDRF'
-      required:
-      - id
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -434,39 +434,11 @@ paths:
           description: No response body
 components:
   schemas:
-    GCPFhirDTODRF:
+    ResultIdResponseObjectDRF:
       type: object
       properties:
-        url:
+        id:
           type: string
-        serviceAccountData:
-          type: string
-        config:
-          type: object
-          additionalProperties: {}
-      required:
-      - serviceAccountData
-      - url
-    KafkaDRF:
-      type: object
-      properties:
-        url:
-          type: string
-        authType:
-          type: string
-        saslUsername:
-          type: string
-        saslPassword:
-          type: string
-        inbound:
-          $ref: '#/components/schemas/InboundDRF'
-        outbound:
-          $ref: '#/components/schemas/OutboundDRF'
-      required:
-      - authType
-      - inbound
-      - outbound
-      - url
     WebhookDTODRF:
       type: object
       properties:
@@ -485,7 +457,7 @@ components:
       required:
       - authType
       - endpoint
-    UpdateIntegrationRequestDataDRF:
+    CreateIntegrationRequestObjectDRF:
       type: object
       properties:
         organizationIds:
@@ -523,26 +495,75 @@ components:
       - integrationType
       - name
       - organizationIds
-    GenerateAPISecretRequestObjectDRF:
+    IntegrationDTODRF:
       type: object
       properties:
-        organizationId:
+        organizationIds:
+          type: array
+          items:
+            type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        integrationType:
           type: string
+        webhook:
+          $ref: '#/components/schemas/WebhookDTODRF'
+        kafka:
+          $ref: '#/components/schemas/KafkaDRF'
+        gcpFhir:
+          $ref: '#/components/schemas/GCPFhirDTODRF'
+        genericEhr:
+          $ref: '#/components/schemas/GenericEHRDTODRF'
+        id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
       required:
-      - organizationId
-    SignInResponseObjectDRF:
+      - deploymentIds
+      - integrationType
+      - name
+      - organizationIds
+    RetrieveIntegrationsRequestObjectDRF:
       type: object
       properties:
-        authToken:
-          type: string
-        refreshToken:
-          type: string
-        expiresIn:
+        skip:
           type: integer
-        uid:
-          type: string
-        authTokenExpiresIn:
+        limit:
           type: integer
+      required:
+      - skip
+    InboundDRF:
+      type: object
+      properties:
+        topic:
+          type: string
+        eventTypes:
+          type: array
+          items:
+            type: string
+        extraArgs:
+          type: object
+          additionalProperties: {}
+      required:
+      - topic
     GenericEHRDTODRF:
       type: object
       properties:
@@ -592,6 +613,144 @@ components:
       required:
       - authType
       - url
+    UpdateIntegrationRequestDataDRF:
+      type: object
+      properties:
+        organizationIds:
+          type: array
+          items:
+            type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        moduleNames:
+          type: array
+          items:
+            type: string
+        excludedModuleNames:
+          type: array
+          items:
+            type: string
+        integrationType:
+          type: string
+        webhook:
+          $ref: '#/components/schemas/WebhookDTODRF'
+        kafka:
+          $ref: '#/components/schemas/KafkaDRF'
+        gcpFhir:
+          $ref: '#/components/schemas/GCPFhirDTODRF'
+        genericEhr:
+          $ref: '#/components/schemas/GenericEHRDTODRF'
+        name:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - deploymentIds
+      - integrationType
+      - name
+      - organizationIds
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    KafkaDRF:
+      type: object
+      properties:
+        url:
+          type: string
+        authType:
+          type: string
+        saslUsername:
+          type: string
+        saslPassword:
+          type: string
+        inbound:
+          $ref: '#/components/schemas/InboundDRF'
+        outbound:
+          $ref: '#/components/schemas/OutboundDRF'
+      required:
+      - authType
+      - inbound
+      - outbound
+      - url
+    SignInResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    RetrieveIntegrationsResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+    OrganizationAPISecretDTODRF:
+      type: object
+      properties:
+        value:
+          type: string
+        organizationId:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - createDateTime
+      - organizationId
+      - value
+    IntegrationSignInRequestBodyDRF:
+      type: object
+      properties:
+        language:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+        deviceAgent:
+          type: string
+        email:
+          type: string
+      required:
+      - clientId
+      - projectId
+    DestinationDRF:
+      type: object
+      properties:
+        destinationId:
+          type: string
+        destinationName:
+          type: string
+        destinationFunc:
+          type: string
+        isTest:
+          type: boolean
+      required:
+      - destinationFunc
+      - destinationId
     OutboundDRF:
       type: object
       properties:
@@ -606,44 +765,83 @@ components:
           additionalProperties: {}
       required:
       - topic
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    RetrieveIntegrationsRequestObjectDRF:
+    RetrieveEhrLogsRequestObjectDRF:
       type: object
       properties:
         skip:
           type: integer
         limit:
           type: integer
-      required:
-      - skip
-    ResultIdResponseObjectDRF:
+        userId:
+          type: string
+        deploymentId:
+          type: string
+        integrationId:
+          type: string
+        method:
+          type: string
+        statusCode:
+          type: integer
+        destinationFunc:
+          type: string
+        fromDateTime:
+          type: string
+          format: date-time
+        toDateTime:
+          type: string
+          format: date-time
+        searchText:
+          type: string
+        sortFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortFieldDRF'
+    IntegrationSignUpResponseObjectDRF:
+      type: object
+      properties:
+        authToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+        uid:
+          type: string
+        authTokenExpiresIn:
+          type: integer
+    RetrieveEhrLogsResponseObjectDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EhrLogDTODRF'
+        total:
+          type: integer
+        skip:
+          type: integer
+        limit:
+          type: integer
+    EndpointDRF:
       type: object
       properties:
         id:
           type: string
-    InboundDRF:
+        name:
+          type: string
+        path:
+          type: string
+        verificationToken:
+          type: string
+      required:
+      - id
+      - path
+      - verificationToken
+    IntegrationSignConsentRequestBodyDRF:
       type: object
       properties:
-        topic:
+        email:
           type: string
-        eventTypes:
-          type: array
-          items:
-            type: string
-        extraArgs:
-          type: object
-          additionalProperties: {}
-      required:
-      - topic
     EhrLogDTODRF:
       type: object
       properties:
@@ -685,197 +883,26 @@ components:
         updateDateTime:
           type: string
           format: date-time
-    EndpointDRF:
+    GenerateAPISecretRequestObjectDRF:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        path:
-          type: string
-        verificationToken:
-          type: string
-      required:
-      - id
-      - path
-      - verificationToken
-    CreateIntegrationRequestObjectDRF:
-      type: object
-      properties:
-        organizationIds:
-          type: array
-          items:
-            type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        moduleNames:
-          type: array
-          items:
-            type: string
-        excludedModuleNames:
-          type: array
-          items:
-            type: string
-        integrationType:
-          type: string
-        webhook:
-          $ref: '#/components/schemas/WebhookDTODRF'
-        kafka:
-          $ref: '#/components/schemas/KafkaDRF'
-        gcpFhir:
-          $ref: '#/components/schemas/GCPFhirDTODRF'
-        genericEhr:
-          $ref: '#/components/schemas/GenericEHRDTODRF'
-        name:
-          type: string
-        enabled:
-          type: boolean
-      required:
-      - deploymentIds
-      - integrationType
-      - name
-      - organizationIds
-    OrganizationAPISecretDTODRF:
-      type: object
-      properties:
-        value:
-          type: string
         organizationId:
           type: string
-        createDateTime:
-          type: string
-          format: date-time
       required:
-      - createDateTime
       - organizationId
-      - value
-    RetrieveIntegrationsResponseObjectDRF:
+    GCPFhirDTODRF:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationDTODRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
-    IntegrationSignUpResponseObjectDRF:
-      type: object
-      properties:
-        authToken:
+        url:
           type: string
-        refreshToken:
+        serviceAccountData:
           type: string
-        expiresIn:
-          type: integer
-        uid:
-          type: string
-        authTokenExpiresIn:
-          type: integer
-    RetrieveEhrLogsRequestObjectDRF:
-      type: object
-      properties:
-        skip:
-          type: integer
-        limit:
-          type: integer
-        userId:
-          type: string
-        deploymentId:
-          type: string
-        integrationId:
-          type: string
-        method:
-          type: string
-        statusCode:
-          type: integer
-        destinationFunc:
-          type: string
-        fromDateTime:
-          type: string
-          format: date-time
-        toDateTime:
-          type: string
-          format: date-time
-        searchText:
-          type: string
-        sortFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortFieldDRF'
-    IntegrationDTODRF:
-      type: object
-      properties:
-        organizationIds:
-          type: array
-          items:
-            type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        moduleNames:
-          type: array
-          items:
-            type: string
-        excludedModuleNames:
-          type: array
-          items:
-            type: string
-        integrationType:
-          type: string
-        webhook:
-          $ref: '#/components/schemas/WebhookDTODRF'
-        kafka:
-          $ref: '#/components/schemas/KafkaDRF'
-        gcpFhir:
-          $ref: '#/components/schemas/GCPFhirDTODRF'
-        genericEhr:
-          $ref: '#/components/schemas/GenericEHRDTODRF'
-        id:
-          type: string
-        name:
-          type: string
-        enabled:
-          type: boolean
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
+        config:
+          type: object
+          additionalProperties: {}
       required:
-      - deploymentIds
-      - integrationType
-      - name
-      - organizationIds
-    IntegrationSignInRequestBodyDRF:
-      type: object
-      properties:
-        language:
-          type: string
-        clientId:
-          type: string
-        projectId:
-          type: string
-        deviceAgent:
-          type: string
-        email:
-          type: string
-      required:
-      - clientId
-      - projectId
-    IntegrationSignConsentRequestBodyDRF:
-      type: object
-      properties:
-        email:
-          type: string
+      - serviceAccountData
+      - url
     IntegrationSignUpRequestBodyDRF:
       type: object
       properties:
@@ -915,33 +942,6 @@ components:
       - clientId
       - ipAddress
       - projectId
-    DestinationDRF:
-      type: object
-      properties:
-        destinationId:
-          type: string
-        destinationName:
-          type: string
-        destinationFunc:
-          type: string
-        isTest:
-          type: boolean
-      required:
-      - destinationFunc
-      - destinationId
-    RetrieveEhrLogsResponseObjectDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EhrLogDTODRF'
-        total:
-          type: integer
-        skip:
-          type: integer
-        limit:
-          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey
