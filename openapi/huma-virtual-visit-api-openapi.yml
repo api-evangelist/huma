@@ -69,15 +69,20 @@ paths:
           description: ''
 components:
   schemas:
-    PrimaryStepViewDRF:
+    VirtualVisitResponseDRF:
       type: object
       properties:
-        value:
-          type: string
-        unit:
+        moduleResultId:
           type: string
         startDateTime:
           type: string
+          format: date-time
+        primaryStepSummary:
+          $ref: '#/components/schemas/PrimaryStepViewDRF'
+        stepsSummary:
+          type: array
+          items:
+            type: string
     SearchVirtualVisitResponseObjectDRF:
       type: object
       properties:
@@ -95,20 +100,15 @@ components:
       - limit
       - skip
       - total
-    VirtualVisitResponseDRF:
+    PrimaryStepViewDRF:
       type: object
       properties:
-        moduleResultId:
+        value:
+          type: string
+        unit:
           type: string
         startDateTime:
           type: string
-          format: date-time
-        primaryStepSummary:
-          $ref: '#/components/schemas/PrimaryStepViewDRF'
-        stepsSummary:
-          type: array
-          items:
-            type: string
     CreateVirtualCareResponseObjectDRF:
       type: object
       properties:

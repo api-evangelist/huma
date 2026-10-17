@@ -194,6 +194,27 @@ paths:
           description: ''
 components:
   schemas:
+    RetrieveSchemaResponseDRF:
+      type: object
+      properties:
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - schema
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
     SearchContentRequestObjectDRF:
       type: object
       properties:
@@ -216,23 +237,6 @@ components:
           type: boolean
       required:
       - collection
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
     UpdateContentRequestObjectDRF:
       type: object
       properties:
@@ -280,27 +284,6 @@ components:
       required:
       - schema
       - status
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    RetrieveSchemaResponseDRF:
-      type: object
-      properties:
-        schema:
-          type: object
-          additionalProperties: {}
-      required:
-      - schema
     CMSContentDTODRF:
       type: object
       properties:
@@ -397,6 +380,23 @@ components:
       - resources
       - schema
       - status
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    CreateContentResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
   securitySchemes:
     Hawk_Auth:
       type: apiKey

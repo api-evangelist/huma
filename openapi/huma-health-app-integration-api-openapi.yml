@@ -265,6 +265,13 @@ paths:
           description: ''
 components:
   schemas:
+    ConnectFitbitRequestDataDRF:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
     ResultIdResponseObjectDRF:
       type: object
       properties:
@@ -307,6 +314,16 @@ components:
       - status
       - type
       - userId
+    ThirdPartyAppStatusResponseDRF:
+      type: object
+      properties:
+        status:
+          type: string
+    RetrieveThirdPartyAppsRequestDataDRF:
+      type: object
+      properties:
+        type:
+          type: string
     AuthorizeFitbitRequestDataDRF:
       type: object
       properties:
@@ -342,23 +359,6 @@ components:
       required:
       - type
       - userId
-    ThirdPartyAppStatusResponseDRF:
-      type: object
-      properties:
-        status:
-          type: string
-    ConnectFitbitRequestDataDRF:
-      type: object
-      properties:
-        code:
-          type: string
-      required:
-      - code
-    RetrieveThirdPartyAppsRequestDataDRF:
-      type: object
-      properties:
-        type:
-          type: string
     BaseThirdPartyAppRequestObjectDRF:
       type: object
       properties:

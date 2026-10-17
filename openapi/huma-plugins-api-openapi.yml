@@ -233,6 +233,50 @@ paths:
           description: ''
 components:
   schemas:
+    UpdatePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        configName:
+          type: string
+      required:
+      - configName
+    RetrievePluginContainerResponseObjectDRF:
+      type: object
+      properties:
+        componentsUI:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentUIDRF'
+      required:
+      - componentsUI
+    RetrievePluginConfigResponseObjectDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigUIDRF'
+    ComponentUIDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        icon:
+          type: string
+        banner:
+          type: string
+        author:
+          type: string
+        descriptionLink:
+          type: string
+      required:
+      - author
+      - banner
+      - descriptionLink
+      - icon
+      - title
     ConfigUIDRF:
       type: object
       properties:
@@ -264,31 +308,6 @@ components:
       - configContents
       - configName
       - organizationId
-    UpdatePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        configName:
-          type: string
-      required:
-      - configName
-    RetrievePluginConfigResponseObjectDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigUIDRF'
-    RetrievePluginContainerResponseObjectDRF:
-      type: object
-      properties:
-        componentsUI:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentUIDRF'
-      required:
-      - componentsUI
     UpdateDeploymentPluginConfigRequestObjectDRF:
       type: object
       properties:
@@ -303,25 +322,6 @@ components:
       - configContents
       - configName
       - deploymentId
-    ComponentUIDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        icon:
-          type: string
-        banner:
-          type: string
-        author:
-          type: string
-        descriptionLink:
-          type: string
-      required:
-      - author
-      - banner
-      - descriptionLink
-      - icon
-      - title
   securitySchemes:
     Hawk_Auth:
       type: apiKey

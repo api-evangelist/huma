@@ -173,47 +173,11 @@ components:
       properties:
         id:
           type: string
-    PrescriptionsResponseObjectDRF:
-      type: object
-      properties:
-        prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionDTODRF'
     OkResponseDRF:
       type: object
       properties:
         ok:
           type: boolean
-    AssignCarePlanRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - name
-      - startDate
-      - type
     CreatePrescriptionRequestObjectDRF:
       type: object
       properties:
@@ -313,6 +277,35 @@ components:
       - startDate
       - type
       - userId
+    AssignCarePlanRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - name
+      - startDate
+      - type
     MockADPCyclerDataRequestObjectDRF:
       type: object
       properties:
@@ -320,6 +313,13 @@ components:
           type: string
         cycle:
           type: integer
+    PrescriptionsResponseObjectDRF:
+      type: object
+      properties:
+        prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionDTODRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

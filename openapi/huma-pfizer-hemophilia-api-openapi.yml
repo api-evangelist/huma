@@ -81,7 +81,19 @@ components:
       properties:
         id:
           type: string
-    HemophiliaPrerequisitesRequestObjectDRF:
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    HemophiliaPrerequisitesResponseObjectDRF:
       type: object
       properties:
         id:
@@ -110,6 +122,7 @@ components:
           format: date-time
       required:
       - answers
+      - userId
     QuestionnaireAnswerDRF:
       type: object
       properties:
@@ -181,7 +194,7 @@ components:
             additionalProperties: {}
       required:
       - question
-    HemophiliaPrerequisitesResponseObjectDRF:
+    HemophiliaPrerequisitesRequestObjectDRF:
       type: object
       properties:
         id:
@@ -210,19 +223,6 @@ components:
           format: date-time
       required:
       - answers
-      - userId
-    QuestionnaireAnswerMediaFileDRF:
-      type: object
-      properties:
-        file:
-          type: string
-        thumbnail:
-          type: string
-        mediaType:
-          type: string
-      required:
-      - file
-      - mediaType
   securitySchemes:
     Hawk_Auth:
       type: apiKey

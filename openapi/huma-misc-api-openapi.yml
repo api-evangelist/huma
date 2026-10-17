@@ -113,6 +113,35 @@ paths:
           description: ''
 components:
   schemas:
+    AndroidAppLinksDRF:
+      type: object
+      properties:
+        relation:
+          type: array
+          items:
+            type: string
+        target:
+          $ref: '#/components/schemas/AndroidAppTargetDRF'
+    ResponseDRF:
+      type: object
+      properties:
+        applinks:
+          $ref: '#/components/schemas/AppleAppLinksDRF'
+    NamedVersionDRF:
+      type: object
+      properties:
+        server:
+          type: string
+        api:
+          type: string
+        build:
+          type: string
+        repoName:
+          type: string
+      required:
+      - api
+      - repoName
+      - server
     BaseVersionDRF:
       type: object
       properties:
@@ -125,6 +154,17 @@ components:
       required:
       - api
       - server
+    AndroidAppTargetDRF:
+      type: object
+      properties:
+        namespace:
+          type: string
+        packageName:
+          type: string
+        sha256CertFingerprints:
+          type: array
+          items:
+            type: string
     RetrieveLanguageDRF:
       type: object
       properties:
@@ -141,31 +181,6 @@ components:
             $ref: '#/components/schemas/RetrieveLanguageDRF'
       required:
       - languages
-    AndroidAppLinksDRF:
-      type: object
-      properties:
-        relation:
-          type: array
-          items:
-            type: string
-        target:
-          $ref: '#/components/schemas/AndroidAppTargetDRF'
-    ResponseDRF:
-      type: object
-      properties:
-        applinks:
-          $ref: '#/components/schemas/AppleAppLinksDRF'
-    AndroidAppTargetDRF:
-      type: object
-      properties:
-        namespace:
-          type: string
-        packageName:
-          type: string
-        sha256CertFingerprints:
-          type: array
-          items:
-            type: string
     AppLinksDetailsDRF:
       type: object
       properties:
@@ -177,32 +192,6 @@ components:
           type: array
           items:
             type: string
-    NamedVersionDRF:
-      type: object
-      properties:
-        server:
-          type: string
-        api:
-          type: string
-        build:
-          type: string
-        repoName:
-          type: string
-      required:
-      - api
-      - repoName
-      - server
-    AppleAppLinksDRF:
-      type: object
-      properties:
-        apps:
-          type: array
-          items:
-            type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppLinksDetailsDRF'
     VersionDRF:
       type: object
       properties:
@@ -222,6 +211,17 @@ components:
       - api
       - sdk
       - server
+    AppleAppLinksDRF:
+      type: object
+      properties:
+        apps:
+          type: array
+          items:
+            type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppLinksDetailsDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

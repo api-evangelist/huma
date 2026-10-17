@@ -91,6 +91,15 @@ components:
       required:
       - devicePushId
       - devicePushIdType
+    DevicesResponseDataDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDTODRF'
+        total:
+          type: integer
     ResultIdResponseObjectDRF:
       type: object
       properties:
@@ -118,15 +127,6 @@ components:
       required:
       - devicePushId
       - devicePushIdType
-    DevicesResponseDataDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDTODRF'
-        total:
-          type: integer
   securitySchemes:
     Hawk_Auth:
       type: apiKey

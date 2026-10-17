@@ -157,13 +157,6 @@ paths:
       responses: {}
 components:
   schemas:
-    GetSignedUrlsResponseObjectV1DRF:
-      type: object
-      properties:
-        signedUrls:
-          type: array
-          items:
-            type: string
     GetSignedUrlResponseObjectV1DRF:
       type: object
       properties:
@@ -175,6 +168,13 @@ components:
           type: integer
         contentType:
           type: string
+    GetSignedUrlsResponseObjectV1DRF:
+      type: object
+      properties:
+        signedUrls:
+          type: array
+          items:
+            type: string
     GetSignedUrlsRequestObjectV1DRF:
       type: object
       properties:

@@ -423,6 +423,32 @@ paths:
           description: ''
 components:
   schemas:
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    RetrieveSchemaResponseDRF:
+      type: object
+      properties:
+        schema:
+          type: object
+          additionalProperties: {}
+      required:
+      - schema
+    SearchContentResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CMSContentDTODRF'
     SearchContentRequestObjectDRF:
       type: object
       properties:
@@ -445,28 +471,6 @@ components:
           type: boolean
       required:
       - collection
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    SortFieldDRF:
-      type: object
-      properties:
-        field:
-          type: string
-        direction:
-          type: string
-      required:
-      - direction
-      - field
-    CreateContentResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
     UpdateContentRequestObjectDRF:
       type: object
       properties:
@@ -514,58 +518,6 @@ components:
       required:
       - schema
       - status
-    PublicContentSearchResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            type: string
-    ListCollectionsResponseDRF:
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            type: string
-      required:
-      - collections
-    SearchContentResponseObjectDRF:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        skip:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CMSContentDTODRF'
-    TagsListResponseDRF:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - tags
-    RetrieveSchemaResponseDRF:
-      type: object
-      properties:
-        schema:
-          type: object
-          additionalProperties: {}
-      required:
-      - schema
     CMSContentDTODRF:
       type: object
       properties:
@@ -662,6 +614,54 @@ components:
       - resources
       - schema
       - status
+    PublicContentSearchResponseObjectDRF:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+        items:
+          type: array
+          items:
+            type: string
+    SortFieldDRF:
+      type: object
+      properties:
+        field:
+          type: string
+        direction:
+          type: string
+      required:
+      - direction
+      - field
+    ListCollectionsResponseDRF:
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            type: string
+      required:
+      - collections
+    TagsListResponseDRF:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - tags
+    CreateContentResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
   securitySchemes:
     Hawk_Auth:
       type: apiKey

@@ -197,27 +197,15 @@ components:
       required:
       - dataType
       - organizationIds
-    RetrieveGadgetDataRequestObjectDRF:
+    DeploymentStatsResponseObjectDRF:
       type: object
       properties:
-        resourceType:
-          type: string
-        resourceId:
-          type: string
-        gadgetId:
-          type: string
-        deploymentIds:
-          type: array
-          items:
-            type: string
-        organizationId:
-          type: string
-        size:
-          type: string
-      required:
-      - gadgetId
-      - resourceId
-      - resourceType
+        numberOfActiveUsers:
+          type: integer
+        numberOfOffboardedUsers:
+          type: integer
+        numberOfOnboardedUsers:
+          type: integer
     GadgetLinkDRF:
       type: object
       properties:
@@ -246,15 +234,27 @@ components:
       - gadgets
       - id
       - title
-    DeploymentStatsResponseObjectDRF:
+    RetrieveGadgetDataRequestObjectDRF:
       type: object
       properties:
-        numberOfActiveUsers:
-          type: integer
-        numberOfOffboardedUsers:
-          type: integer
-        numberOfOnboardedUsers:
-          type: integer
+        resourceType:
+          type: string
+        resourceId:
+          type: string
+        gadgetId:
+          type: string
+        deploymentIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        size:
+          type: string
+      required:
+      - gadgetId
+      - resourceId
+      - resourceType
   securitySchemes:
     Hawk_Auth:
       type: apiKey

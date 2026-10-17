@@ -396,11 +396,102 @@ paths:
           description: ''
 components:
   schemas:
+    GenerateSummaryReportRequestDataDRF:
+      type: object
+      properties:
+        format:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+      required:
+      - format
     ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
+    ExportResultObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      - key
+    BucketDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        rule:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleConditionDRF'
+      required:
+      - name
+      - rule
+    RuleConditionDRF:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    TabularExportUsersRequestObjectDRF:
+      type: object
+      properties:
+        userList:
+          type: array
+          items:
+            type: string
+        fromDateTime:
+          type: string
+        toDateTime:
+          type: string
+        deploymentId:
+          type: string
+        language:
+          type: string
+        machineReadable:
+          type: boolean
+      required:
+      - deploymentId
+      - userList
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
+    RetrieveExportProfilesResponseObjectDRF:
+      type: object
+      properties:
+        exportProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProfileDTODRF'
+    TabularExportUsersResponseObjectDRF:
+      type: object
+      properties:
+        fileId:
+          type: string
+      required:
+      - fileId
     RunExportTaskRequestDataDRF:
       type: object
       properties:
@@ -505,47 +596,11 @@ components:
           type: boolean
         managerId:
           type: string
-    RetrieveExportProfilesResponseObjectDRF:
+    RunExportDeploymentTaskResponseObjectDRF:
       type: object
       properties:
-        exportProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportProfileDTODRF'
-    ExportProfileDTODRF:
-      type: object
-      properties:
-        name:
+        exportProcessId:
           type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        organizationId:
-          type: string
-        default:
-          type: boolean
-        id:
-          type: string
-        updateDateTime:
-          type: string
-          format: date-time
-        createDateTime:
-          type: string
-          format: date-time
-    ExportProfileContentDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
-        deploymentId:
-          type: string
-        organizationId:
-          type: string
-        default:
-          type: boolean
     TabularExportDataDictionaryResponseObjectDRF:
       type: object
       properties:
@@ -553,45 +608,29 @@ components:
           type: string
       required:
       - fileId
-    TabularExportUsersResponseObjectDRF:
+    RetrieveExportProfilesRequestObjectDRF:
       type: object
       properties:
-        fileId:
-          type: string
-      required:
-      - fileId
-    CreateExportProfileRequestObjectDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          $ref: '#/components/schemas/ExportParametersDRF'
         deploymentId:
           type: string
         organizationId:
           type: string
-        default:
-          type: boolean
-    RetrieveExportProcessesResponseObjectDRF:
+        nameContains:
+          type: string
+    FieldBucketingDRF:
       type: object
       properties:
-        exportProcesses:
+        fieldPath:
+          type: string
+        buckets:
           type: array
           items:
-            $ref: '#/components/schemas/ExportProcessDTODRF'
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
+            $ref: '#/components/schemas/BucketDRF'
+        undefineUnmatched:
+          type: boolean
       required:
-      - bucket
-      - key
+      - buckets
+      - fieldPath
     ExportParametersDRF:
       type: object
       properties:
@@ -690,70 +729,26 @@ components:
           type: boolean
         excludeMinors:
           type: boolean
-    BucketDRF:
+    CreateExportProfileRequestObjectDRF:
       type: object
       properties:
         name:
           type: string
-        rule:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleConditionDRF'
-      required:
-      - name
-      - rule
-    GenerateSummaryReportRequestDataDRF:
-      type: object
-      properties:
-        format:
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
           type: string
-        startDateTime:
+        organizationId:
           type: string
-          format: date-time
-        endDateTime:
-          type: string
-          format: date-time
-      required:
-      - format
-    FieldBucketingDRF:
-      type: object
-      properties:
-        fieldPath:
-          type: string
-        buckets:
-          type: array
-          items:
-            $ref: '#/components/schemas/BucketDRF'
-        undefineUnmatched:
+        default:
           type: boolean
-      required:
-      - buckets
-      - fieldPath
-    RuleConditionDRF:
+    CheckExportDeploymentTaskStatusResponseObjectDRF:
       type: object
       properties:
-        key:
+        status:
           type: string
-        value:
-          type: string
-      required:
-      - key
-      - value
-    RunExportDeploymentTaskResponseObjectDRF:
-      type: object
-      properties:
-        exportProcessId:
-          type: string
-    ExportResultObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-      required:
-      - bucket
-      - key
+        exportData:
+          $ref: '#/components/schemas/ExportResultObjectDRF'
     ExportProcessDTODRF:
       type: object
       properties:
@@ -787,42 +782,47 @@ components:
           type: string
         taskId:
           type: string
-    TabularExportUsersRequestObjectDRF:
+    ExportProfileDTODRF:
       type: object
       properties:
-        userList:
-          type: array
-          items:
-            type: string
-        fromDateTime:
+        name:
           type: string
-        toDateTime:
-          type: string
-        deploymentId:
-          type: string
-        language:
-          type: string
-        machineReadable:
-          type: boolean
-      required:
-      - deploymentId
-      - userList
-    CheckExportDeploymentTaskStatusResponseObjectDRF:
-      type: object
-      properties:
-        status:
-          type: string
-        exportData:
-          $ref: '#/components/schemas/ExportResultObjectDRF'
-    RetrieveExportProfilesRequestObjectDRF:
-      type: object
-      properties:
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
         deploymentId:
           type: string
         organizationId:
           type: string
-        nameContains:
+        default:
+          type: boolean
+        id:
           type: string
+        updateDateTime:
+          type: string
+          format: date-time
+        createDateTime:
+          type: string
+          format: date-time
+    ExportProfileContentDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          $ref: '#/components/schemas/ExportParametersDRF'
+        deploymentId:
+          type: string
+        organizationId:
+          type: string
+        default:
+          type: boolean
+    RetrieveExportProcessesResponseObjectDRF:
+      type: object
+      properties:
+        exportProcesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportProcessDTODRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

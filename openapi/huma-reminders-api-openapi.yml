@@ -359,18 +359,17 @@ paths:
           description: ''
 components:
   schemas:
-    MarkCompleteUserReminderRequestDataDRF:
+    RetrieveRemindersRequestObjectDRF:
       type: object
       properties:
-        startDateTime:
-          type: string
-          format: date-time
         endDateTime:
           type: string
-          format: date-time
-      required:
-      - endDateTime
-      - startDateTime
+        enabled:
+          type: boolean
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
     ResultIdResponseObjectDRF:
       type: object
       properties:
@@ -418,205 +417,6 @@ components:
           type: array
           items:
             type: integer
-    CreateUserModuleReminderRequestDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        extraFields:
-          type: object
-          additionalProperties: {}
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        completeDateTime:
-          type: string
-        durationIso:
-          type: string
-        specificWeekDays:
-          type: array
-          items:
-            type: string
-        specificMonthDays:
-          type: array
-          items:
-            type: integer
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-      required:
-      - moduleConfigId
-      - moduleId
-    UpdateUserModuleReminderRequestDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        extraFields:
-          type: object
-          additionalProperties: {}
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        completeDateTime:
-          type: string
-        durationIso:
-          type: string
-        specificWeekDays:
-          type: array
-          items:
-            type: string
-        specificMonthDays:
-          type: array
-          items:
-            type: integer
-        oldReminder:
-          $ref: '#/components/schemas/CalendarEventDTODRF'
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-      required:
-      - moduleConfigId
-      - moduleId
-    RetrieveRemindersRequestObjectDRF:
-      type: object
-      properties:
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        moduleId:
-          type: string
-        moduleConfigId:
-          type: string
-    UpdatePersonalReminderRequestDataDRF:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        extraFields:
-          type: object
-          additionalProperties: {}
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        completeDateTime:
-          type: string
-        durationIso:
-          type: string
-        specificWeekDays:
-          type: array
-          items:
-            type: string
-        specificMonthDays:
-          type: array
-          items:
-            type: integer
-        oldReminder:
-          $ref: '#/components/schemas/CalendarEventDTODRF'
-    CalendarEventDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        userId:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        isRecurring:
-          type: boolean
-        instanceExpiresIn:
-          type: string
-        startDateTime:
-          type: string
-        endDateTime:
-          type: string
-        enabled:
-          type: boolean
-        extraFields:
-          type: object
-          additionalProperties: {}
-        parentId:
-          type: string
-        snoozing:
-          type: array
-          items:
-            type: string
-        hasCustomSchedule:
-          type: boolean
-        isSilent:
-          type: boolean
-        updateDateTime:
-          type: string
-        createDateTime:
-          type: string
-        completeDateTime:
-          type: string
-      required:
-      - model
     ReminderResponseDataDRF:
       type: object
       properties:
@@ -674,6 +474,99 @@ components:
       - model
       - moduleConfigId
       - moduleId
+    CalendarEventDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        updateDateTime:
+          type: string
+        createDateTime:
+          type: string
+        completeDateTime:
+          type: string
+      required:
+      - model
+    CreateUserModuleReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - moduleConfigId
+      - moduleId
     RetrieveRemindersResponseDRF:
       type: object
       properties:
@@ -692,6 +585,113 @@ components:
       - reminders
       - skip
       - total
+    MarkCompleteUserReminderRequestDataDRF:
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+      required:
+      - endDateTime
+      - startDateTime
+    UpdateUserModuleReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        oldReminder:
+          $ref: '#/components/schemas/CalendarEventDTODRF'
+        moduleId:
+          type: string
+        moduleConfigId:
+          type: string
+      required:
+      - moduleConfigId
+      - moduleId
+    UpdatePersonalReminderRequestDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        isRecurring:
+          type: boolean
+        instanceExpiresIn:
+          type: string
+        startDateTime:
+          type: string
+        endDateTime:
+          type: string
+        enabled:
+          type: boolean
+        extraFields:
+          type: object
+          additionalProperties: {}
+        parentId:
+          type: string
+        snoozing:
+          type: array
+          items:
+            type: string
+        hasCustomSchedule:
+          type: boolean
+        isSilent:
+          type: boolean
+        completeDateTime:
+          type: string
+        durationIso:
+          type: string
+        specificWeekDays:
+          type: array
+          items:
+            type: string
+        specificMonthDays:
+          type: array
+          items:
+            type: integer
+        oldReminder:
+          $ref: '#/components/schemas/CalendarEventDTODRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

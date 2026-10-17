@@ -133,11 +133,50 @@ paths:
           description: ''
 components:
   schemas:
+    SharedTemplateFileDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        deploymentName:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        descriptionUrl:
+          type: string
+        templateFile:
+          type: string
+        sortingIndex:
+          type: integer
+        meta:
+          type: object
+          additionalProperties: {}
+        thumbnail:
+          $ref: '#/components/schemas/S3ObjectDRF'
+        test:
+          type: boolean
+      required:
+      - deploymentName
+      - id
+      - meta
+      - sortingIndex
+      - templateFile
+      - thumbnail
+      - title
     ResultIdResponseObjectDRF:
       type: object
       properties:
         id:
           type: string
+    RetrieveSharedTemplateBankResponseDRF:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
     CreateTemplateRequestObjectDRF:
       type: object
       properties:
@@ -190,71 +229,6 @@ components:
       - thumbnail
       - title
       - version
-    TemplateDeploymentOverrideObjectDRF:
-      type: object
-      properties:
-        name:
-          type: string
-        isSaMD:
-          type: boolean
-    IndexFileContentResponseDRF:
-      type: object
-      properties:
-        deploymentTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SharedTemplateFileDRF'
-    RetrieveSharedTemplateBankResponseDRF:
-      type: object
-      properties:
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SharedTemplateFileResponseDRF'
-    SharedTemplateFileDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        deploymentName:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        descriptionUrl:
-          type: string
-        templateFile:
-          type: string
-        sortingIndex:
-          type: integer
-        meta:
-          type: object
-          additionalProperties: {}
-        thumbnail:
-          $ref: '#/components/schemas/S3ObjectDRF'
-        test:
-          type: boolean
-      required:
-      - deploymentName
-      - id
-      - meta
-      - sortingIndex
-      - templateFile
-      - thumbnail
-      - title
-    S3ObjectDRF:
-      type: object
-      properties:
-        bucket:
-          type: string
-        key:
-          type: string
-        region:
-          type: string
-      required:
-      - bucket
-      - key
     TemplateIdRequestObjectDRF:
       type: object
       properties:
@@ -265,6 +239,13 @@ components:
       required:
       - templateId
       - userId
+    IndexFileContentResponseDRF:
+      type: object
+      properties:
+        deploymentTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedTemplateFileDRF'
     TemplateImportDeploymentConfigRequestObjectDRF:
       type: object
       properties:
@@ -280,6 +261,25 @@ components:
       - organizationId
       - templateId
       - userId
+    TemplateDeploymentOverrideObjectDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+    S3ObjectDRF:
+      type: object
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+        region:
+          type: string
+      required:
+      - bucket
+      - key
   securitySchemes:
     Hawk_Auth:
       type: apiKey

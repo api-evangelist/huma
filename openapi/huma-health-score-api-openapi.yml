@@ -47,36 +47,11 @@ paths:
           description: ''
 components:
   schemas:
-    SleepScoreDRF:
+    HealthMetricDRF:
       type: object
       properties:
-        total:
-          $ref: '#/components/schemas/ScoreDRF'
-        duration:
-          $ref: '#/components/schemas/ScoreDRF'
-        remSleep:
-          $ref: '#/components/schemas/ScoreDRF'
-        deepSleep:
-          $ref: '#/components/schemas/ScoreDRF'
-        lightSleep:
-          $ref: '#/components/schemas/ScoreDRF'
-        uwake:
-          $ref: '#/components/schemas/ScoreDRF'
-        heartRateDip:
-          $ref: '#/components/schemas/ScoreDRF'
-        submittedTotal:
-          $ref: '#/components/schemas/ScoreDRF'
-    RetrieveHealthScoreResponseObjectDRF:
-      type: object
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthMetricDRF'
-        errors:
-          type: array
-          items:
-            type: string
+        sleep:
+          $ref: '#/components/schemas/SleepScoreDRF'
     RetrieveHealthScoreRequestObjectDRF:
       type: object
       properties:
@@ -105,11 +80,36 @@ components:
       required:
       - level
       - value
-    HealthMetricDRF:
+    RetrieveHealthScoreResponseObjectDRF:
       type: object
       properties:
-        sleep:
-          $ref: '#/components/schemas/SleepScoreDRF'
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthMetricDRF'
+        errors:
+          type: array
+          items:
+            type: string
+    SleepScoreDRF:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/ScoreDRF'
+        duration:
+          $ref: '#/components/schemas/ScoreDRF'
+        remSleep:
+          $ref: '#/components/schemas/ScoreDRF'
+        deepSleep:
+          $ref: '#/components/schemas/ScoreDRF'
+        lightSleep:
+          $ref: '#/components/schemas/ScoreDRF'
+        uwake:
+          $ref: '#/components/schemas/ScoreDRF'
+        heartRateDip:
+          $ref: '#/components/schemas/ScoreDRF'
+        submittedTotal:
+          $ref: '#/components/schemas/ScoreDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey

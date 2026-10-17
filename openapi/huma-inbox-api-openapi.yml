@@ -209,13 +209,6 @@ components:
             $ref: '#/components/schemas/MessageDTODRF'
       required:
       - messages
-    ConfirmMessageResponseObjectDRF:
-      type: object
-      properties:
-        updated:
-          type: integer
-      required:
-      - updated
     MessageSendRequestObjectDRF:
       type: object
       properties:
@@ -231,6 +224,43 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MessageAttachmentDTODRF'
+    MessageAttachmentDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        attachmentType:
+          type: string
+        title:
+          type: string
+        resource:
+          type: string
+        resourceUrl:
+          type: string
+        isResourceDeleted:
+          type: boolean
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - attachmentType
+      - resource
+      - title
+    MessageSearchRequestObjectDRF:
+      type: object
+      properties:
+        submitterId:
+          type: string
+        custom:
+          type: boolean
+        skip:
+          type: integer
+        limit:
+          type: integer
+        userId:
+          type: string
+      required:
+      - submitterId
     MessageDTODRF:
       type: object
       properties:
@@ -264,43 +294,6 @@ components:
             $ref: '#/components/schemas/MessageAttachmentDTODRF'
       required:
       - submitterId
-    MessageSearchRequestObjectDRF:
-      type: object
-      properties:
-        submitterId:
-          type: string
-        custom:
-          type: boolean
-        skip:
-          type: integer
-        limit:
-          type: integer
-        userId:
-          type: string
-      required:
-      - submitterId
-    MessageAttachmentDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        attachmentType:
-          type: string
-        title:
-          type: string
-        resource:
-          type: string
-        resourceUrl:
-          type: string
-        isResourceDeleted:
-          type: boolean
-        createDateTime:
-          type: string
-          format: date-time
-      required:
-      - attachmentType
-      - resource
-      - title
     ConfirmMessageRequestObjectDRF:
       type: object
       properties:
@@ -310,6 +303,13 @@ components:
             type: string
       required:
       - messageIds
+    ConfirmMessageResponseObjectDRF:
+      type: object
+      properties:
+        updated:
+          type: integer
+      required:
+      - updated
   securitySchemes:
     Hawk_Auth:
       type: apiKey

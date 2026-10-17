@@ -321,27 +321,6 @@ paths:
           description: ''
 components:
   schemas:
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    GetWorkflowResponseObjectDRF:
-      type: object
-      properties:
-        workflow:
-          $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflow
-    GetWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflows
     RunWorkflowRequestObjectDRF:
       type: object
       properties:
@@ -354,58 +333,6 @@ components:
           type: string
       required:
       - params
-    GetNodesResponseObjectDRF:
-      type: object
-      properties:
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NodeConvertibleDRF'
-      required:
-      - nodes
-    GetTemplateWorkflowsResponseObjectDRF:
-      type: object
-      properties:
-        workflowTemplates:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowDTODRF'
-      required:
-      - workflowTemplates
-    CreateWorkflowRequestObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskDTODRF'
-        resourceId:
-          type: array
-          items:
-            type: string
-        startNode:
-          type: string
-        schedule:
-          type: string
-        status:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        updateDateTime:
-          type: string
-          format: date-time
-        publishedWorkflowId:
-          type: string
-        isDraft:
-          type: boolean
-      required:
-      - name
-      - tasks
     TaskDTODRF:
       type: object
       properties:
@@ -428,6 +355,20 @@ components:
       required:
       - id
       - nodeName
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+    GetNodesResponseObjectDRF:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConvertibleDRF'
+      required:
+      - nodes
     NodeConvertibleDRF:
       type: object
       properties:
@@ -449,6 +390,22 @@ components:
       - name
       - output
       - parameters
+    GetTemplateWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflowTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflowTemplates
+    GetWorkflowResponseObjectDRF:
+      type: object
+      properties:
+        workflow:
+          $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflow
     WorkflowDTODRF:
       type: object
       properties:
@@ -485,6 +442,15 @@ components:
       required:
       - name
       - tasks
+    GetWorkflowsResponseObjectDRF:
+      type: object
+      properties:
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowDTODRF'
+      required:
+      - workflows
     UpdateWorkflowRequestObjectDRF:
       type: object
       properties:
@@ -518,6 +484,40 @@ components:
           type: boolean
         workflowId:
           type: string
+      required:
+      - name
+      - tasks
+    CreateWorkflowRequestObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDTODRF'
+        resourceId:
+          type: array
+          items:
+            type: string
+        startNode:
+          type: string
+        schedule:
+          type: string
+        status:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+        updateDateTime:
+          type: string
+          format: date-time
+        publishedWorkflowId:
+          type: string
+        isDraft:
+          type: boolean
       required:
       - name
       - tasks

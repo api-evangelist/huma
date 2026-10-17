@@ -144,6 +144,25 @@ paths:
           description: ''
 components:
   schemas:
+    UserDataResponseDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        scoreHistory:
+          type: object
+          additionalProperties: {}
+        rank:
+          type: object
+          additionalProperties: {}
+        instructionsShownHistory:
+          type: object
+          additionalProperties: {}
+      required:
+      - instructionsShownHistory
+      - rank
+      - scoreHistory
+      - userId
     FiveLivesTokenRequestObjectDRF:
       type: object
       properties:
@@ -151,6 +170,19 @@ components:
           type: string
       required:
       - userId
+    ScoreHistoryItemDRF:
+      type: object
+      properties:
+        value:
+          type: integer
+        timestamp:
+          type: integer
+        rank:
+          type: string
+      required:
+      - rank
+      - timestamp
+      - value
     UpdateHistoryRequestObjectDRF:
       type: object
       properties:
@@ -175,38 +207,6 @@ components:
       - updatedHistory
       - updatedRank
       - userId
-    UserDataResponseDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        scoreHistory:
-          type: object
-          additionalProperties: {}
-        rank:
-          type: object
-          additionalProperties: {}
-        instructionsShownHistory:
-          type: object
-          additionalProperties: {}
-      required:
-      - instructionsShownHistory
-      - rank
-      - scoreHistory
-      - userId
-    ScoreHistoryItemDRF:
-      type: object
-      properties:
-        value:
-          type: integer
-        timestamp:
-          type: integer
-        rank:
-          type: string
-      required:
-      - rank
-      - timestamp
-      - value
     UpdateInstructionsShownHistoryRequestObjectDRF:
       type: object
       properties:

@@ -112,81 +112,6 @@ paths:
           description: ''
 components:
   schemas:
-    QuestionnaireAppResultDRF:
-      type: object
-      properties:
-        appType:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
-      required:
-      - appType
-      - values
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
-    QuestionnaireAppResultValueDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        valueType:
-          type: string
-        valueFloat:
-          type: number
-          format: double
-      required:
-      - label
-      - valueFloat
-      - valueType
-    FormRevisionDTODRF:
-      type: object
-      properties:
-        id:
-          type: string
-        version:
-          type: integer
-        note:
-          type: string
-        submitterId:
-          type: string
-        createDateTime:
-          type: string
-          format: date-time
-        content:
-          $ref: '#/components/schemas/QuestionnaireDTODRF'
-        submitterName:
-          type: string
-      required:
-      - content
-      - submitterId
-      - version
     ModuleFeedbackDRF:
       type: object
       properties:
@@ -202,6 +127,64 @@ components:
           type: string
         notificationData:
           $ref: '#/components/schemas/FeedbackNotificationDataDRF'
+    UserAgentDRF:
+      type: object
+      properties:
+        product:
+          type: string
+        version:
+          type: string
+        softwareName:
+          type: string
+        softwareVersion:
+          type: string
+        bundleId:
+          type: string
+        build:
+          type: string
+        hardware:
+          type: string
+        component:
+          type: string
+        language:
+          type: string
+        clientType:
+          type: string
+      required:
+      - product
+      - softwareName
+      - softwareVersion
+      - version
+    FeedbackNotificationDataDRF:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        offline:
+          type: boolean
+        LocalizableFields:
+          type: array
+          items:
+            type: string
+          title: ' localizablefields'
+        order:
+          type: integer
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
     QuestionnaireDTODRF:
       type: object
       properties:
@@ -300,36 +283,40 @@ components:
       - questionnaireId
       - questionnaireName
       - userId
-    SurgicalFormDataDRF:
+    FeedbackTextDRF:
       type: object
       properties:
         id:
           type: string
-        title:
+        text:
           type: string
-        draft:
-          type: boolean
-        dueDateTime:
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    FormRevisionDTODRF:
+      type: object
+      properties:
+        id:
           type: string
-          format: date-time
-        userId:
+        version:
+          type: integer
+        note:
           type: string
         submitterId:
           type: string
+        createDateTime:
+          type: string
+          format: date-time
+        content:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
         submitterName:
           type: string
-        status:
-          type: string
-        questionnaire:
-          type: object
-          additionalProperties: {}
-        moduleConfigId:
-          type: string
       required:
-      - dueDateTime
-      - moduleConfigId
-      - title
-      - userId
+      - content
+      - submitterId
+      - version
     ServerDRF:
       type: object
       properties:
@@ -343,50 +330,33 @@ components:
       - api
       - hostUrl
       - server
-    UserAgentDRF:
+    QuestionnaireAnswerMediaFileDRF:
       type: object
       properties:
-        product:
+        file:
           type: string
-        version:
+        thumbnail:
           type: string
-        softwareName:
-          type: string
-        softwareVersion:
-          type: string
-        bundleId:
-          type: string
-        build:
-          type: string
-        hardware:
-          type: string
-        component:
-          type: string
-        language:
-          type: string
-        clientType:
+        mediaType:
           type: string
       required:
-      - product
-      - softwareName
-      - softwareVersion
-      - version
-    FeedbackNotificationDataDRF:
+      - file
+      - mediaType
+    DeviceDetailsDRF:
       type: object
       properties:
-        title:
+        uuid:
           type: string
-        body:
+        serialNumber:
           type: string
-        offline:
-          type: boolean
-        LocalizableFields:
-          type: array
-          items:
-            type: string
-          title: ' localizablefields'
-        order:
-          type: integer
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
     KeyActionEventDRF:
       type: object
       properties:
@@ -442,6 +412,29 @@ components:
       required:
       - keyActionConfigId
       - model
+    SurgicalFormDetailDRF:
+      type: object
+      properties:
+        status:
+          type: string
+        event:
+          $ref: '#/components/schemas/KeyActionEventDRF'
+        result:
+          $ref: '#/components/schemas/QuestionnaireDTODRF'
+      required:
+      - result
+    QuestionnaireAppResultDRF:
+      type: object
+      properties:
+        appType:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
+      required:
+      - appType
+      - values
     QuestionnaireAnswerDRF:
       type: object
       properties:
@@ -513,29 +506,36 @@ components:
             additionalProperties: {}
       required:
       - question
-    SurgicalFormDetailDRF:
+    SurgicalFormDataDRF:
       type: object
       properties:
+        id:
+          type: string
+        title:
+          type: string
+        draft:
+          type: boolean
+        dueDateTime:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        submitterId:
+          type: string
+        submitterName:
+          type: string
         status:
           type: string
-        event:
-          $ref: '#/components/schemas/KeyActionEventDRF'
-        result:
-          $ref: '#/components/schemas/QuestionnaireDTODRF'
-      required:
-      - result
-    QuestionnaireAnswerMediaFileDRF:
-      type: object
-      properties:
-        file:
-          type: string
-        thumbnail:
-          type: string
-        mediaType:
+        questionnaire:
+          type: object
+          additionalProperties: {}
+        moduleConfigId:
           type: string
       required:
-      - file
-      - mediaType
+      - dueDateTime
+      - moduleConfigId
+      - title
+      - userId
   securitySchemes:
     Hawk_Auth:
       type: apiKey

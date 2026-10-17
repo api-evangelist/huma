@@ -102,31 +102,6 @@ paths:
           description: ''
 components:
   schemas:
-    ArchiveFirmwareResponseObjectDRF:
-      type: object
-      properties:
-        archived:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-        failed:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
-      required:
-      - archived
-      - failed
-    FirmwareMetadataDRF:
-      type: object
-      properties:
-        version:
-          type: string
-        releaseDate:
-          type: string
-        releaseNotes:
-          type: string
-        crc32Checksum:
-          type: string
     ArchiveFirmwareResponseItemDRF:
       type: object
       properties:
@@ -136,7 +111,7 @@ components:
           type: string
       required:
       - filename
-    UploadFirmwareResponseObjectDRF:
+    FirmwareUpdateResponseObjectDRF:
       type: object
       properties:
         make:
@@ -152,20 +127,18 @@ components:
       - make
       - metadata
       - model
-    ArchiveFirmwareRequestObjectDRF:
+    FirmwareMetadataDRF:
       type: object
       properties:
-        make:
-          type: string
-        model:
-          type: string
         version:
           type: string
-      required:
-      - make
-      - model
-      - version
-    FirmwareUpdateResponseObjectDRF:
+        releaseDate:
+          type: string
+        releaseNotes:
+          type: string
+        crc32Checksum:
+          type: string
+    UploadFirmwareResponseObjectDRF:
       type: object
       properties:
         make:
@@ -198,6 +171,33 @@ components:
           type: boolean
       required:
       - file
+      - make
+      - model
+      - version
+    ArchiveFirmwareResponseObjectDRF:
+      type: object
+      properties:
+        archived:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArchiveFirmwareResponseItemDRF'
+      required:
+      - archived
+      - failed
+    ArchiveFirmwareRequestObjectDRF:
+      type: object
+      properties:
+        make:
+          type: string
+        model:
+          type: string
+        version:
+          type: string
+      required:
       - make
       - model
       - version

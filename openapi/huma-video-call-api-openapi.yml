@@ -280,21 +280,6 @@ components:
           type: string
         managerName:
           type: string
-    InitiateVideoCallResponseObjectDRF:
-      type: object
-      properties:
-        videoCallId:
-          type: string
-        roomSid:
-          type: string
-        authToken:
-          type: string
-        ttl:
-          type: integer
-        webLink:
-          type: string
-        sipAddress:
-          type: string
     CompleteVideoCallByUserRequestObjectDRF:
       type: object
       properties:
@@ -307,18 +292,16 @@ components:
       required:
       - userId
       - videoCallId
-    InitiateVideoCallRequestObjectDRF:
+    CompleteVideoCallRequestObjectDRF:
       type: object
       properties:
-        appointmentId:
+        token:
           type: string
-        managerId:
-          type: string
-        userId:
+        callId:
           type: string
       required:
-      - managerId
-      - userId
+      - callId
+      - token
     RetrieveCallsPaginatedResponseObjectDRF:
       type: object
       properties:
@@ -337,30 +320,33 @@ components:
       - limit
       - skip
       - total
-    CompleteVideoCallRequestObjectDRF:
+    InitiateVideoCallResponseObjectDRF:
       type: object
       properties:
-        token:
+        videoCallId:
           type: string
-        callId:
+        roomSid:
           type: string
-      required:
-      - callId
-      - token
-    VideoCallLogDTODRF:
+        authToken:
+          type: string
+        ttl:
+          type: integer
+        webLink:
+          type: string
+        sipAddress:
+          type: string
+    InitiateVideoCallRequestObjectDRF:
       type: object
       properties:
-        id:
+        appointmentId:
           type: string
-        event:
+        managerId:
           type: string
-        identity:
+        userId:
           type: string
-        createDateTime:
-          type: string
-          format: date-time
       required:
-      - event
+      - managerId
+      - userId
     CreateOfflineCallRequestObjectDRF:
       type: object
       properties:
@@ -376,6 +362,20 @@ components:
       - endDateTime
       - note
       - startDateTime
+    VideoCallLogDTODRF:
+      type: object
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+        identity:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+      required:
+      - event
   securitySchemes:
     Hawk_Auth:
       type: apiKey

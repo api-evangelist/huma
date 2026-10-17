@@ -74,20 +74,6 @@ paths:
           description: ''
 components:
   schemas:
-    IndexDataDRF:
-      type: object
-      properties:
-        aqi:
-          $ref: '#/components/schemas/AqiDataDRF'
-      required:
-      - aqi
-    AirQualityDRF:
-      type: object
-      properties:
-        current:
-          $ref: '#/components/schemas/AqiByHourDRF'
-      required:
-      - current
     AqiDataDRF:
       type: object
       properties:
@@ -100,13 +86,20 @@ components:
       required:
       - aqi
       - category
-    RetrieveNaturalConditionsResponseDRF:
+    AirQualityDRF:
       type: object
       properties:
-        airQuality:
-          $ref: '#/components/schemas/AirQualityDRF'
-        pollen:
-          $ref: '#/components/schemas/PollenDataDRF'
+        current:
+          $ref: '#/components/schemas/AqiByHourDRF'
+      required:
+      - current
+    IndexDataDRF:
+      type: object
+      properties:
+        aqi:
+          $ref: '#/components/schemas/AqiDataDRF'
+      required:
+      - aqi
     AqiByHourDRF:
       type: object
       properties:
@@ -120,6 +113,13 @@ components:
       required:
       - datetime
       - indexes
+    RetrieveNaturalConditionsResponseDRF:
+      type: object
+      properties:
+        airQuality:
+          $ref: '#/components/schemas/AirQualityDRF'
+        pollen:
+          $ref: '#/components/schemas/PollenDataDRF'
     PollenDataDRF:
       type: object
       properties:

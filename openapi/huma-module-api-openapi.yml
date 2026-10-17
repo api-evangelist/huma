@@ -59,75 +59,6 @@ paths:
           description: ''
 components:
   schemas:
-    ResultIdResponseObjectDRF:
-      type: object
-      properties:
-        id:
-          type: string
-    QuestionnaireAppResultDRF:
-      type: object
-      properties:
-        appType:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
-      required:
-      - appType
-      - values
-    FeedbackTextDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        text:
-          type: string
-        order:
-          type: integer
-      required:
-      - id
-      - text
-    UpdateModuleResultFailureResponseDRF:
-      type: object
-      properties:
-        id:
-          type: string
-        errors:
-          type: array
-          items:
-            type: string
-      required:
-      - errors
-    DeviceDetailsDRF:
-      type: object
-      properties:
-        uuid:
-          type: string
-        serialNumber:
-          type: string
-        modelName:
-          type: string
-        manufacturer:
-          type: string
-      required:
-      - manufacturer
-      - modelName
-      - uuid
-    QuestionnaireAppResultValueDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        valueType:
-          type: string
-        valueFloat:
-          type: number
-          format: double
-      required:
-      - label
-      - valueFloat
-      - valueType
     ModuleFeedbackDRF:
       type: object
       properties:
@@ -187,6 +118,37 @@ components:
           title: ' localizablefields'
         order:
           type: integer
+    QuestionnaireAppResultValueDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        valueType:
+          type: string
+        valueFloat:
+          type: number
+          format: double
+      required:
+      - label
+      - valueFloat
+      - valueType
+    FeedbackTextDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        order:
+          type: integer
+      required:
+      - id
+      - text
+    ResultIdResponseObjectDRF:
+      type: object
+      properties:
+        id:
+          type: string
     ServerDRF:
       type: object
       properties:
@@ -200,77 +162,44 @@ components:
       - api
       - hostUrl
       - server
-    QuestionnaireAnswerDRF:
+    QuestionnaireAnswerMediaFileDRF:
+      type: object
+      properties:
+        file:
+          type: string
+        thumbnail:
+          type: string
+        mediaType:
+          type: string
+      required:
+      - file
+      - mediaType
+    DeviceDetailsDRF:
+      type: object
+      properties:
+        uuid:
+          type: string
+        serialNumber:
+          type: string
+        modelName:
+          type: string
+        manufacturer:
+          type: string
+      required:
+      - manufacturer
+      - modelName
+      - uuid
+    UpdateModuleResultFailureResponseDRF:
       type: object
       properties:
         id:
           type: string
-        answerText:
-          type: string
-        answersList:
+        errors:
           type: array
           items:
             type: string
-        filesList:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
-        otherText:
-          type: string
-        value:
-          type: string
-        compositeAnswer:
-          type: object
-          additionalProperties: {}
-        answerScore:
-          type: integer
-        questionId:
-          type: string
-        question:
-          type: string
-        format:
-          type: string
-        choices:
-          type: array
-          items:
-            type: string
-        selectedChoices:
-          type: array
-          items:
-            type: string
-        otherSelectedChoices:
-          type: array
-          items:
-            type: string
-        selectionCriteria:
-          type: string
-        lowerBound:
-          type: number
-          format: double
-        upperBound:
-          type: number
-          format: double
-        lists:
-          type: array
-          items:
-            type: string
-        units:
-          type: array
-          items:
-            type: string
-        selectedUnit:
-          type: string
-        recalledText:
-          type: array
-          items:
-            type: string
-        options:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
       required:
-      - question
+      - errors
     UpdateQuestionnaireObjectDRF:
       type: object
       properties:
@@ -372,18 +301,89 @@ components:
       - questionnaireName
       - type
       - userId
-    QuestionnaireAnswerMediaFileDRF:
+    QuestionnaireAppResultDRF:
       type: object
       properties:
-        file:
+        appType:
           type: string
-        thumbnail:
-          type: string
-        mediaType:
-          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAppResultValueDRF'
       required:
-      - file
-      - mediaType
+      - appType
+      - values
+    QuestionnaireAnswerDRF:
+      type: object
+      properties:
+        id:
+          type: string
+        answerText:
+          type: string
+        answersList:
+          type: array
+          items:
+            type: string
+        filesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireAnswerMediaFileDRF'
+        otherText:
+          type: string
+        value:
+          type: string
+        compositeAnswer:
+          type: object
+          additionalProperties: {}
+        answerScore:
+          type: integer
+        questionId:
+          type: string
+        question:
+          type: string
+        format:
+          type: string
+        choices:
+          type: array
+          items:
+            type: string
+        selectedChoices:
+          type: array
+          items:
+            type: string
+        otherSelectedChoices:
+          type: array
+          items:
+            type: string
+        selectionCriteria:
+          type: string
+        lowerBound:
+          type: number
+          format: double
+        upperBound:
+          type: number
+          format: double
+        lists:
+          type: array
+          items:
+            type: string
+        units:
+          type: array
+          items:
+            type: string
+        selectedUnit:
+          type: string
+        recalledText:
+          type: array
+          items:
+            type: string
+        options:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - question
   securitySchemes:
     Hawk_Auth:
       type: apiKey

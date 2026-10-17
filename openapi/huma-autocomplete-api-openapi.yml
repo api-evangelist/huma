@@ -300,36 +300,6 @@ paths:
           description: ''
 components:
   schemas:
-    IndicationsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnomedMedDataDRF'
-      required:
-      - limit
-      - skip
-      - values
-    MedicationsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
-          type: array
-          items:
-            type: string
-      required:
-      - limit
-      - skip
-      - values
     AutocompleteMetadataDTODRF:
       type: object
       properties:
@@ -346,15 +316,6 @@ components:
       - language
       - moduleId
       - s3Object
-    UpdateAutoCompleteSearchMetadataRequestObjectDRF:
-      type: object
-      properties:
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
-      required:
-      - metadata
     ListIdResponseObjectDRF:
       type: object
       properties:
@@ -362,6 +323,51 @@ components:
           type: array
           items:
             type: string
+    MedicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
+    IndicationsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnomedMedDataDRF'
+      required:
+      - limit
+      - skip
+      - values
+    SymptomsAutocompleteResponseDRF:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - limit
+      - skip
+      - values
     AZVaccineBatchNumberAutocompleteResponseDRF:
       type: object
       properties:
@@ -392,32 +398,15 @@ components:
       - limit
       - skip
       - values
-    SnomedMedDataDRF:
+    UpdateAutoCompleteSearchMetadataRequestObjectDRF:
       type: object
       properties:
-        name:
-          type: string
-        code:
-          type: string
-        system:
-          type: string
-      required:
-      - name
-    SymptomsAutocompleteResponseDRF:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        values:
+        metadata:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/AutocompleteMetadataDTODRF'
       required:
-      - limit
-      - skip
-      - values
+      - metadata
     S3ObjectDRF:
       type: object
       properties:
@@ -430,6 +419,17 @@ components:
       required:
       - bucket
       - key
+    SnomedMedDataDRF:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        system:
+          type: string
+      required:
+      - name
   securitySchemes:
     Hawk_Auth:
       type: apiKey

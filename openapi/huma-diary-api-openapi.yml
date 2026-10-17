@@ -125,21 +125,54 @@ paths:
           description: ''
 components:
   schemas:
-    DiaryChipResponseDRF:
+    RetrieveDiariesRequestObjectDRF:
       type: object
       properties:
-        icon:
+        userId:
           type: string
-        text:
+        skip:
+          type: integer
+        limit:
+          type: integer
+        fromDateTime:
           type: string
-        textColor:
+          format: date-time
+        toDateTime:
           type: string
-        iconColor:
+          format: date-time
+        diaryType:
+          type: array
+          items:
+            type: string
+        context:
           type: string
-        borderColor:
-          type: string
+        rawDiaries:
+          type: boolean
+        excludedDiaryTypes:
+          type: array
+          items:
+            type: string
       required:
-      - text
+      - skip
+    RetrieveDiariesCountResponseObjectDRF:
+      type: object
+      properties:
+        diaryDate:
+          type: string
+          format: date-time
+        count:
+          type: integer
+        red:
+          type: integer
+        amber:
+          type: integer
+        gray:
+          type: integer
+      required:
+      - amber
+      - count
+      - gray
+      - red
     RetrieveDiariesResponseObjectDRF:
       type: object
       properties:
@@ -155,6 +188,31 @@ components:
           type: integer
       required:
       - total
+    DiaryButtonDRF:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+      required:
+      - action
+      - label
+    DiaryChipResponseDRF:
+      type: object
+      properties:
+        icon:
+          type: string
+        text:
+          type: string
+        textColor:
+          type: string
+        iconColor:
+          type: string
+        borderColor:
+          type: string
+      required:
+      - text
     DiaryItemResponseDRF:
       type: object
       properties:
@@ -240,35 +298,6 @@ components:
       - updateDateTime
       - userId
       - visibility
-    DiaryButtonDRF:
-      type: object
-      properties:
-        label:
-          type: string
-        action:
-          type: string
-      required:
-      - action
-      - label
-    RetrieveDiariesCountResponseObjectDRF:
-      type: object
-      properties:
-        diaryDate:
-          type: string
-          format: date-time
-        count:
-          type: integer
-        red:
-          type: integer
-        amber:
-          type: integer
-        gray:
-          type: integer
-      required:
-      - amber
-      - count
-      - gray
-      - red
     DiaryCategoryResponseDRF:
       type: object
       properties:
@@ -283,35 +312,19 @@ components:
       required:
       - id
       - name
-    RetrieveDiariesRequestObjectDRF:
+    DiaryDetailItemResponseDRF:
       type: object
       properties:
-        userId:
+        key:
           type: string
-        skip:
-          type: integer
-        limit:
-          type: integer
-        fromDateTime:
+        value:
           type: string
-          format: date-time
-        toDateTime:
+        valueColor:
           type: string
-          format: date-time
-        diaryType:
-          type: array
-          items:
-            type: string
-        context:
+        icon:
           type: string
-        rawDiaries:
-          type: boolean
-        excludedDiaryTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - skip
+        iconColor:
+          type: string
     RetrieveDiaryByIdResponseDRF:
       type: object
       properties:
@@ -407,19 +420,6 @@ components:
       required:
       - id
       - name
-    DiaryDetailItemResponseDRF:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        valueColor:
-          type: string
-        icon:
-          type: string
-        iconColor:
-          type: string
   securitySchemes:
     Hawk_Auth:
       type: apiKey

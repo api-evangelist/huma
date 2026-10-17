@@ -139,6 +139,13 @@ paths:
           description: ''
 components:
   schemas:
+    ListIdResponseObjectDRF:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
     ImportOrgConfigurationValidateFileResponseDRF:
       type: object
       properties:
@@ -146,25 +153,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportOrganizationConfigsServiceInfoDRF'
-    ImportDeploymentConfigRequestObjectDRF:
-      type: object
-      properties:
-        userId:
-          type: string
-        fileIds:
-          type: array
-          items:
-            type: string
-        organizationId:
-          type: string
-        name:
-          type: string
-        isSaMD:
-          type: boolean
-      required:
-      - fileIds
-      - organizationId
-      - userId
     ImportConfigurationValidateFileRequestObjectDRF:
       type: object
       properties:
@@ -177,13 +165,6 @@ components:
       required:
       - fileIds
       - userId
-    ListIdResponseObjectDRF:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
     ExportOrganizationConfigsServiceInfoDRF:
       type: object
       properties:
@@ -210,6 +191,13 @@ components:
           type: array
           items:
             type: string
+    ImportDeploymentConfigurationValidateFileResponseDRF:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
     ExportDeploymentConfigsServiceInfoDRF:
       type: object
       properties:
@@ -232,6 +220,25 @@ components:
           type: boolean
         deploymentName:
           type: string
+    ImportDeploymentConfigRequestObjectDRF:
+      type: object
+      properties:
+        userId:
+          type: string
+        fileIds:
+          type: array
+          items:
+            type: string
+        organizationId:
+          type: string
+        name:
+          type: string
+        isSaMD:
+          type: boolean
+      required:
+      - fileIds
+      - organizationId
+      - userId
     ImportOrganizationConfigRequestObjectDRF:
       type: object
       properties:
@@ -244,13 +251,6 @@ components:
       required:
       - fileIds
       - userId
-    ImportDeploymentConfigurationValidateFileResponseDRF:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportDeploymentConfigsServiceInfoDRF'
   securitySchemes:
     Hawk_Auth:
       type: apiKey
